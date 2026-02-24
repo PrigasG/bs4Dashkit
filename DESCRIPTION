@@ -20,3 +20,5 @@ Imports:
     bs4Dash,
     shiny,
     digest
+URL: https://github.com/PrigasG/bs4Dashkit
+BugReports: https://github.com/PrigasG/bs4Dashkit/issues
