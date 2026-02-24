@@ -1,0 +1,282 @@
+:root{
+  --dash-topbar-h: 56px;
+  --dash-sidebar-collapsed-w: 4.2rem;
+  --dash-sidebar-expanded-w: 250px;
+}
+
+/* align navbar + sidebar brand strip */
+.main-header.navbar, .main-header .navbar{
+  min-height: var(--dash-topbar-h) !important;
+  height: var(--dash-topbar-h) !important;
+  padding: 0 !important;
+}
+
+.main-sidebar .brand-link{
+  height: var(--dash-topbar-h) !important;
+  min-height: var(--dash-topbar-h) !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+/* COLLAPSED STATE SIZING */
+body.sidebar-collapse aside.main-sidebar{
+  width: var(--dash-sidebar-collapsed-w) !important;
+  overflow-x: hidden !important; /* prevent leftover sliver */
+}
+
+
+/* BRAND: default collapsed behavior */
+body.sidebar-collapse .main-sidebar .brand-link{
+  justify-content: center !important;
+  padding: 0 !important;
+}
+
+body.sidebar-collapse .main-sidebar .brand-link span{
+  display: none !important;
+}
+
+/* Ensure brand strip doesn't reserve odd space */
+body.sidebar-collapse .main-sidebar .brand-link{
+  width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* MENU: collapsed behavior  */
+body.sidebar-collapse .main-sidebar .nav-sidebar .nav-link{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 10px 0 !important;
+}
+
+/* Hide labels when collapsed */
+body.sidebar-collapse .main-sidebar .nav-sidebar .nav-link p,
+body.sidebar-collapse .main-sidebar .nav-sidebar .nav-link span:not(.nav-icon){
+  display: none !important;
+}
+
+/* Hard-center the icon itself */
+body.sidebar-collapse .main-sidebar .nav-sidebar .nav-link .nav-icon,
+body.sidebar-collapse .main-sidebar .nav-sidebar .nav-link i{
+  width: 100% !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+/* EXPANDED STATE: ellipsis always */
+body:not(.sidebar-collapse) .nav-sidebar .nav-link p{
+  max-width: 190px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* HOVER EXPAND — desktop only  */
+@media (hover:hover) and (pointer:fine){
+
+  body.sidebar-collapse aside.main-sidebar:hover{
+    width: var(--dash-sidebar-expanded-w) !important;
+  }
+
+  body.sidebar-collapse aside.main-sidebar:hover ~ .content-wrapper,
+  body.sidebar-collapse aside.main-sidebar:hover ~ .main-footer,
+  body.sidebar-collapse aside.main-sidebar:hover ~ .main-header{
+    margin-left: var(--dash-sidebar-expanded-w) !important;
+  }
+
+  /* default hover brand restore — only when no brand mode class present */
+  body.sidebar-collapse:not([class*="dash-sb-"]) .main-sidebar:hover .brand-link{
+    justify-content: flex-start !important;
+    padding: 0 12px !important;
+  }
+  body.sidebar-collapse:not([class*="dash-sb-"]) .main-sidebar:hover .brand-link span{
+    display: inline !important;
+  }
+
+  /* hover nav items restore */
+  body.sidebar-collapse .main-sidebar:hover .nav-sidebar .nav-link{
+    justify-content: flex-start !important;
+    padding: 8px 12px !important;
+  }
+
+  /* restore labels */
+  body.sidebar-collapse .main-sidebar:hover .nav-sidebar .nav-link p{
+    display: inline-block !important;
+  }
+  body.sidebar-collapse .main-sidebar:hover .nav-sidebar .nav-link p span:not(.nav-icon){
+    display: inline !important;
+  }
+
+  /* Restore icon alignment on hover-expanded */
+  body.sidebar-collapse .main-sidebar:hover .nav-sidebar .nav-link .nav-icon,
+  body.sidebar-collapse .main-sidebar:hover .nav-sidebar .nav-link i{
+    width: auto !important;
+    text-align: left !important;
+    margin-right: .5rem !important;
+  }
+
+  /* ── hover mirrors expanded brand mode ── */
+
+  /* hover → icon-text */
+  body.sidebar-collapse.dash-sb-expanded-icon_text .main-sidebar:hover .brand-link{
+    justify-content: flex-start !important;
+    padding: 0 12px !important;
+    gap: 8px !important;
+  }
+  body.sidebar-collapse.dash-sb-expanded-icon_text .main-sidebar:hover .brand-link .dash-brand-icon{
+    display: inline !important;
+  }
+  body.sidebar-collapse.dash-sb-expanded-icon_text .main-sidebar:hover .brand-link .dash-brand-label{
+    display: inline !important;
+
+    /* undo collapsed ellipsis while hover-expanded */
+    max-width: none !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: nowrap !important;
+  }
+
+  /* hover → icon-only */
+  body.sidebar-collapse.dash-sb-expanded-icon_only .main-sidebar:hover .brand-link{
+    justify-content: center !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    width: 100% !important;
+  }
+  body.sidebar-collapse.dash-sb-expanded-icon_only .main-sidebar:hover .brand-link .dash-brand-icon{
+    display: inline !important;
+  }
+  body.sidebar-collapse.dash-sb-expanded-icon_only .main-sidebar:hover .brand-link .dash-brand-label{
+    display: none !important;
+  }
+
+  /* hover → text-only */
+  body.sidebar-collapse.dash-sb-expanded-text_only .main-sidebar:hover .brand-link{
+    justify-content: flex-start !important;
+    padding: 0 12px !important;
+    gap: 0 !important;
+  }
+  body.sidebar-collapse.dash-sb-expanded-text_only .main-sidebar:hover .brand-link .dash-brand-icon{
+    display: none !important;
+  }
+  body.sidebar-collapse.dash-sb-expanded-text_only .main-sidebar:hover .brand-link .dash-brand-label{
+    display: inline !important;
+
+    /* undo collapsed ellipsis while hover-expanded */
+    max-width: none !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: nowrap !important;
+  }
+}
+
+
+/* SIDEBAR BRAND MODE — expanded states */
+/* ── EXPANDED: icon-text ── */
+body.dash-sb-expanded-icon_text:not(.sidebar-collapse) .main-sidebar .brand-link{
+  justify-content: flex-start !important;
+  padding: 0 12px !important;
+  gap: 8px !important;
+}
+body.dash-sb-expanded-icon_text:not(.sidebar-collapse) .main-sidebar .brand-link .dash-brand-icon,
+body.dash-sb-expanded-icon_text:not(.sidebar-collapse) .main-sidebar .brand-link .dash-brand-label{
+  display: inline !important;
+}
+
+/* ── EXPANDED: icon-only ── */
+body.dash-sb-expanded-icon_only:not(.sidebar-collapse) .main-sidebar .brand-link{
+  justify-content: center !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  width: 100% !important;
+}
+body.dash-sb-expanded-icon_only:not(.sidebar-collapse) .main-sidebar .brand-link .dash-brand-icon{
+  display: inline !important;
+}
+body.dash-sb-expanded-icon_only:not(.sidebar-collapse) .main-sidebar .brand-link .dash-brand-label{
+  display: none !important;
+}
+
+/* ── EXPANDED: text-only ── */
+body.dash-sb-expanded-text_only:not(.sidebar-collapse) .main-sidebar .brand-link{
+  justify-content: flex-start !important;
+  padding: 0 12px !important;
+}
+body.dash-sb-expanded-text_only:not(.sidebar-collapse) .main-sidebar .brand-link .dash-brand-icon{
+  display: none !important;
+}
+body.dash-sb-expanded-text_only:not(.sidebar-collapse) .main-sidebar .brand-link .dash-brand-label{
+  display: inline !important;
+}
+
+/* SIDEBAR BRAND MODE — collapsed states */
+/* ── COLLAPSED: icon-only — centered ── */
+body.sidebar-collapse.dash-sb-collapsed-icon_only .main-sidebar .brand-link,
+body.sidebar-collapse.dash-sb-collapsed-icon_only .main-sidebar:hover .brand-link{
+  justify-content: center !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  width: 100% !important;
+}
+body.sidebar-collapse.dash-sb-collapsed-icon_only .main-sidebar .brand-link .dash-brand-icon{
+  display: inline !important;
+}
+body.sidebar-collapse.dash-sb-collapsed-icon_only .main-sidebar .brand-link .dash-brand-label{
+  display: none !important;
+}
+
+/* ── COLLAPSED: text-only ── */
+body.sidebar-collapse.dash-sb-collapsed-text_only .main-sidebar .brand-link{
+  justify-content: flex-start !important;
+  padding: 0 12px !important;
+}
+body.sidebar-collapse.dash-sb-collapsed-text_only .main-sidebar .brand-link .dash-brand-icon{
+  display: none !important;
+}
+body.sidebar-collapse.dash-sb-collapsed-text_only .main-sidebar .brand-link .dash-brand-label{
+  display: inline !important;
+  max-width: 3.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+}
+
+/* ── COLLAPSED: icon-text — centered with short label ── */
+body.sidebar-collapse.dash-sb-collapsed-icon_text .main-sidebar .brand-link{
+  justify-content: center !important;
+  gap: 5px !important;
+  padding: 0 6px !important;
+}
+body.sidebar-collapse.dash-sb-collapsed-icon_text .main-sidebar .brand-link .dash-brand-icon,
+body.sidebar-collapse.dash-sb-collapsed-icon_text .main-sidebar .brand-link .dash-brand-label{
+  display: inline !important;
+}
+body.sidebar-collapse.dash-sb-collapsed-icon_text .main-sidebar .brand-link .dash-brand-label{
+  max-width: 3.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  opacity: 0.95;
+}
+
+
+
+@media (max-width: 991.98px){
+  body.sidebar-collapse .content-wrapper,
+  body.sidebar-collapse .main-footer,
+  body.sidebar-collapse .main-header{
+    margin-left: 0 !important;
+  }
+}
+
+/* IMAGE ICON */
+.main-sidebar .brand-link .dash-brand-img{
+  display: inline-block;
+  flex-shrink: 0;
+}
