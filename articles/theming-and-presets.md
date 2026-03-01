@@ -1,0 +1,184 @@
+# Theming and Presets
+
+``` r
+library(bs4Dashkit)
+```
+
+`bs4Dashkit` themes dashboards using CSS custom properties (variables).
+This keeps customisation lightweight: you set a small palette, and the
+styling propagates across the navbar, sidebar, cards, and button
+utilities without rewriting many CSS selectors.
+
+------------------------------------------------------------------------
+
+## Recommended approach: `use_bs4Dashkit_core()`
+
+The simplest way to theme an app is to pick a preset when calling
+[`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md).
+
+``` r
+body = bs4DashBody(
+  use_bs4Dashkit_core(ttl, preset = "professional"),  # default
+  # ...
+)
+```
+
+| Preset           | Character                                     |
+|------------------|-----------------------------------------------|
+| `"professional"` | Cool blue-grey, medium contrast, soft shadows |
+| `"vibrant"`      | Stronger accent colours, higher contrast      |
+| `"minimal"`      | Flat, low-contrast neutrals, minimal shadows  |
+
+If `preset = NULL`,
+[`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md)
+falls back to the option `bs4Dashkit.theme_preset` (if set). If no
+option is set, it applies the base theme.
+
+## Accent overrides
+
+You can override the preset accent using the `accent` argument in
+[`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md):
+
+``` r
+body = bs4DashBody(
+  use_bs4Dashkit_core(ttl, preset = "professional", accent = "#2f6f8f"),
+  # ...
+)
+```
+
+This is the recommended way to change accent while still using a preset.
+
+[`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md)
+also reads `options(bs4Dashkit.accent = ...)` when `accent` is not
+supplied.
+
+## Fine-grained overrides
+
+When using a preset, you can supply additional CSS variable overrides
+via `...`. These are passed through to
+[`use_dash_theme_preset()`](https://PrigasG.github.io/bs4Dashkit/reference/use_dash_theme_preset.md).
+
+``` r
+body = bs4DashBody(
+  use_bs4Dashkit_core(
+    ttl,
+    preset = "professional",
+    accent = "#2f6f8f",
+    radius = 14,
+    shadow = "0 2px 8px rgba(0,0,0,0.08)"
+  )
+)
+```
+
+If you are not using a preset, you can apply the base theme directly:
+
+``` r
+body = bs4DashBody(
+  use_bs4Dashkit_core(ttl, preset = NULL, accent = "#2f6f8f"),
+  # ...
+)
+```
+
+Using
+[`use_dash_theme()`](https://PrigasG.github.io/bs4Dashkit/reference/use_dash_theme.md)
+directly
+
+[`use_dash_theme()`](https://PrigasG.github.io/bs4Dashkit/reference/use_dash_theme.md)
+sets the base theme variables. Most users will not need this directly,
+because
+[`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md)
+already applies either a preset theme or the base theme.
+
+Use
+[`use_dash_theme()`](https://PrigasG.github.io/bs4Dashkit/reference/use_dash_theme.md)
+if you want complete control without presets:
+
+``` r
+body = bs4DashBody(
+  use_bs4Dashkit_core(ttl, preset = NULL),
+  use_dash_theme(
+    bg      = "#f5f6f8",
+    surface = "#ffffff",
+    border  = "#e2e3e7",
+    text    = "#1d1f23",
+    muted   = "#6b6f76",
+    accent  = "#2f6f8f",
+    radius  = 12
+  )
+)
+```
+
+## `use_dash_theme_preset()`
+
+Apply a preset independently (useful when switching themes at runtime):
+
+``` r
+body = bs4DashBody(
+  use_bs4Dashkit_core(ttl, preset = NULL),  # load core, no preset
+  use_dash_theme_preset("vibrant"),         # apply preset explicitly
+  # ...
+)
+```
+
+## `theme_presets()`
+
+List available presets and their CSS variable values:
+
+``` r
+theme_presets()
+```
+
+## Example: user-selectable presets
+
+``` r
+library(shiny)
+library(bs4Dash)
+library(bs4Dashkit)
+
+ttl <- dash_titles("My App", icon = "palette")
+
+ui <- bs4DashPage(
+  title   = ttl$app_name,
+  header  = bs4DashNavbar(title = ttl$brand),
+  sidebar = bs4DashSidebar(
+    bs4SidebarMenu(
+      bs4SidebarMenuItem("Home", tabName = "home", icon = icon("house"))
+    )
+  ),
+  body = bs4DashBody(
+    use_bs4Dashkit_core(ttl, preset = "professional"),
+    selectInput(
+      "theme_choice", "Theme",
+      choices  = c("professional", "vibrant", "minimal"),
+      selected = "professional"
+    ),
+    uiOutput("theme_css"),
+    bs4TabItems(
+      bs4TabItem(
+        tabName = "home",
+        bs4Card(title = "Theme Demo", width = 6, "Card content here.")
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  output$theme_css <- renderUI({
+    use_dash_theme_preset(input$theme_choice)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Notes on precedence
+
+When you use presets, the effective theme follows this order:
+
+`. Preset defaults (`use_dash_theme_preset()\`)
+
+2.  `accent = ...` override (if provided)
+
+3.  Any `...` overrides (e.g., `radius`, `shadow`)
+
+4.  Base defaults when no preset is used

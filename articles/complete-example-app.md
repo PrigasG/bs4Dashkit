@@ -1,0 +1,154 @@
+# Complete Example App
+
+``` r
+library(bs4Dashkit)
+```
+
+This article shows a complete, self-contained
+[bs4Dash](https://github.com/RinteRface/bs4Dash) app that exercises
+every major `bs4Dashkit` feature: branding, sidebar modes, hover-expand,
+a theme preset, the full navbar toolkit, and a footer.
+
+Copy the code below into a new R script and run it directly with
+[`shiny::runApp()`](https://rdrr.io/pkg/shiny/man/runApp.html).
+
+------------------------------------------------------------------------
+
+``` r
+library(shiny)
+library(bs4Dash)
+library(bs4Dashkit)
+
+# 1. Build the brand / sidebar configuration object
+ttl <- dash_titles(
+  brand_text     = "Test Dashboard",
+  icon           = "project-diagram",
+  weight         = 700,
+  effect         = "shimmer",
+  glow_color     = "#2f6f8f",
+  size           = "20px",
+  italic         = FALSE,
+  collapsed      = "icon-text",
+  expanded       = "icon-text",
+  collapsed_text = "DT",
+  expanded_text  = "Dashboard",
+  brand_divider  = TRUE
+)
+
+# 2. UI
+ui <- bs4DashPage(
+  title  = ttl$app_name,
+
+  header = bs4DashNavbar(
+    title = ttl$brand,
+    skin  = "light",
+    rightUi = tagList(
+      dash_nav_title(
+        "OLTCR DASHBOARDS",
+        "Mission Critical & LTC Main",
+        icon  = "shield-halved",
+        align = "center"
+      ),
+      dash_nav_item(dash_nav_refresh_button("refresh")),
+      dash_nav_item(dash_nav_help_button("help")),
+      dash_nav_item(
+        dash_user_menu(
+          dropdownMenu(
+            type = "notifications",
+            notificationItem("Profile"),
+            notificationItem("Logout")
+          )
+        )
+      )
+    )
+  ),
+
+  sidebar = bs4DashSidebar(
+    skin = "light",
+    bs4SidebarMenu(
+      bs4SidebarMenuItem("Dashboard", tabName = "dash",     icon = icon("gauge-high")),
+      bs4SidebarMenuItem("Projects",  tabName = "proj",     icon = icon("folder-open")),
+      bs4SidebarMenuItem("Settings",  tabName = "settings", icon = icon("gear"))
+    )
+  ),
+
+  body = bs4DashBody(
+    # Core: always first (loads CSS/JS, theme preset, sidebar behavior)
+    use_bs4Dashkit_core(
+      ttl,
+      preset = "professional",
+      topbar_h = 56,
+      collapsed_w = 4.2,
+      expanded_w = 250
+    ),
+
+    bs4TabItems(
+      bs4TabItem(
+        tabName = "dash",
+        fluidRow(
+          bs4Card(
+            title  = "Welcome",
+            width  = 12,
+            status = "primary",
+            tagList(
+              p("This app demonstrates major ", code("bs4Dashkit"), " features."),
+              p("Try collapsing and expanding the sidebar, and hover over it when collapsed.")
+            )
+          )
+        ),
+        fluidRow(
+          bs4Card(title = "Card A", width = 4, "Content A"),
+          bs4Card(title = "Card B", width = 4, "Content B"),
+          bs4Card(title = "Card C", width = 4, "Content C")
+        )
+      ),
+
+      bs4TabItem(
+        tabName = "proj",
+        bs4Card(title = "Projects", width = 12, "Project content here.")
+      ),
+
+      bs4TabItem(
+        tabName = "settings",
+        bs4Card(
+          title = "Theme",
+          width = 6,
+          p("This example uses the ", code("professional"), " preset."),
+          p("See the Theming article for presets and advanced customization.")
+        )
+      )
+    )
+  ),
+
+  footer = dash_footer(
+    logo_src  = NULL,
+    left_text = "Your Organization \u2022 Test App"
+  )
+)
+
+# 3. Server
+server <- function(input, output, session) {
+
+  observeEvent(input$refresh, {
+    session$reload()
+  })
+
+  observeEvent(input$help, {
+    showModal(modalDialog(
+      title = "Help",
+      tagList(
+        h4("About this dashboard"),
+        p("This is a demonstration of bs4Dashkit features."),
+        h4("Contact"),
+        p("support@yourorg.gov")
+      ),
+      size      = "m",
+      easyClose = TRUE,
+      footer    = modalButton("Close")
+    ))
+  })
+}
+
+# 4. Run
+shinyApp(ui, server)
+```
