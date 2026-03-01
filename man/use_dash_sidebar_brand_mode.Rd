@@ -28,6 +28,9 @@ Keep <= 8 chars. NULL falls back to original DOM text (CSS truncates).}
 
 \item{expanded_text}{Label for expanded "icon-text" or "text-only" mode.
 Keep <= 30 chars. NULL falls back to original DOM text.}
+
+\item{debug}{Logical. If \code{TRUE}, prints helpful messages to the browser console
+for diagnosing missing icons or brand label elements.}
 }
 \description{
 Controls icon visibility, text visibility, and text content in both

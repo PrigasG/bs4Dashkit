@@ -10,7 +10,15 @@ bs4dashkit_dependency <- function(include_center_js = TRUE) {
 }
 
 #' Load core CSS and JS for bs4Dashkit
+#'
+#' Adds the package's bundled CSS (core, theme, sidebar) and optional JS helpers.
+#'
+#' @param include_center_js Logical. If `TRUE` (default), also includes the
+#'   JavaScript helper that supports the centered navbar title layout.
+#'
+#' @return An `htmltools::tagList()` containing an `htmltools::htmlDependency()`.
 #' @export
 use_bs4Dashkit <- function(include_center_js = TRUE) {
   htmltools::tagList(bs4dashkit_dependency(include_center_js))
 }
+

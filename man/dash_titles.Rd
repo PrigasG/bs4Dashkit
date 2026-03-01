@@ -2,7 +2,7 @@
 % Please edit documentation in R/titles.R
 \name{dash_titles}
 \alias{dash_titles}
-\title{Dashboard brand and sidebar behavior — unified constructor}
+\title{Dashboard brand and sidebar configuration}
 \usage{
 dash_titles(
   brand_text,
@@ -29,16 +29,72 @@ dash_titles(
   debug = NULL
 )
 }
+\arguments{
+\item{brand_text}{Visible brand label shown in the navbar/sidebar.}
+
+\item{app_name}{Browser tab title. If \code{NULL}, defaults to \code{brand_text}.}
+
+\item{icon}{Font Awesome icon name for the brand (e.g. \code{"project-diagram"}).
+Ignored when \code{icon_img} is supplied.}
+
+\item{icon_img}{Path (www relative) or URL to an image logo. Overrides \code{icon}.}
+
+\item{icon_shape}{Shape mask for image logos. One of \code{"circle"},
+\code{"rounded"}, \code{"square"}.}
+
+\item{icon_size}{CSS size for the icon/image (e.g. \code{"20px"}, \code{"1.2em"}).}
+
+\item{icon_color}{CSS color for the Font Awesome icon. For image icons, a subtle
+tint may be applied.}
+
+\item{weight}{CSS font-weight for the brand text.}
+
+\item{spacing}{CSS letter-spacing for the brand text.}
+
+\item{size}{CSS font-size for the brand text (e.g. \code{"14px"}).}
+
+\item{italic}{Logical. If \code{TRUE}, renders brand text in italics.}
+
+\item{font_family}{CSS font-family string (e.g. \code{"'Inter', sans-serif"}).}
+
+\item{color}{Solid CSS text color for the brand label (ignored when \code{gradient} is set).}
+
+\item{gradient}{Character vector of length 2 giving gradient colors for the brand label.
+When set, gradient styling is applied.}
+
+\item{effect}{Visual effect for the brand label. One of \code{"none"}, \code{"glow"},
+\code{"shimmer"}, \code{"emboss"}. If \code{gradient} is set, gradient styling is used.}
+
+\item{glow_color}{Color used for glow/shimmer effects (when applicable).}
+
+\item{collapsed}{Sidebar brand mode when the sidebar is collapsed. One of
+\code{"icon-only"}, \code{"icon-text"}, \code{"text-only"}. If \code{NULL}, uses
+option \code{bs4Dashkit.sidebar.collapsed}.}
+
+\item{expanded}{Sidebar brand mode when the sidebar is expanded. One of
+\code{"icon-only"}, \code{"icon-text"}, \code{"text-only"}. If \code{NULL}, uses
+option \code{bs4Dashkit.sidebar.expanded}.}
+
+\item{collapsed_text}{Short label used in collapsed mode (recommended <= 8 chars).}
+
+\item{expanded_text}{Label used in expanded mode (recommended <= 30 chars).}
+
+\item{brand_divider}{Logical. If \code{TRUE}, shows a divider under the brand block.
+If \code{NULL}, uses option \code{bs4Dashkit.brand_divider}.}
+
+\item{debug}{Logical. If \code{TRUE}, emits console warnings for missing icons, etc.
+If \code{NULL}, uses option \code{bs4Dashkit.debug}.}
+}
 \value{
 A named list:
 \describe{
-\item{app_name}{Character — pass to \code{bs4DashPage(title = ...)}}
-\item{brand}{tagList — pass to \code{bs4DashNavbar(title = ...)} (and/or sidebar title)}
-\item{deps}{tagList — place once in \code{bs4DashBody(...)} (brand CSS + sidebar mode JS)}
-\item{behavior}{Deprecated alias of \code{deps} for backward compatibility}
+\item{app_name}{Character string for \code{bs4DashPage(title = ...)}}
+\item{brand}{UI for \code{bs4DashNavbar(title = ...)} (and optionally sidebar title)}
+\item{deps}{Dependencies (CSS/JS) to include once in \code{bs4DashBody(...)}}
 }
 }
 \description{
-Single entry point for all brand-related setup. Returns a list with
-named slots that map directly to their correct placement in bs4DashPage.
+Single entry point for branding and sidebar brand behavior. Creates a
+reusable object you place into \code{bs4DashPage()}, \code{bs4DashNavbar()},
+and \code{bs4DashBody()}.
 }

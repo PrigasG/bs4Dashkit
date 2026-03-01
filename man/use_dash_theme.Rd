@@ -2,7 +2,7 @@
 % Please edit documentation in R/theme.R
 \name{use_dash_theme}
 \alias{use_dash_theme}
-\title{Apply a subtle theme via CSS variables}
+\title{Apply a theme via CSS variables}
 \usage{
 use_dash_theme(
   bg = "#f5f6f8",
@@ -15,6 +15,27 @@ use_dash_theme(
   shadow = "0 1px 3px rgba(0,0,0,0.07)"
 )
 }
+\arguments{
+\item{bg}{Page background color.}
+
+\item{surface}{Card and panel background color.}
+
+\item{border}{Border color used on cards, separators, and outlines.}
+
+\item{text}{Primary text color.}
+
+\item{muted}{Muted text color.}
+
+\item{accent}{Accent color used for highlights and emphasis.}
+
+\item{radius}{Corner radius in pixels.}
+
+\item{shadow}{Box shadow CSS string used for cards and surfaces.}
+}
+\value{
+A \code{shiny::tagList()} that injects CSS variables into the page \verb{<head>}.
+}
 \description{
-Apply a subtle theme via CSS variables
+Sets bs4Dashkit CSS custom properties (variables) for background, surfaces,
+borders, text, and accent color.
 }

@@ -1,15 +1,50 @@
-#' Dashboard brand and sidebar behavior — unified constructor
+#' Dashboard brand and sidebar configuration
 #'
-#' Single entry point for all brand-related setup. Returns a list with
-#' named slots that map directly to their correct placement in bs4DashPage.
+#' Single entry point for branding and sidebar brand behavior. Creates a
+#' reusable object you place into \code{bs4DashPage()}, \code{bs4DashNavbar()},
+#' and \code{bs4DashBody()}.
+#'
+#' @param brand_text Visible brand label shown in the navbar/sidebar.
+#' @param app_name Browser tab title. If \code{NULL}, defaults to \code{brand_text}.
+#' @param icon Font Awesome icon name for the brand (e.g. \code{"project-diagram"}).
+#'   Ignored when \code{icon_img} is supplied.
+#' @param icon_img Path (www relative) or URL to an image logo. Overrides \code{icon}.
+#' @param icon_shape Shape mask for image logos. One of \code{"circle"},
+#'   \code{"rounded"}, \code{"square"}.
+#' @param icon_size CSS size for the icon/image (e.g. \code{"20px"}, \code{"1.2em"}).
+#' @param icon_color CSS color for the Font Awesome icon. For image icons, a subtle
+#'   tint may be applied.
+#' @param weight CSS font-weight for the brand text.
+#' @param spacing CSS letter-spacing for the brand text.
+#' @param size CSS font-size for the brand text (e.g. \code{"14px"}).
+#' @param italic Logical. If \code{TRUE}, renders brand text in italics.
+#' @param font_family CSS font-family string (e.g. \code{"'Inter', sans-serif"}).
+#' @param color Solid CSS text color for the brand label (ignored when \code{gradient} is set).
+#' @param gradient Character vector of length 2 giving gradient colors for the brand label.
+#'   When set, gradient styling is applied.
+#' @param effect Visual effect for the brand label. One of \code{"none"}, \code{"glow"},
+#'   \code{"shimmer"}, \code{"emboss"}. If \code{gradient} is set, gradient styling is used.
+#' @param glow_color Color used for glow/shimmer effects (when applicable).
+#' @param collapsed Sidebar brand mode when the sidebar is collapsed. One of
+#'   \code{"icon-only"}, \code{"icon-text"}, \code{"text-only"}. If \code{NULL}, uses
+#'   option \code{bs4Dashkit.sidebar.collapsed}.
+#' @param expanded Sidebar brand mode when the sidebar is expanded. One of
+#'   \code{"icon-only"}, \code{"icon-text"}, \code{"text-only"}. If \code{NULL}, uses
+#'   option \code{bs4Dashkit.sidebar.expanded}.
+#' @param collapsed_text Short label used in collapsed mode (recommended <= 8 chars).
+#' @param expanded_text Label used in expanded mode (recommended <= 30 chars).
+#' @param brand_divider Logical. If \code{TRUE}, shows a divider under the brand block.
+#'   If \code{NULL}, uses option \code{bs4Dashkit.brand_divider}.
+#' @param debug Logical. If \code{TRUE}, emits console warnings for missing icons, etc.
+#'   If \code{NULL}, uses option \code{bs4Dashkit.debug}.
 #'
 #' @return A named list:
 #' \describe{
-#'   \item{app_name}{Character — pass to `bs4DashPage(title = ...)`}
-#'   \item{brand}{tagList — pass to `bs4DashNavbar(title = ...)` (and/or sidebar title)}
-#'   \item{deps}{tagList — place once in `bs4DashBody(...)` (brand CSS + sidebar mode JS)}
-#'   \item{behavior}{Deprecated alias of `deps` for backward compatibility}
+#'   \item{app_name}{Character string for \code{bs4DashPage(title = ...)}}
+#'   \item{brand}{UI for \code{bs4DashNavbar(title = ...)} (and optionally sidebar title)}
+#'   \item{deps}{Dependencies (CSS/JS) to include once in \code{bs4DashBody(...)}}
 #' }
+#'
 #' @export
 dash_titles <- function(
     brand_text,
@@ -28,21 +63,17 @@ dash_titles <- function(
     gradient = NULL,
     effect = c("none", "glow", "shimmer", "emboss"),
     glow_color = NULL,
-
     collapsed = NULL,
     expanded = NULL,
     collapsed_text = NULL,
     expanded_text = NULL,
-
     brand_divider = NULL,
     debug = NULL
 ) {
-
-  # resolve global defaults
-  collapsed <- collapsed %||% dashkit_opt("sidebar.collapsed", "icon-only")
-  expanded  <- expanded  %||% dashkit_opt("sidebar.expanded",  "icon-text")
-  brand_divider <- brand_divider %||% dashkit_opt("brand_divider", TRUE)
-  debug <- debug %||% dashkit_opt("debug", FALSE)
+  collapsed      <- collapsed      %||% dashkit_opt("sidebar.collapsed", "icon-only")
+  expanded       <- expanded       %||% dashkit_opt("sidebar.expanded",  "icon-text")
+  brand_divider  <- brand_divider  %||% dashkit_opt("brand_divider", TRUE)
+  debug          <- debug          %||% dashkit_opt("debug", FALSE)
 
   collapsed  <- match.arg(collapsed, c("icon-only", "icon-text", "text-only"))
   expanded   <- match.arg(expanded,  c("icon-text", "icon-only", "text-only"))
@@ -87,8 +118,6 @@ dash_titles <- function(
   list(
     app_name = app_name %||% brand_text,
     brand    = brand_obj$ui,
-    deps     = deps,
-    behavior = deps
+    deps     = deps
   )
 }
-

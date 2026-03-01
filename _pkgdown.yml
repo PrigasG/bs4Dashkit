@@ -1,0 +1,76 @@
+url: https://PrigasG.github.io/bs4Dashkit/
+
+template:
+  bootstrap: 5
+  bootswatch: flatly
+  bslib:
+    base_font: {google: "Inter"}
+  includes:
+    in_header: pkgdown/extra-head.html
+  opengraph:
+    image:
+      src: man/figures/logo.png
+      alt: "bs4Dashkit logo"
+
+navbar:
+  structure:
+    left:  [home, reference, articles, news]
+    right: [github]
+  components:
+    github:
+      icon: fa-github
+      href: https://github.com/PrigasG/bs4Dashkit
+
+articles:
+  - title: Getting Started
+    contents:
+      - getting-started
+
+  - title: Branding and Sidebar
+    contents:
+      - branding-and-sidebar-modes
+      - global-options
+
+  - title: Theming
+    contents:
+      - theming-and-presets
+
+  - title: Navigation
+    contents:
+      - navigation-utilities
+      - footer
+
+  - title: Examples
+    contents:
+      - complete-example-app
+
+reference:
+  - title: Core
+    contents:
+      - dash_titles
+      - use_bs4Dashkit_core
+      - use_bs4Dashkit
+
+  - title: Brand and Sidebar
+    contents:
+      - dash_brand_ui
+      - use_dash_sidebar_brand_mode
+      - use_dash_sidebar_behavior
+      - use_dash_sidebar_brand_divider
+
+  - title: Theming
+    contents:
+      - use_dash_theme
+      - use_dash_theme_preset
+
+  - title: Navbar
+    contents:
+      - dash_nav_title
+      - dash_nav_item
+      - dash_nav_refresh_button
+      - dash_nav_help_button
+      - dash_user_menu
+
+  - title: Footer
+    contents:
+      - dash_footer

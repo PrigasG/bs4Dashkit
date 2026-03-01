@@ -240,6 +240,8 @@ dash_brand_ui <- function(
 #'   Keep <= 8 chars. NULL falls back to original DOM text (CSS truncates).
 #' @param expanded_text  Label for expanded "icon-text" or "text-only" mode.
 #'   Keep <= 30 chars. NULL falls back to original DOM text.
+#' @param debug Logical. If `TRUE`, prints helpful messages to the browser console
+#'   for diagnosing missing icons or brand label elements.
 #'
 #' @export
 use_dash_sidebar_brand_mode <- function(

@@ -1,0 +1,181 @@
+---
+title: "Footer"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Footer}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment  = "#>",
+  eval     = FALSE
+)
+```
+
+```{r setup}
+library(bs4Dashkit)
+```
+
+dash_footer() creates a `bs4Dash::bs4DashFooter()` with an optional logo image,
+a main text label (`left_text`), and a right-side label (`right_text`, default: today's date).
+
+The logo and main text can be independently positioned on the left or right side of the footer bar.
+The `right_text` is always rendered on the right side.
+
+## Arguments
+
+| Argument | Type | Default | Description |
+|---|---|---|---|
+| `logo_src` | `character` or `NULL` | — | Path to logo image (relative to `www/`). Set `NULL` for no logo. |
+| `left_text` | `character` | (required) | Left footer text. If `NULL` or empty, no main text is rendered. |
+| `right_text`| `character` | `format(Sys.Date(), "%B %d, %Y")`| Text on the opposite side (often a date/version)|
+| `logo_position` | `"left"` or `"right"` | `"left"` | Which side the logo appears on |
+| `text_position` | `"left"` or `"right"` | `"left"` | Which side the text appears on |
+| `logo height`   | `numeric` | `20` | Logo height in pixels |
+| `fixed` | `logical` | `TRUE` | Fixed footer at the bottom |
+
+---
+
+## Default — logo left, text left
+
+```{r}
+dash_footer(
+  logo_src  = "logo.png",
+  left_text = "My Org",
+  right_text = NULL #no text is rendered on the right
+)
+```
+
+To include version/date, you can try: 
+
+```{r}
+
+dash_footer(
+  logo_src = "logo.png",
+  left_text = "My Org",
+  logo_position = "right"
+)
+
+```
+
+---
+
+## Logo right, text left
+
+```{r}
+dash_footer(
+  logo_src       = "logo.png",
+  left_text      = "Your Organisation",
+  logo_position  = "right"
+)
+```
+
+---
+
+## Both logo and text on the right
+
+```{r}
+dash_footer(
+  logo_src = "logo.png",
+  left_text = "My Org",
+  logo_position = "right"
+)
+
+```
+
+---
+
+## No logo
+
+Set `logo_src = NULL` to suppress the image entirely. This is the right choice
+when you have no logo asset or want a plain, minimal footer. A `NULL` value
+avoids a broken-image placeholder in the rendered page.
+
+```{r}
+dash_footer(
+  logo_src  = NULL,
+  left_text = "Your Organisation \u2022 2025"
+)
+```
+
+or 
+
+```{r}
+dash_footer(
+  left_text = NULL,
+  right_text = "Internal Use Only",
+  logo_src = NULL
+)
+```
+
+The bullet character (`\u2022`) is a compact separator commonly used in footer
+text — e.g. `"NYS DOH \u2022 Internal Use Only"`.
+
+---
+
+
+## Custom right-side text
+
+Use `right_text` for a version, environment label, or static date:
+
+```{r}
+dash_footer(
+  logo_src   = "logo.png",
+  left_text  = "Your Organisation",
+  right_text = "v0.1.0"
+)
+
+```
+
+## Placement
+
+`dash_footer()` is passed directly to the `footer` argument of `bs4DashPage()`.
+It should **not** be placed inside `bs4DashBody()`.
+
+```{r}
+library(shiny)
+library(bs4Dash)
+library(bs4Dashkit)
+
+ttl <- dash_titles("My App")
+
+ui <- bs4DashPage(
+  title   = ttl$app_name,
+  header  = bs4DashNavbar(title = ttl$brand),
+  sidebar = bs4DashSidebar(),
+  body    = bs4DashBody(
+    use_bs4Dashkit_core(ttl)
+  ),
+  footer  = dash_footer(
+    logo_src  = NULL,
+    left_text = "Your Organisation \u2022 Internal Use Only"
+  )
+)
+
+server <- function(input, output, session) {}
+shinyApp(ui, server)
+```
+
+---
+
+## Logo image path
+
+The `logo_src` path is resolved relative to your app's `www/` folder. For a
+logo at `www/assets/logo.png` use:
+
+```{r}
+dash_footer(logo_src = "assets/logo.png", left_text = "My Org")
+```
+
+**Avoid windows file paths like **
+```{r}
+# Don't do this (file path will not load in the browser):
+dash_footer(logo_src = "C:/Users/.../logo.png", left_text = "My Org")
+
+```
+
+For apps bundled as a package (e.g. with `addResourcePath()`), use the path as
+exposed by the resource prefix, not the file-system path.

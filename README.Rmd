@@ -1,0 +1,118 @@
+---
+output: github_document
+---
+
+# bs4Dashkit
+
+Structured theming and navigation utilities for `{bs4Dash}` applications.
+
+`bs4Dashkit` provides:
+
+-   Unified brand and sidebar configuration
+-   Configurable collapsed / expanded sidebar modes
+-   Hover-expand sidebar behavior
+-   Subtle CSS-variable theming
+-   Standardized navigation components (refresh, help, logout)
+-   Lightweight dependency model compatible with native `{bs4Dash}` layouts
+
+------------------------------------------------------------------------
+
+## Installation
+
+``` r
+# Development version
+remotes::install_github("PrigasG/bs4Dashkit")
+```
+
+------------------------------------------------------------------------
+
+## Quick Start
+
+``` r
+library(shiny)
+library(bs4Dash)
+library(bs4Dashkit)
+
+ttl <- dash_titles(
+  brand_text = "OLTCR Dashboards",
+  icon = "project-diagram"
+)
+
+ui <- bs4DashPage(
+  title = ttl$app_name,
+  header = bs4DashNavbar(title = ttl$brand),
+  sidebar = bs4DashSidebar(
+    bs4SidebarMenu(
+      bs4SidebarMenuItem("Dashboard", tabName = "dash")
+    )
+  ),
+  body = bs4DashBody(
+    use_bs4Dashkit_core(ttl),
+    bs4TabItems(
+      bs4TabItem(
+        tabName = "dash",
+        h2("Hello Dashboard")
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {}
+shinyApp(ui, server)
+```
+
+------------------------------------------------------------------------
+
+## Key Features
+
+### Sidebar Modes
+
+-   `"icon-only"`
+-   `"icon-text"`
+-   `"text-only"`
+
+Fully configurable for collapsed and expanded states.
+
+### Theme System
+
+CSS variable-driven theming:
+
+``` r
+use_dash_theme(accent = "#2f6f8f")
+```
+
+### Navigation Utilities
+
+Prebuilt components:
+
+-   `dash_nav_refresh_button()`
+-   `dash_nav_help_button()`
+-   `dash_nav_logout_button()`
+
+Server-side wiring example:
+
+``` r
+observeEvent(input$refresh, session$reload())
+```
+
+------------------------------------------------------------------------
+
+## Documentation
+
+Full documentation and examples are available at:
+
+<https://PrigasG.github.io/bs4Dashkit>
+
+------------------------------------------------------------------------
+
+## License
+
+MIT
+
+
+## Full Example App
+
+A complete working example (brand, sidebar modes, hover expand, theme preset, navbar tools, footer) is included in the documentation site:
+
+- Articles -> Complete Example App
+

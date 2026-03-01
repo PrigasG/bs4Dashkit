@@ -11,7 +11,7 @@ use_bs4Dashkit_core(
   ...,
   topbar_h = 56,
   collapsed_w = 4.2,
-  expanded_w = 350
+  expanded_w = 250
 )
 }
 \arguments{

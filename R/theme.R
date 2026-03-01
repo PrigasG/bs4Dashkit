@@ -1,4 +1,18 @@
-#' Apply a subtle theme via CSS variables
+#' Apply a theme via CSS variables
+#'
+#' Sets bs4Dashkit CSS custom properties (variables) for background, surfaces,
+#' borders, text, and accent color.
+#'
+#' @param bg Page background color.
+#' @param surface Card and panel background color.
+#' @param border Border color used on cards, separators, and outlines.
+#' @param text Primary text color.
+#' @param muted Muted text color.
+#' @param accent Accent color used for highlights and emphasis.
+#' @param radius Corner radius in pixels.
+#' @param shadow Box shadow CSS string used for cards and surfaces.
+#'
+#' @return A `shiny::tagList()` that injects CSS variables into the page `<head>`.
 #' @export
 use_dash_theme <- function(
     bg = "#f5f6f8",

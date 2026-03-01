@@ -2,37 +2,39 @@
 % Please edit documentation in R/footer.R
 \name{dash_footer}
 \alias{dash_footer}
-\title{Standard footer for dashboards}
+\title{Standard footer for bs4Dash dashboards}
 \usage{
 dash_footer(
   logo_src = NULL,
   left_text = NULL,
-  right_text = format(Sys.Date(), "\%B \%d, \%Y"),
+  right_text = NULL,
+  right_date = NULL,
+  date_format = "\%B \%d, \%Y",
   logo_height = 20,
   logo_position = c("left", "right"),
-  text_position = c("left", "right"),
   fixed = TRUE
 )
 }
 \arguments{
-\item{logo_src}{Path/URL for image under www/ or external URL.
-If NULL or empty, no logo is rendered.}
+\item{logo_src}{Path under \verb{www/} or an external URL.}
 
-\item{left_text}{Text content for footer.}
+\item{left_text}{Text rendered on the left side (optional).}
 
-\item{right_text}{Right side text. Defaults to today's date.}
+\item{right_text}{Text rendered on the right side (optional).}
 
-\item{logo_height}{Height in px.}
+\item{right_date}{Optional Date to render on the right. Ignored if \code{right_text} is set.}
+
+\item{date_format}{Format used when \code{right_date} is provided.}
+
+\item{logo_height}{Height in px for the logo image.}
 
 \item{logo_position}{Where the logo should appear: "left" or "right".}
 
-\item{text_position}{Where the left_text should appear: "left" or "right".}
-
-\item{fixed}{Fixed footer (TRUE/FALSE).}
+\item{fixed}{Logical. Fixed footer (TRUE/FALSE).}
 }
 \value{
-A bs4DashFooter object
+A \code{bs4DashFooter} object.
 }
 \description{
-Standard footer for dashboards
+Standard footer for bs4Dash dashboards
 }

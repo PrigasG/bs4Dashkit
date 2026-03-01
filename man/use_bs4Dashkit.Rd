@@ -6,6 +6,13 @@
 \usage{
 use_bs4Dashkit(include_center_js = TRUE)
 }
+\arguments{
+\item{include_center_js}{Logical. If \code{TRUE} (default), also includes the
+JavaScript helper that supports the centered navbar title layout.}
+}
+\value{
+An \code{htmltools::tagList()} containing an \code{htmltools::htmlDependency()}.
+}
 \description{
-Load core CSS and JS for bs4Dashkit
+Adds the package's bundled CSS (core, theme, sidebar) and optional JS helpers.
 }

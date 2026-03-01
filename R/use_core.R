@@ -21,19 +21,35 @@ use_bs4Dashkit_core <- function(
     collapsed_w = 4.2,
     expanded_w = 250
 ) {
-  if (is.null(ttl$deps)) {
+  if (!is.list(ttl) || is.null(ttl$deps)) {
     stop("`ttl` must be the result of dash_titles() and contain `$deps`.")
   }
 
+  if (!is.numeric(collapsed_w) || length(collapsed_w) != 1 || is.na(collapsed_w) || collapsed_w <= 0) {
+    stop("`collapsed_w` must be a single positive number (rem).")
+  }
+  if (!is.numeric(expanded_w) || length(expanded_w) != 1 || is.na(expanded_w) || expanded_w <= 0) {
+    stop("`expanded_w` must be a single positive number (px).")
+  }
+  if (!is.numeric(topbar_h) || length(topbar_h) != 1 || is.na(topbar_h) || topbar_h <= 0) {
+    stop("`topbar_h` must be a single positive number (px).")
+  }
+
   preset <- preset %||% dashkit_opt("theme_preset", NULL)
+  if (!is.null(preset) && length(preset) != 1) {
+    stop("`preset` must be a single preset name, or NULL.")
+  }
+  if (!is.null(preset) && nzchar(preset)) preset <- as.character(preset)
+
   accent <- accent %||% dashkit_opt("accent", "#2f6f8f")
+  if (!is.null(accent) && length(accent) != 1) {
+    stop("`accent` must be a single string (CSS color), or NULL.")
+  }
 
   theme_tag <- if (!is.null(preset) && nzchar(preset)) {
-    # preset, plus allow accent override and other overrides
     use_dash_theme_preset(preset, accent = accent, ...)
   } else {
-    # no preset: just use basic theme with accent
-    use_dash_theme(accent = accent)
+    use_dash_theme(accent = accent, ...)
   }
 
   shiny::tagList(
@@ -41,9 +57,9 @@ use_bs4Dashkit_core <- function(
     ttl$deps,
     theme_tag,
     use_dash_sidebar_behavior(
-      topbar_h = topbar_h,
+      topbar_h    = topbar_h,
       collapsed_w = collapsed_w,
-      expanded_w = expanded_w
+      expanded_w  = expanded_w
     )
   )
 }
