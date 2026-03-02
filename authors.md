@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/PrigasG/bs4Dashkit/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/PrigasG/bs4Dashkit/blob/v0.1.0/DESCRIPTION)
 
 Arthur G (2026). *bs4Dashkit: Branding, Theming, and Navigation
 Utilities for 'bs4Dash' Dashboards*. R package version 0.1.0,
