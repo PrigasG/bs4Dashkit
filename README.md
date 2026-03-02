@@ -1,4 +1,4 @@
-# bs4Dashkit
+# bs4Dashkit <img src="man/figures/logo.pgn" alt="bs4Dashkit logo" align="right" width= "120" />
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/PrigasG/bs4Dashkit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/PrigasG/bs4Dashkit/actions/workflows/R-CMD-check.yaml)
