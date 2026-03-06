@@ -101,7 +101,7 @@ observeEvent(input$refresh, session$reload())
 
 Full documentation and examples are available at:
 
-<https://PrigasG.github.io/bs4Dashkit>
+<https://prigasg.github.io/bs4Dashkit/>
 
 ------------------------------------------------------------------------
 

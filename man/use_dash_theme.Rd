@@ -33,7 +33,7 @@ use_dash_theme(
 \item{shadow}{Box shadow CSS string used for cards and surfaces.}
 }
 \value{
-A \code{shiny::tagList()} that injects CSS variables into the page \verb{<head>}.
+A \code{shiny.tag.list} containing stylesheet dependencies and inline CSS variables for the app theme.
 }
 \description{
 Sets bs4Dashkit CSS custom properties (variables) for background, surfaces,

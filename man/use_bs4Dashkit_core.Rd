@@ -31,6 +31,9 @@ If preset is used, this overrides the preset accent.}
 
 \item{expanded_w}{Sidebar expanded width (px)}
 }
+\value{
+A \code{shiny.tag.list} containing core CSS and/or JavaScript dependencies for bs4Dashkit.
+}
 \description{
 Recommended entry point for bs4Dashkit in bs4DashBody().
 }

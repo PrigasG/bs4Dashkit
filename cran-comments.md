@@ -14,8 +14,8 @@
 
 ## Resubmission
 
-This is a new submission.
+This is a resubmission. In response to the previous CRAN review:
 
-## Downstream dependencies
+* added `@return` documentation so exported functions now include `\value{}` sections describing return structure and meaning
 
-There are no reverse dependencies (new package).
+Thank you for your time and review

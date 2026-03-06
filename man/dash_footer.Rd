@@ -33,7 +33,7 @@ dash_footer(
 \item{fixed}{Logical. Fixed footer (TRUE/FALSE).}
 }
 \value{
-A \code{bs4DashFooter} object.
+A \code{shiny.tag} object representing a \code{bs4DashFooter} UI component.
 }
 \description{
 Standard footer for bs4Dash dashboards

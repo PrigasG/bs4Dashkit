@@ -9,7 +9,7 @@
 #' @param logo_position Where the logo should appear: "left" or "right".
 #' @param fixed Logical. Fixed footer (TRUE/FALSE).
 #'
-#' @return A `bs4DashFooter` object.
+#' @return A \code{shiny.tag} object representing a \code{bs4DashFooter} UI component.
 #' @export
 dash_footer <- function(
     logo_src = NULL,

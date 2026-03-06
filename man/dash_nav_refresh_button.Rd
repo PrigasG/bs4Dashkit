@@ -23,6 +23,9 @@ dash_nav_refresh_button(
 
 \item{...}{Passed to shiny::actionButton}
 }
+\value{
+A \code{shiny.tag} object representing a styled navbar refresh button.
+}
 \description{
 Navbar refresh button (styled)
 }

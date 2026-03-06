@@ -5,6 +5,8 @@
 #' @param icon Font Awesome icon name
 #' @param class Additional classes
 #' @param ... Passed to shiny::actionButton
+#'
+#' @return A \code{shiny.tag} object representing a styled navbar action button.
 #' @export
 dash_nav_help_button <- function(
     id,
@@ -28,6 +30,8 @@ dash_nav_help_button <- function(
 #' @param icon Font Awesome icon name
 #' @param class Additional classes
 #' @param ... Passed to shiny::actionButton
+#'
+#' @return A \code{shiny.tag} object representing a styled navbar refresh button.
 #' @export
 dash_nav_refresh_button <- function(
     id,
@@ -46,9 +50,11 @@ dash_nav_refresh_button <- function(
   )
 }
 
-#' Wrap a navbar control in a <li> (bs4Dash rightUi convention)
+#' Wrap a navbar control in a list item (bs4Dash rightUi convention)
 #'
 #' @param ... UI elements
+#'
+#' @return A \code{shiny.tag} object containing an HTML list item for use in bs4Dash navbar UI.
 #' @export
 dash_nav_item <- function(...) {
   shiny::tags$li(class = "nav-item dropdown", ...)

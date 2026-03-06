@@ -15,6 +15,7 @@
 #' @param icon Optional fontawesome icon name, e.g. "shield-halved"
 #' @param align One of c("center","right","left")
 #'
+#' @return A \code{shiny.tag} object representing the navbar title UI.
 #' @export
 dash_nav_title <- function(title, subtitle = NULL, icon = NULL,
                            align = c("center", "right", "left")) {

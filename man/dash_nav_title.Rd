@@ -20,6 +20,9 @@ dash_nav_title(
 
 \item{align}{One of c("center","right","left")}
 }
+\value{
+A \code{shiny.tag} object representing the navbar title UI.
+}
 \description{
 Creates a consistent title block for bs4Dash navbars, with optional subtitle
 and icon. Alignment can be "center", "right", or "left".

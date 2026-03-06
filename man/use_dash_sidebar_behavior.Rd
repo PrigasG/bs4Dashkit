@@ -13,6 +13,9 @@ use_dash_sidebar_behavior(topbar_h = 56, collapsed_w = 4.2, expanded_w = 250)
 
 \item{expanded_w}{Expanded sidebar width (px)}
 }
+\value{
+A \code{shiny.tag} or \code{shiny.tag.list} containing sidebar behavior dependencies to include in the UI.
+}
 \description{
 Sidebar behavior: icon-only collapse + hover expand + ellipsis labels
 }

@@ -2,6 +2,8 @@
 #'
 #' @param preset One of: "professional", "modern", "dark-lite"
 #' @param ... Passed to use_dash_theme() to override preset values
+#'
+#' @return A \code{shiny.tag} or \code{shiny.tag.list} containing theme preset CSS and related UI dependencies.
 #' @export
 use_dash_theme_preset <- function(
     preset = c("professional", "modern", "dark-lite"),

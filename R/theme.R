@@ -12,7 +12,7 @@
 #' @param radius Corner radius in pixels.
 #' @param shadow Box shadow CSS string used for cards and surfaces.
 #'
-#' @return A `shiny::tagList()` that injects CSS variables into the page `<head>`.
+#' @return A \code{shiny.tag.list} containing stylesheet dependencies and inline CSS variables for the app theme.
 #' @export
 use_dash_theme <- function(
     bg = "#f5f6f8",

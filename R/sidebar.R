@@ -3,6 +3,8 @@
 #' @param topbar_h Height in px for navbar and sidebar brand strip
 #' @param collapsed_w Width for icon-only sidebar (rem)
 #' @param expanded_w Expanded sidebar width (px)
+#'
+#' @return A \code{shiny.tag} or \code{shiny.tag.list} containing sidebar behavior dependencies to include in the UI.
 #' @export
 use_dash_sidebar_behavior <- function(topbar_h = 56, collapsed_w = 4.2, expanded_w = 250) {
   dashkit_register_resources()

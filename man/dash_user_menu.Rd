@@ -9,6 +9,9 @@ dash_user_menu(ui)
 \arguments{
 \item{ui}{A UI object, typically a dropdown menu produced by the app}
 }
+\value{
+A \code{shiny.tag} object representing the user menu UI for the navbar.
+}
 \description{
 Standard wrapper for a navbar user menu
 }

@@ -1,16 +1,16 @@
 Type: Package
 Package: bs4Dashkit
-Title: Branding, Theming, and Navigation Utilities for 'bs4Dash'
+Title: Branding, Theme Application and Navigation Utilities for 'bs4Dash'
     Dashboards
 Version: 0.1.0
 Authors@R: 
     person("George", "Arthur", , "prigasgenthian48@gmail.com", role = c("aut", "cre"))
-Description: Provides branding, theming, and navigation utilities for
+Description: Provides branding, theme application, and navigation utilities for
     applications built with 'bs4Dash' and 'shiny'. Supports configurable
     sidebar brand display modes, hover-expand behavior, and theme
     customization using CSS variables. Includes standardized navigation
     components such as refresh and help controls, along with helpers for
-    common navbar and footer layouts.
+    common navigation bar and footer layouts.
 License: MIT + file LICENSE
 URL: https://github.com/PrigasG/bs4Dashkit
 BugReports: https://github.com/PrigasG/bs4Dashkit/issues
@@ -28,6 +28,7 @@ VignetteBuilder:
     rmarkdown
 Config/testthat/edition: 3
 Encoding: UTF-8
+Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3

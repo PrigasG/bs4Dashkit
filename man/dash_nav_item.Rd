@@ -2,13 +2,16 @@
 % Please edit documentation in R/nav_buttons.R
 \name{dash_nav_item}
 \alias{dash_nav_item}
-\title{Wrap a navbar control in a \if{html}{\out{<li>}} (bs4Dash rightUi convention)}
+\title{Wrap a navbar control in a list item (bs4Dash rightUi convention)}
 \usage{
 dash_nav_item(...)
 }
 \arguments{
 \item{...}{UI elements}
 }
+\value{
+A \code{shiny.tag} object containing an HTML list item for use in bs4Dash navbar UI.
+}
 \description{
-Wrap a navbar control in a \if{html}{\out{<li>}} (bs4Dash rightUi convention)
+Wrap a navbar control in a list item (bs4Dash rightUi convention)
 }

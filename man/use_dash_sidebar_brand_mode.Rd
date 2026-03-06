@@ -32,6 +32,9 @@ Keep <= 30 chars. NULL falls back to original DOM text.}
 \item{debug}{Logical. If \code{TRUE}, prints helpful messages to the browser console
 for diagnosing missing icons or brand label elements.}
 }
+\value{
+A \code{shiny.tag} or \code{shiny.tag.list} containing sidebar brand mode styling or dependencies.
+}
 \description{
 Controls icon visibility, text visibility, and text content in both
 collapsed and expanded sidebar states.

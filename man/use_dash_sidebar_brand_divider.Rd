@@ -9,6 +9,11 @@ use_dash_sidebar_brand_divider(show = TRUE)
 \arguments{
 \item{show}{Logical. TRUE keeps divider (default). FALSE hides it.}
 }
+\value{
+If \code{show} is \code{TRUE}, an empty \code{shiny.tag.list}. If
+\code{show} is \code{FALSE}, a \code{shiny.tag} object containing CSS that
+hides the sidebar brand divider.
+}
 \description{
 Toggle the sidebar header divider (line under the brand area)
 }

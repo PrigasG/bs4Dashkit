@@ -1,6 +1,9 @@
 #' Toggle the sidebar header divider (line under the brand area)
 #'
 #' @param show Logical. TRUE keeps divider (default). FALSE hides it.
+#' @return If \code{show} is \code{TRUE}, an empty \code{shiny.tag.list}. If
+#'   \code{show} is \code{FALSE}, a \code{shiny.tag} object containing CSS that
+#'   hides the sidebar brand divider.
 #' @export
 use_dash_sidebar_brand_divider <- function(show = TRUE) {
   if (isTRUE(show)) return(shiny::tagList())

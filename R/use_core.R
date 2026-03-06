@@ -11,6 +11,8 @@
 #' @param topbar_h Height (px) for topbar + brand strip
 #' @param collapsed_w Sidebar collapsed width (rem)
 #' @param expanded_w Sidebar expanded width (px)
+#'
+#' @return A \code{shiny.tag.list} containing core CSS and/or JavaScript dependencies for bs4Dashkit.
 #' @export
 use_bs4Dashkit_core <- function(
     ttl,

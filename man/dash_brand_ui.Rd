@@ -62,7 +62,11 @@ e.g. c("#2f6f8f", "#5ba3c9"). Automatically enables effect = "gradient".}
 or \code{color} or the package accent blue.}
 }
 \value{
-A tagList ready for bs4Dash title parameters
+A named list with components:
+\describe{
+\item{ui}{A \code{shiny.tag.list} containing the generated brand UI.}
+\item{dep}{A \code{shiny.tag} object containing scoped CSS dependencies for the brand styling.}
+}
 }
 \description{
 Produces an icon + text block for bs4Dash brand slots with rich styling

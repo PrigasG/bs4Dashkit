@@ -11,6 +11,9 @@ use_dash_theme_preset(preset = c("professional", "modern", "dark-lite"), ...)
 
 \item{...}{Passed to use_dash_theme() to override preset values}
 }
+\value{
+A \code{shiny.tag} or \code{shiny.tag.list} containing theme preset CSS and related UI dependencies.
+}
 \description{
 Apply a theme preset
 }

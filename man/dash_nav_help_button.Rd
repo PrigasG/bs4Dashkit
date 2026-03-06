@@ -23,6 +23,9 @@ dash_nav_help_button(
 
 \item{...}{Passed to shiny::actionButton}
 }
+\value{
+A \code{shiny.tag} object representing a styled navbar action button.
+}
 \description{
 Navbar help button (styled)
 }

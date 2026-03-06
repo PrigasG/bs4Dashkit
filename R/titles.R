@@ -38,11 +38,11 @@
 #' @param debug Logical. If \code{TRUE}, emits console warnings for missing icons, etc.
 #'   If \code{NULL}, uses option \code{bs4Dashkit.debug}.
 #'
-#' @return A named list:
+#' @return A named list with components:
 #' \describe{
-#'   \item{app_name}{Character string for \code{bs4DashPage(title = ...)}}
-#'   \item{brand}{UI for \code{bs4DashNavbar(title = ...)} (and optionally sidebar title)}
-#'   \item{deps}{Dependencies (CSS/JS) to include once in \code{bs4DashBody(...)}}
+#'   \item{app_name}{A character string for use in \code{bs4DashPage(title = ...)}.}
+#'   \item{brand}{A \code{shiny.tag} object for use in \code{bs4DashNavbar(title = ...)} and, if desired, as sidebar title UI.}
+#'   \item{deps}{A \code{shiny.tag.list} containing CSS and JavaScript dependencies to include once in \code{bs4DashBody(...)}.}
 #' }
 #'
 #' @export

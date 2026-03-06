@@ -27,7 +27,11 @@
 #' @param glow_color   CSS color for glow effect. Defaults to first gradient color
 #'   or `color` or the package accent blue.
 #'
-#' @return A tagList ready for bs4Dash title parameters
+#' @return A named list with components:
+#' \describe{
+#'   \item{ui}{A \code{shiny.tag.list} containing the generated brand UI.}
+#'   \item{dep}{A \code{shiny.tag} object containing scoped CSS dependencies for the brand styling.}
+#' }
 #' @export
 dash_brand_ui <- function(
     brand_text,
@@ -243,6 +247,7 @@ dash_brand_ui <- function(
 #' @param debug Logical. If `TRUE`, prints helpful messages to the browser console
 #'   for diagnosing missing icons or brand label elements.
 #'
+#' @return A \code{shiny.tag} or \code{shiny.tag.list} containing sidebar brand mode styling or dependencies.
 #' @export
 use_dash_sidebar_brand_mode <- function(
     icon           = NULL,
