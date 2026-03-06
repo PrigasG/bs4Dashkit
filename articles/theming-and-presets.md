@@ -26,7 +26,7 @@ body = bs4DashBody(
 | Preset           | Character                                     |
 |------------------|-----------------------------------------------|
 | `"professional"` | Cool blue-grey, medium contrast, soft shadows |
-| `"vibrant"`      | Stronger accent colours, higher contrast      |
+| `"vibrant"`      | Stronger accent colors, higher contrast       |
 | `"minimal"`      | Flat, low-contrast neutrals, minimal shadows  |
 
 If `preset = NULL`,

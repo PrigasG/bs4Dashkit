@@ -141,16 +141,18 @@ dash_titles(
 
 ## Value
 
-A named list:
+A named list with components:
 
 - app_name:
 
-  Character string for `bs4DashPage(title = ...)`
+  A character string for use in `bs4DashPage(title = ...)`.
 
 - brand:
 
-  UI for `bs4DashNavbar(title = ...)` (and optionally sidebar title)
+  A `shiny.tag` object for use in `bs4DashNavbar(title = ...)` and, if
+  desired, as sidebar title UI.
 
 - deps:
 
-  Dependencies (CSS/JS) to include once in `bs4DashBody(...)`
+  A `shiny.tag.list` containing CSS and JavaScript dependencies to
+  include once in `bs4DashBody(...)`.

@@ -17,3 +17,8 @@ use_dash_theme_preset(preset = c("professional", "modern", "dark-lite"), ...)
 - ...:
 
   Passed to use_dash_theme() to override preset values
+
+## Value
+
+A `shiny.tag` or `shiny.tag.list` containing theme preset CSS and
+related UI dependencies.

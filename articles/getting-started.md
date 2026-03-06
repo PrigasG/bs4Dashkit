@@ -154,7 +154,7 @@ ttl <- dash_titles(
 | `"icon-text"` | ✓         | ✓        |
 | `"text-only"` | ✓         | ✓        |
 
-Add hover-expand behaviour (sidebar expands on mouse-over even when
+Add hover-expand behavior (sidebar expands on mouse-over even when
 collapsed):
 
 ``` r

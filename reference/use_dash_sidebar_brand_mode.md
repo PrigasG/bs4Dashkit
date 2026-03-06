@@ -48,6 +48,11 @@ use_dash_sidebar_brand_mode(
   Logical. If `TRUE`, prints helpful messages to the browser console for
   diagnosing missing icons or brand label elements.
 
+## Value
+
+A `shiny.tag` or `shiny.tag.list` containing sidebar brand mode styling
+or dependencies.
+
 ## Details
 
 Modes:

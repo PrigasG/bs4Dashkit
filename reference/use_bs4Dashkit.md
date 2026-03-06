@@ -18,7 +18,8 @@ use_bs4Dashkit(include_center_js = TRUE)
 
 ## Value
 
-An
-[`htmltools::tagList()`](https://rstudio.github.io/htmltools/reference/tagList.html)
+A
+[`htmltools::tagList`](https://rstudio.github.io/htmltools/reference/tagList.html)
 containing an
-[`htmltools::htmlDependency()`](https://rstudio.github.io/htmltools/reference/htmlDependency.html).
+[`htmltools::htmlDependency`](https://rstudio.github.io/htmltools/reference/htmlDependency.html)
+for the package CSS and optional JavaScript helpers.

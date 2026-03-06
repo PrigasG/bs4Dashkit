@@ -35,3 +35,7 @@ dash_nav_refresh_button(
 - ...:
 
   Passed to shiny::actionButton
+
+## Value
+
+A `shiny.tag` object representing a styled navbar refresh button.

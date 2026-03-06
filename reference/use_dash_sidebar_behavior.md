@@ -21,3 +21,8 @@ use_dash_sidebar_behavior(topbar_h = 56, collapsed_w = 4.2, expanded_w = 250)
 - expanded_w:
 
   Expanded sidebar width (px)
+
+## Value
+
+A `shiny.tag` or `shiny.tag.list` containing sidebar behavior
+dependencies to include in the UI.

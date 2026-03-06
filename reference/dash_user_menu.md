@@ -13,3 +13,7 @@ dash_user_menu(ui)
 - ui:
 
   A UI object, typically a dropdown menu produced by the app
+
+## Value
+
+A `shiny.tag` object representing the user menu UI for the navbar.

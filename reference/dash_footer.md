@@ -53,4 +53,4 @@ dash_footer(
 
 ## Value
 
-A `bs4DashFooter` object.
+A `shiny.tag` object representing a `bs4DashFooter` UI component.

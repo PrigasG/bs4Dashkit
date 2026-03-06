@@ -97,4 +97,13 @@ dash_brand_ui(
 
 ## Value
 
-A tagList ready for bs4Dash title parameters
+A named list with components:
+
+- ui:
+
+  A `shiny.tag.list` containing the generated brand UI.
+
+- dep:
+
+  A `shiny.tag` object containing scoped CSS dependencies for the brand
+  styling.

@@ -54,6 +54,5 @@ use_dash_theme(
 
 ## Value
 
-A
-[`shiny::tagList()`](https://rstudio.github.io/htmltools/reference/tagList.html)
-that injects CSS variables into the page `<head>`.
+A `shiny.tag.list` containing stylesheet dependencies and inline CSS
+variables for the app theme.

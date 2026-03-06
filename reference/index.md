@@ -32,20 +32,12 @@
 
 - [`dash_nav_title()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_title.md)
   : Navbar title (center, right, or left)
-
 - [`dash_nav_item()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_item.md)
-  :
-
-  Wrap a navbar control in a
-
-- (bs4Dash rightUi convention)
-
+  : Wrap a navbar control in a list item (bs4Dash rightUi convention)
 - [`dash_nav_refresh_button()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_refresh_button.md)
   : Navbar refresh button (styled)
-
 - [`dash_nav_help_button()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_help_button.md)
   : Navbar help button (styled)
-
 - [`dash_user_menu()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_user_menu.md)
   : Standard wrapper for a navbar user menu
 

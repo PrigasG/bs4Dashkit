@@ -1,8 +1,6 @@
-# Wrap a navbar control in a
+# Wrap a navbar control in a list item (bs4Dash rightUi convention)
 
-Wrap a navbar control in a
-
-(bs4Dash rightUi convention)
+Wrap a navbar control in a list item (bs4Dash rightUi convention)
 
 ## Usage
 
@@ -15,3 +13,8 @@ dash_nav_item(...)
 - ...:
 
   UI elements
+
+## Value
+
+A `shiny.tag` object containing an HTML list item for use in bs4Dash
+navbar UI.

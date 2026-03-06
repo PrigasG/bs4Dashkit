@@ -48,3 +48,8 @@ use_bs4Dashkit_core(
 - expanded_w:
 
   Sidebar expanded width (px)
+
+## Value
+
+A `shiny.tag.list` containing core CSS and/or JavaScript dependencies
+for bs4Dashkit.

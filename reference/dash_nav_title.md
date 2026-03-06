@@ -32,6 +32,10 @@ dash_nav_title(
 
   One of c("center","right","left")
 
+## Value
+
+A `shiny.tag` object representing the navbar title UI.
+
 ## Details
 
 IMPORTANT:
