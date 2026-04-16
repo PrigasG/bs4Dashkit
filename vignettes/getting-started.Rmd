@@ -29,7 +29,7 @@ The package is organised around four areas:
 
 1. **Brand and sidebar** — `dash_titles()` + `use_bs4Dashkit_core()`
 2. **Theming** — `use_dash_theme()` and named presets
-3. **Navbar** — `dash_nav_title()`, refresh / help / logout buttons, user menu
+3. **Navbar** — `dash_nav_title()`, refresh / help buttons, and user menu
 4. **Footer** — `dash_footer()` with flexible logo and text positioning
 
 ---
@@ -63,6 +63,15 @@ shinyApp(ui, server)
 `dash_titles()` accepts a single string and sensible defaults handle everything
 else. `use_bs4Dashkit_core()` loads the CSS dependencies, activates the sidebar
 brand mode, and applies the default theme.
+
+If you prefer, you can also pass a simple `shiny::icon()` tag:
+
+```{r}
+ttl <- dash_titles(
+  brand_text = "My Dashboard",
+  icon = icon("cloud")
+)
+```
 
 ---
 
@@ -126,8 +135,15 @@ Available presets:
 
 ```{r}
 use_bs4Dashkit_core(ttl, preset = "professional")  # cool blue-grey (default)
-use_bs4Dashkit_core(ttl, preset = "vibrant")        # bolder accent colours
-use_bs4Dashkit_core(ttl, preset = "minimal")        # flat, low-contrast
+use_bs4Dashkit_core(ttl, preset = "modern")        # brighter accent colours
+use_bs4Dashkit_core(ttl, preset = "dark-lite")     # dark surfaces and lighter text
+bs4dashkit_theme_presets()                         # list built-in presets
+```
+
+For a runnable template app, use:
+
+```{r}
+app <- bs4dashkit_example_app()
 ```
 
 ---
@@ -216,6 +232,8 @@ so you can omit them from individual calls.
 
 - **Branding and sidebar modes** — full reference for all `dash_titles()` arguments
 - **Theming and presets** — CSS variable overrides and custom presets
-- **Navigation utilities** — refresh, help, logout, user menu, and `dash_nav_title()`
+- **Navigation utilities** — refresh, help, user menu, and `dash_nav_title()`
 - **Footer** — all footer layout combinations
 - **Complete example app** — a single app that exercises every feature
+
+

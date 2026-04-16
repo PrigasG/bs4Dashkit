@@ -4,6 +4,56 @@ editor_options:
     wrap: 72
 ---
 
+## bs4Dashkit 0.2.0
+
+### Ergonomics and discoverability
+
+-   `dash_titles()` now accepts simple `shiny::icon()` inputs in
+    addition to character icon names, and emits a more targeted error
+    when `icon=` receives an unsupported object.
+
+-   Added sidebar brand text controls for collapsed and expanded states:
+    `collapsed_text_size`, `expanded_text_size`,
+    `collapsed_text_weight`, and `expanded_text_weight`.
+
+-   Added `bs4dashkit_theme_presets()` to list shipped theme presets and
+    improved unknown-preset errors to enumerate valid choices.
+
+-   Polished the built-in theme presets so they style navbar, sidebar,
+    footer, link, and status colors more coherently, and extended
+    `bs4dashkit_theme_presets(values = TRUE)` to expose the shipped
+    preset tokens for inspection and customization.
+
+-   Added `bs4dashkit_example_app()` as a minimal runnable example of the
+    recommended `dash_titles()` + `use_bs4Dashkit_core()` workflow.
+
+### Documentation and package polish
+
+-   Updated README and vignettes to match the shipped API:
+
+    -   removed references to the non-existent
+        `dash_nav_logout_button()`
+
+    -   aligned documentation with the current preset names
+        `"professional"`, `"modern"`, and `"dark-lite"`
+
+    -   clarified preset discoverability and the recommended body-level
+        placement of `use_bs4Dashkit_core()`
+
+### Testing
+
+-   Expanded test coverage for:
+
+    -   icon normalization in `dash_titles()`
+
+    -   targeted validation errors for invalid icon objects
+
+    -   collapsed and expanded sidebar brand text styling controls
+
+    -   theme preset discovery and preset validation errors
+
+    -   the exported minimal example app helper
+
 ## bs4Dashkit 0.1.0
 
 ### Initial release
@@ -19,13 +69,13 @@ editor_options:
 
 -   Added theme support via CSS custom properties:
 
-    -   Presets: `"professional"`, `"vibrant"`, and `"minimal"`
+    -   Presets: `"professional"`, `"modern"`, and `"dark-lite"`
 
     -   `use_dash_theme()` for direct CSS variable overrides
 
     -   `use_dash_theme_preset()` for applying named presets
 
-    -   `theme_presets()` for inspecting available presets
+    -   `bs4dashkit_theme_presets()` for inspecting available presets
 
 -   Added configurable sidebar brand modes:
 

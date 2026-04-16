@@ -57,3 +57,33 @@ test_that("icon_shape is validated when icon_img is used", {
   expect_no_error(dash_titles("My App", icon_img = "logo.png", icon_shape = "square"))
   expect_error(dash_titles("My App", icon_img = "logo.png", icon_shape = "hexagon"))
 })
+
+test_that("dash_titles() accepts shiny icon tags", {
+  ttl <- dash_titles("My App", icon = shiny::icon("cloud"))
+  expect_true(inherits(ttl$brand, c("shiny.tag", "shiny.tag.list")))
+  expect_match(as.character(ttl$brand), "fa-cloud", fixed = TRUE)
+})
+
+test_that("dash_titles() emits targeted icon validation errors", {
+  expect_error(
+    dash_titles("My App", icon = shiny::tags$div("bad")),
+    "must be a Font Awesome icon name"
+  )
+})
+
+test_that("sidebar title sizing and weight options are forwarded", {
+  ttl <- dash_titles(
+    "My App",
+    icon = "cloud",
+    collapsed_text_size = "11px",
+    expanded_text_size = "16px",
+    collapsed_text_weight = 600,
+    expanded_text_weight = 800
+  )
+
+  html <- as.character(ttl$deps)
+  expect_match(html, "11px", fixed = TRUE)
+  expect_match(html, "16px", fixed = TRUE)
+  expect_match(html, "600", fixed = TRUE)
+  expect_match(html, "800", fixed = TRUE)
+})

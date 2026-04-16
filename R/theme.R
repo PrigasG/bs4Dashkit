@@ -9,6 +9,18 @@
 #' @param text Primary text color.
 #' @param muted Muted text color.
 #' @param accent Accent color used for highlights and emphasis.
+#' @param accent_soft Softer accent tone used for subtle fills, hover states,
+#'   and focus treatments.
+#' @param navbar_bg Navbar background color.
+#' @param navbar_text Navbar text color.
+#' @param sidebar_bg Sidebar background color.
+#' @param sidebar_text Sidebar text color.
+#' @param sidebar_hover Sidebar hover and active background color.
+#' @param footer_bg Footer background color.
+#' @param footer_text Footer text color.
+#' @param success Success accent color.
+#' @param warning Warning accent color.
+#' @param danger Danger accent color.
 #' @param radius Corner radius in pixels.
 #' @param shadow Box shadow CSS string used for cards and surfaces.
 #'
@@ -21,6 +33,17 @@ use_dash_theme <- function(
     text = "#1d1f23",
     muted = "#6b6f76",
     accent = "#2f6f8f",
+    accent_soft = "#e8f1f5",
+    navbar_bg = "#ffffff",
+    navbar_text = "#1d1f23",
+    sidebar_bg = "#ffffff",
+    sidebar_text = "#1d1f23",
+    sidebar_hover = "#eef4f7",
+    footer_bg = "#ffffff",
+    footer_text = "#6b6f76",
+    success = "#2d8a56",
+    warning = "#c37a14",
+    danger = "#b94a48",
     radius = 12,
     shadow = "0 1px 3px rgba(0,0,0,0.07)"
 ) {
@@ -35,11 +58,27 @@ use_dash_theme <- function(
       "--dash-text:%s;",
       "--dash-muted:%s;",
       "--dash-accent:%s;",
+      "--dash-accent-soft:%s;",
+      "--dash-navbar-bg:%s;",
+      "--dash-navbar-text:%s;",
+      "--dash-sidebar-bg:%s;",
+      "--dash-sidebar-text:%s;",
+      "--dash-sidebar-hover:%s;",
+      "--dash-footer-bg:%s;",
+      "--dash-footer-text:%s;",
+      "--dash-success:%s;",
+      "--dash-warning:%s;",
+      "--dash-danger:%s;",
       "--dash-radius:%dpx;",
       "--dash-shadow:%s;",
       "}"
     ),
-    bg, surface, border, text, muted, accent, radius, shadow
+    bg, surface, border, text, muted, accent, accent_soft,
+    navbar_bg, navbar_text,
+    sidebar_bg, sidebar_text, sidebar_hover,
+    footer_bg, footer_text,
+    success, warning, danger,
+    radius, shadow
   )
 
   shiny::tagList(

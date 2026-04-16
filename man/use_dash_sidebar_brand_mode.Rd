@@ -10,6 +10,10 @@ use_dash_sidebar_brand_mode(
   expanded = c("icon-text", "icon-only", "text-only"),
   collapsed_text = NULL,
   expanded_text = NULL,
+  collapsed_text_size = NULL,
+  expanded_text_size = NULL,
+  collapsed_text_weight = NULL,
+  expanded_text_weight = NULL,
   debug = FALSE
 )
 }
@@ -28,6 +32,18 @@ Keep <= 8 chars. NULL falls back to original DOM text (CSS truncates).}
 
 \item{expanded_text}{Label for expanded "icon-text" or "text-only" mode.
 Keep <= 30 chars. NULL falls back to original DOM text.}
+
+\item{collapsed_text_size}{Optional CSS font-size applied to the sidebar brand
+label while collapsed.}
+
+\item{expanded_text_size}{Optional CSS font-size applied to the sidebar brand
+label while expanded.}
+
+\item{collapsed_text_weight}{Optional CSS font-weight applied to the sidebar
+brand label while collapsed.}
+
+\item{expanded_text_weight}{Optional CSS font-weight applied to the sidebar
+brand label while expanded.}
 
 \item{debug}{Logical. If \code{TRUE}, prints helpful messages to the browser console
 for diagnosing missing icons or brand label elements.}

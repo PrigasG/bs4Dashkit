@@ -25,6 +25,10 @@ dash_titles(
   expanded = NULL,
   collapsed_text = NULL,
   expanded_text = NULL,
+  collapsed_text_size = NULL,
+  expanded_text_size = NULL,
+  collapsed_text_weight = NULL,
+  expanded_text_weight = NULL,
   brand_divider = NULL,
   debug = NULL
 )
@@ -78,6 +82,18 @@ option \code{bs4Dashkit.sidebar.expanded}.}
 \item{collapsed_text}{Short label used in collapsed mode (recommended <= 8 chars).}
 
 \item{expanded_text}{Label used in expanded mode (recommended <= 30 chars).}
+
+\item{collapsed_text_size}{Optional CSS font-size applied only to the sidebar
+brand label while collapsed (for example \code{"11px"} or \code{"0.75rem"}).}
+
+\item{expanded_text_size}{Optional CSS font-size applied only to the sidebar
+brand label while expanded.}
+
+\item{collapsed_text_weight}{Optional CSS font-weight applied only to the
+sidebar brand label while collapsed.}
+
+\item{expanded_text_weight}{Optional CSS font-weight applied only to the
+sidebar brand label while expanded.}
 
 \item{brand_divider}{Logical. If \code{TRUE}, shows a divider under the brand block.
 If \code{NULL}, uses option \code{bs4Dashkit.brand_divider}.}

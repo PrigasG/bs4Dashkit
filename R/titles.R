@@ -33,6 +33,14 @@
 #'   option \code{bs4Dashkit.sidebar.expanded}.
 #' @param collapsed_text Short label used in collapsed mode (recommended <= 8 chars).
 #' @param expanded_text Label used in expanded mode (recommended <= 30 chars).
+#' @param collapsed_text_size Optional CSS font-size applied only to the sidebar
+#'   brand label while collapsed (for example `"11px"` or `"0.75rem"`).
+#' @param expanded_text_size Optional CSS font-size applied only to the sidebar
+#'   brand label while expanded.
+#' @param collapsed_text_weight Optional CSS font-weight applied only to the
+#'   sidebar brand label while collapsed.
+#' @param expanded_text_weight Optional CSS font-weight applied only to the
+#'   sidebar brand label while expanded.
 #' @param brand_divider Logical. If \code{TRUE}, shows a divider under the brand block.
 #'   If \code{NULL}, uses option \code{bs4Dashkit.brand_divider}.
 #' @param debug Logical. If \code{TRUE}, emits console warnings for missing icons, etc.
@@ -67,9 +75,14 @@ dash_titles <- function(
     expanded = NULL,
     collapsed_text = NULL,
     expanded_text = NULL,
+    collapsed_text_size = NULL,
+    expanded_text_size = NULL,
+    collapsed_text_weight = NULL,
+    expanded_text_weight = NULL,
     brand_divider = NULL,
     debug = NULL
 ) {
+  icon <- dashkit_normalize_icon(icon)
   collapsed      <- collapsed      %||% dashkit_opt("sidebar.collapsed", "icon-only")
   expanded       <- expanded       %||% dashkit_opt("sidebar.expanded",  "icon-text")
   brand_divider  <- brand_divider  %||% dashkit_opt("brand_divider", TRUE)
@@ -104,6 +117,10 @@ dash_titles <- function(
     expanded       = expanded,
     collapsed_text = collapsed_text,
     expanded_text  = expanded_text,
+    collapsed_text_size = collapsed_text_size,
+    expanded_text_size  = expanded_text_size,
+    collapsed_text_weight = collapsed_text_weight,
+    expanded_text_weight  = expanded_text_weight,
     debug          = debug
   )
 

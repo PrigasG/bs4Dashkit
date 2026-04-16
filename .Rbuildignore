@@ -10,4 +10,9 @@
 ^Meta$
 ^README\.Rmd$
 ^cran-comments\.md$
+^tools$
 ^CRAN-SUBMISSION$
+^cheatsheet\.tex$
+^cheatsheet\.pdf$
+^cheatsheet\.(aux|log|out)$
+^ROADMAP\.md$

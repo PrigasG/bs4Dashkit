@@ -2,7 +2,7 @@ Type: Package
 Package: bs4Dashkit
 Title: Branding, Theme Application and Navigation Utilities for 'bs4Dash'
     Dashboards
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person("George", "Arthur", , "prigasgenthian48@gmail.com", role = c("aut", "cre"))
 Description: Provides branding, theme application, and navigation utilities for

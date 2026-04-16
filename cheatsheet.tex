@@ -1,0 +1,241 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.6in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{microtype}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\setlength{\columnsep}{0.35in}
+\setlist[itemize]{leftmargin=1.2em, topsep=0.2em, itemsep=0.15em}
+\hypersetup{colorlinks=true, urlcolor=blue}
+\pagestyle{empty}
+\microtypesetup{expansion=false}
+
+\definecolor{dashblue}{HTML}{2F6F8F}
+\definecolor{dashgray}{HTML}{5F6B76}
+\definecolor{dashrule}{HTML}{D8DEE5}
+
+\titleformat{\section}
+  {\large\bfseries\color{dashblue}}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\section}{0pt}{0.5em}{0.25em}
+
+\lstdefinestyle{rstyle}{
+  basicstyle=\ttfamily\footnotesize,
+  columns=fullflexible,
+  breaklines=true,
+  frame=single,
+  framerule=0.2pt,
+  rulecolor=\color{dashrule},
+  backgroundcolor=\color{black!1},
+  keywordstyle=\color{dashblue},
+  commentstyle=\color{dashgray},
+  showstringspaces=false,
+  aboveskip=0.35em,
+  belowskip=0.35em
+}
+
+\begin{document}
+
+{\LARGE \textbf{\textcolor{dashblue}{bs4Dashkit Cheatsheet}}} \hfill {\large v0.2.0}
+
+Small helpers for branding, theming, navigation, and sidebar behavior in
+\texttt{bs4Dash} apps.
+
+\vspace{0.3em}
+\hrule height 0.6pt
+\vspace{0.5em}
+
+\begin{multicols}{2}
+
+\section*{Core Setup}
+
+\begin{lstlisting}[style=rstyle]
+library(shiny)
+library(bs4Dash)
+library(bs4Dashkit)
+
+ttl <- dash_titles(
+  brand_text = "My Dashboard",
+  icon = icon("cloud")
+)
+
+ui <- bs4DashPage(
+  title = ttl$app_name,
+  header = bs4DashNavbar(title = ttl$brand),
+  sidebar = bs4DashSidebar(),
+  body = bs4DashBody(
+    use_bs4Dashkit_core(ttl)
+  )
+)
+\end{lstlisting}
+
+\textbf{Rule:} put \texttt{use\_bs4Dashkit\_core(ttl)} first inside
+\texttt{bs4DashBody(...)}.
+
+\section*{Brand Builder}
+
+\texttt{dash\_titles()} returns:
+\begin{itemize}
+  \item \texttt{ttl\$app\_name}: browser title
+  \item \texttt{ttl\$brand}: navbar or sidebar brand UI
+  \item \texttt{ttl\$deps}: dependencies used by the core helper
+\end{itemize}
+
+\textbf{Icon inputs}
+\begin{itemize}
+  \item character name: \texttt{icon = "cloud"}
+  \item Shiny tag: \texttt{icon = icon("cloud")}
+  \item image logo: \texttt{icon\_img = "logo.png"}
+\end{itemize}
+
+\section*{Sidebar Brand Modes}
+
+\begin{tabular}{>{\ttfamily}l l}
+\toprule
+Mode & Meaning \\
+\midrule
+icon-only & icon only \\
+icon-text & icon + label \\
+text-only & label only \\
+\bottomrule
+\end{tabular}
+
+\begin{lstlisting}[style=rstyle]
+ttl <- dash_titles(
+  brand_text = "OLTCR Dashboards",
+  icon = icon("cloud"),
+  collapsed = "icon-text",
+  expanded = "icon-text",
+  collapsed_text = "OLTCR",
+  expanded_text = "OLTCR Dashboards"
+)
+\end{lstlisting}
+
+\textbf{New sidebar text styling}
+
+\begin{lstlisting}[style=rstyle]
+ttl <- dash_titles(
+  brand_text = "OLTCR Dashboards",
+  icon = icon("cloud"),
+  collapsed_text_size = "10px",
+  expanded_text_size = "15px",
+  collapsed_text_weight = 700,
+  expanded_text_weight = 800
+)
+\end{lstlisting}
+
+\columnbreak
+
+\section*{Themes}
+
+\textbf{Built-in presets}
+\begin{itemize}
+  \item \texttt{professional}
+  \item \texttt{modern}
+  \item \texttt{dark-lite}
+\end{itemize}
+
+\begin{lstlisting}[style=rstyle]
+bs4dashkit_theme_presets()
+
+use_bs4Dashkit_core(
+  ttl,
+  preset = "modern"
+)
+\end{lstlisting}
+
+\textbf{Accent override}
+
+\begin{lstlisting}[style=rstyle]
+use_bs4Dashkit_core(
+  ttl,
+  preset = "professional",
+  accent = "#2f6f8f"
+)
+\end{lstlisting}
+
+\textbf{Direct theme control}
+
+\begin{lstlisting}[style=rstyle]
+use_dash_theme(
+  bg = "#f5f6f8",
+  surface = "#ffffff",
+  accent = "#2f6f8f"
+)
+\end{lstlisting}
+
+\section*{Navbar Helpers}
+
+\begin{lstlisting}[style=rstyle]
+rightUi = tagList(
+  dash_nav_title(
+    "DASHBOARDS",
+    "Critical & Main",
+    icon = "shield-halved",
+    align = "center"
+  ),
+  dash_nav_item(
+    dash_nav_refresh_button("refresh")
+  ),
+  dash_nav_item(
+    dash_nav_help_button("help")
+  ),
+  dash_user_menu(
+    dropdownMenu(
+      type = "notifications",
+      notificationItem("Profile"),
+      notificationItem("Sign out")
+    )
+  )
+)
+\end{lstlisting}
+
+\section*{Footer}
+
+\begin{lstlisting}[style=rstyle]
+footer = dash_footer(
+  logo_src = NULL,
+  left_text = "My Organisation",
+  right_text = "Internal Use"
+)
+\end{lstlisting}
+
+\section*{Useful Helpers}
+
+\begin{lstlisting}[style=rstyle]
+app <- bs4dashkit_example_app()
+\end{lstlisting}
+
+\textbf{Global defaults}
+
+\begin{lstlisting}[style=rstyle]
+options(
+  bs4Dashkit.sidebar.collapsed =
+    "icon-only",
+  bs4Dashkit.sidebar.expanded =
+    "icon-text",
+  bs4Dashkit.theme_preset =
+    "professional"
+)
+\end{lstlisting}
+
+\section*{Links}
+
+Docs: \url{https://prigasg.github.io/bs4Dashkit/}
+
+Repo: \url{https://github.com/PrigasG/bs4Dashkit}
+
+\end{multicols}
+\end{document}

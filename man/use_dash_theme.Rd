@@ -11,6 +11,17 @@ use_dash_theme(
   text = "#1d1f23",
   muted = "#6b6f76",
   accent = "#2f6f8f",
+  accent_soft = "#e8f1f5",
+  navbar_bg = "#ffffff",
+  navbar_text = "#1d1f23",
+  sidebar_bg = "#ffffff",
+  sidebar_text = "#1d1f23",
+  sidebar_hover = "#eef4f7",
+  footer_bg = "#ffffff",
+  footer_text = "#6b6f76",
+  success = "#2d8a56",
+  warning = "#c37a14",
+  danger = "#b94a48",
   radius = 12,
   shadow = "0 1px 3px rgba(0,0,0,0.07)"
 )
@@ -27,6 +38,29 @@ use_dash_theme(
 \item{muted}{Muted text color.}
 
 \item{accent}{Accent color used for highlights and emphasis.}
+
+\item{accent_soft}{Softer accent tone used for subtle fills, hover states,
+and focus treatments.}
+
+\item{navbar_bg}{Navbar background color.}
+
+\item{navbar_text}{Navbar text color.}
+
+\item{sidebar_bg}{Sidebar background color.}
+
+\item{sidebar_text}{Sidebar text color.}
+
+\item{sidebar_hover}{Sidebar hover and active background color.}
+
+\item{footer_bg}{Footer background color.}
+
+\item{footer_text}{Footer text color.}
+
+\item{success}{Success accent color.}
+
+\item{warning}{Warning accent color.}
+
+\item{danger}{Danger accent color.}
 
 \item{radius}{Corner radius in pixels.}
 

@@ -50,6 +50,7 @@ dash_brand_ui <- function(
     effect      = c("none", "glow", "shimmer", "emboss"),
     glow_color  = NULL
 ) {
+  icon <- dashkit_normalize_icon(icon)
   icon_shape <- match.arg(icon_shape)
   effect     <- if (!is.null(gradient)) "gradient" else match.arg(effect)
 
@@ -244,6 +245,14 @@ dash_brand_ui <- function(
 #'   Keep <= 8 chars. NULL falls back to original DOM text (CSS truncates).
 #' @param expanded_text  Label for expanded "icon-text" or "text-only" mode.
 #'   Keep <= 30 chars. NULL falls back to original DOM text.
+#' @param collapsed_text_size Optional CSS font-size applied to the sidebar brand
+#'   label while collapsed.
+#' @param expanded_text_size Optional CSS font-size applied to the sidebar brand
+#'   label while expanded.
+#' @param collapsed_text_weight Optional CSS font-weight applied to the sidebar
+#'   brand label while collapsed.
+#' @param expanded_text_weight Optional CSS font-weight applied to the sidebar
+#'   brand label while expanded.
 #' @param debug Logical. If `TRUE`, prints helpful messages to the browser console
 #'   for diagnosing missing icons or brand label elements.
 #'
@@ -255,8 +264,13 @@ use_dash_sidebar_brand_mode <- function(
     expanded       = c("icon-text",  "icon-only", "text-only"),
     collapsed_text = NULL,
     expanded_text  = NULL,
+    collapsed_text_size = NULL,
+    expanded_text_size  = NULL,
+    collapsed_text_weight = NULL,
+    expanded_text_weight  = NULL,
     debug          = FALSE
 ) {
+  icon <- dashkit_normalize_icon(icon)
   collapsed <- match.arg(collapsed)
   expanded  <- match.arg(expanded)
 
@@ -266,6 +280,11 @@ use_dash_sidebar_brand_mode <- function(
   short     <- if (!is.null(collapsed_text)) collapsed_text else ""
   long      <- if (!is.null(expanded_text))  expanded_text  else ""
   icon_name <- if (!is.null(icon)) icon else ""
+
+  short_size   <- if (!is.null(collapsed_text_size)) as.character(collapsed_text_size) else ""
+  long_size    <- if (!is.null(expanded_text_size)) as.character(expanded_text_size) else ""
+  short_weight <- if (!is.null(collapsed_text_weight)) as.character(collapsed_text_weight) else ""
+  long_weight  <- if (!is.null(expanded_text_weight)) as.character(expanded_text_weight) else ""
 
   icon_collapsed <- tolower(collapsed) %in% c("icon-only", "icon-text")
   icon_expanded  <- tolower(expanded)  %in% c("icon-only", "icon-text")
@@ -277,6 +296,10 @@ use_dash_sidebar_brand_mode <- function(
       var ICON_NAME      = '%s';
       var SHORT          = '%s';
       var LONG           = '%s';
+      var SHORT_SIZE     = '%s';
+      var LONG_SIZE      = '%s';
+      var SHORT_WEIGHT   = '%s';
+      var LONG_WEIGHT    = '%s';
       var ICON_COLLAPSED = %s;
       var ICON_EXPANDED  = %s;
       var TEXT_COLLAPSED = %s;
@@ -329,9 +352,16 @@ use_dash_sidebar_brand_mode <- function(
         if(_orig === null) _orig = el.textContent;
         el.textContent = text !== '' ? text : _orig;
       }
+      function setLabelStyle(size, weight){
+        var el = getLabel();
+        if(!el) return;
+        el.style.fontSize = size !== '' ? size : '';
+        el.style.fontWeight = weight !== '' ? weight : '';
+      }
 
       function applyCollapsed(){
         setIconVisible(ICON_COLLAPSED);
+        setLabelStyle(SHORT_SIZE, SHORT_WEIGHT);
         if(TEXT_COLLAPSED){
           setLabelVisible(true);
           setLabelText(SHORT);
@@ -342,6 +372,7 @@ use_dash_sidebar_brand_mode <- function(
 
       function applyExpanded(){
         setIconVisible(ICON_EXPANDED);
+        setLabelStyle(LONG_SIZE, LONG_WEIGHT);
         if(TEXT_EXPANDED){
           setLabelVisible(true);
           setLabelText(LONG);
@@ -395,6 +426,10 @@ use_dash_sidebar_brand_mode <- function(
                      icon_name,
                      gsub("'", "\\\\'", short),
                      gsub("'", "\\\\'", long),
+                     gsub("'", "\\\\'", short_size),
+                     gsub("'", "\\\\'", long_size),
+                     gsub("'", "\\\\'", short_weight),
+                     gsub("'", "\\\\'", long_weight),
                      tolower(icon_collapsed),
                      tolower(icon_expanded),
                      tolower(text_collapsed),

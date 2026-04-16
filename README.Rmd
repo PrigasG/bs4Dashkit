@@ -12,7 +12,7 @@ Structured theming and navigation utilities for `{bs4Dash}` applications.
 -   Configurable collapsed / expanded sidebar modes
 -   Hover-expand sidebar behavior
 -   Subtle CSS-variable theming
--   Standardized navigation components (refresh, help, logout)
+-   Standardized navigation components (refresh, help, user menu)
 -   Lightweight dependency model compatible with native `{bs4Dash}` layouts
 
 ------------------------------------------------------------------------
@@ -35,7 +35,7 @@ library(bs4Dashkit)
 
 ttl <- dash_titles(
   brand_text = "OLTCR Dashboards",
-  icon = "project-diagram"
+  icon = icon("cloud")
 )
 
 ui <- bs4DashPage(
@@ -79,6 +79,27 @@ CSS variable-driven theming:
 
 ``` r
 use_dash_theme(accent = "#2f6f8f")
+bs4dashkit_theme_presets()
+```
+
+### New Ergonomics
+
+Recent additions make the package easier to wire up in real apps:
+
+``` r
+ttl <- dash_titles(
+  brand_text = "OLTCR Dashboards",
+  icon = icon("cloud"),
+  collapsed_text = "OLTCR",
+  expanded_text = "OLTCR Dashboards",
+  collapsed_text_size = "10px",
+  expanded_text_size = "15px",
+  collapsed_text_weight = 700,
+  expanded_text_weight = 800
+)
+
+bs4dashkit_theme_presets()
+bs4dashkit_example_app()
 ```
 
 ### Navigation Utilities
@@ -87,7 +108,7 @@ Prebuilt components:
 
 -   `dash_nav_refresh_button()`
 -   `dash_nav_help_button()`
--   `dash_nav_logout_button()`
+-   `dash_user_menu()`
 
 Server-side wiring example:
 

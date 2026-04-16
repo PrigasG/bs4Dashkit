@@ -36,4 +36,5 @@ A \code{shiny.tag.list} containing core CSS and/or JavaScript dependencies for b
 }
 \description{
 Recommended entry point for bs4Dashkit in bs4DashBody().
+For most apps, this should be the first element inside \code{bs4DashBody(...)}.
 }

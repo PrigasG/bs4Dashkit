@@ -58,3 +58,8 @@ test_that("dash_user_menu() returns a nav <li>", {
   expect_match(html, "<li", fixed = TRUE)
   expect_match(html, "dash-user-menu", fixed = TRUE)
 })
+
+test_that("bs4dashkit_example_app() returns a shiny app object", {
+  app <- bs4dashkit_example_app()
+  expect_s3_class(app, "shiny.appobj")
+})

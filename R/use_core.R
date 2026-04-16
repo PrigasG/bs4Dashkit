@@ -1,6 +1,7 @@
 #' Load bs4Dashkit core dependencies in one call
 #'
 #' Recommended entry point for bs4Dashkit in bs4DashBody().
+#' For most apps, this should be the first element inside `bs4DashBody(...)`.
 #'
 #' @param ttl Output from dash_titles()
 #' @param preset Optional theme preset name (e.g. "professional").
@@ -64,4 +65,51 @@ use_bs4Dashkit_core <- function(
       expanded_w  = expanded_w
     )
   )
+}
+
+#' Minimal bs4Dashkit example app
+#'
+#' Returns a tiny runnable `shiny.appobj` that demonstrates the recommended
+#' `dash_titles()` plus `use_bs4Dashkit_core()` flow.
+#'
+#' @return A `shiny.appobj`.
+#' @export
+bs4dashkit_example_app <- function() {
+  ttl <- dash_titles(
+    brand_text = "bs4Dashkit",
+    icon = "cloud",
+    expanded_text = "bs4Dashkit"
+  )
+
+  ui <- bs4Dash::bs4DashPage(
+    title = ttl$app_name,
+    header = bs4Dash::bs4DashNavbar(title = ttl$brand),
+    sidebar = bs4Dash::bs4DashSidebar(
+      bs4Dash::bs4SidebarMenu(
+        bs4Dash::bs4SidebarMenuItem(
+          "Dashboard",
+          tabName = "dashboard",
+          icon = shiny::icon("gauge-high")
+        )
+      )
+    ),
+    body = bs4Dash::bs4DashBody(
+      use_bs4Dashkit_core(ttl, preset = "professional"),
+      bs4Dash::bs4TabItems(
+        bs4Dash::bs4TabItem(
+          tabName = "dashboard",
+          shiny::fluidRow(
+            bs4Dash::bs4Card(
+              title = "Minimal Example",
+              width = 12,
+              "This app shows the recommended bs4Dashkit setup."
+            )
+          )
+        )
+      )
+    ),
+    footer = dash_footer(left_text = "bs4Dashkit example", logo_src = NULL)
+  )
+
+  shiny::shinyApp(ui, function(input, output, session) {})
 }
