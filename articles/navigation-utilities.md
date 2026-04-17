@@ -107,42 +107,6 @@ observeEvent(input$help, {
 })
 ```
 
-## Logout button
-
-Creates a pre-styled
-[`actionButton()`](https://rdrr.io/pkg/shiny/man/actionButton.html)
-intended to trigger an application-defined sign-out flow.
-
-``` r
-dash_nav_logout_button("logout")
-```
-
-**Server wiring (example pattern)**
-
-Sign-out behavior is application-specific (authentication, redirects,
-session cleanup). A typical UI pattern is a confirmation modal:
-
-``` r
-observeEvent(input$logout, {
-  showModal(modalDialog(
-    title  = "Sign out",
-    "Are you sure you want to sign out?",
-    footer = tagList(
-      modalButton("Cancel"),
-      actionButton("logout_confirm", "Sign out", 
-                   class = "btn btn-danger")
-    ),
-    easyClose = TRUE
-  ))
-})
-
-observeEvent(input$logout_confirm, {
-  removeModal()
-  # Your sign-out logic goes here (auth/session cleanup/redirect).
-  session$reload()
-})
-```
-
 ## `dash_nav_title()` — styled title block
 
 Renders a title block with optional subtitle and icon, designed for use
@@ -152,7 +116,7 @@ in `leftUi` or `rightUi.`
 dash_nav_title(
   title    = "DASHBOARDS",
   subtitle = "Critical & Main",
-  icon     = "shield-halved",            # Font Awesome icon name
+  icon     = icon("shield-halved"),
   align    = "center"                    # "center" | "left" | "right"
 )
 ```
@@ -166,7 +130,7 @@ other items:
 rightUi = tagList(
   dash_nav_title(
     "DASHBOARDS", "Critical & Main",
-    icon  = "shield-halved",
+    icon  = icon("shield-halved"),
     align = "center"
   ),
   dash_nav_item(dash_nav_refresh_button("refresh")),
@@ -182,7 +146,7 @@ rightUi = tagList(
   dash_nav_item(dash_nav_help_button("help")),
   dash_nav_title(
     "DASHBOARDS", "Critical & Main",
-    icon  = "shield-halved",
+    icon  = icon("shield-halved"),
     align = "right"
   )
 )
@@ -194,7 +158,7 @@ rightUi = tagList(
 rightUi = tagList(
   dash_nav_title(
     "DASHBOARDS", "Critical & Main",
-    icon  = "shield-halved",
+    icon  = icon("shield-halved"),
     align = "left"
   ),
   dash_nav_item(dash_nav_refresh_button("refresh")),
@@ -214,13 +178,11 @@ Because it already returns a `<li>`, **do not** wrap it in
 [`dash_nav_item()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_item.md).
 
 ``` r
-dash_nav_item(
-  dash_user_menu(
-    dropdownMenu(
-      type = "notifications",
-      notificationItem("Profile"),
-      notificationItem("Logout")
-    )
+dash_user_menu(
+  dropdownMenu(
+    type = "notifications",
+    notificationItem("Profile"),
+    notificationItem("Logout")
   )
 )
 ```
@@ -261,19 +223,16 @@ bs4DashNavbar(
     dash_nav_title(
       "DASHBOARDS",
       "Critical & Main",
-      icon  = "shield-halved",
+      icon  = icon("shield-halved"),
       align = "center"
     ),
     dash_nav_item(dash_nav_refresh_button("refresh")),
     dash_nav_item(dash_nav_help_button("help")),
-    dash_nav_item(dash_nav_logout_button("logout")),
-    dash_nav_item(
-      dash_user_menu(
-        dropdownMenu(
-          type = "notifications",
-          notificationItem("Profile"),
-          notificationItem("Sign out")
-        )
+    dash_user_menu(
+      dropdownMenu(
+        type = "notifications",
+        notificationItem("Profile"),
+        notificationItem("Sign out")
       )
     )
   )

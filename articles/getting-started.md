@@ -21,7 +21,7 @@ The package is organised around four areas:
     and named presets
 3.  **Navbar** —
     [`dash_nav_title()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_title.md),
-    refresh / help / logout buttons, user menu
+    refresh / help buttons, and user menu
 4.  **Footer** —
     [`dash_footer()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_footer.md)
     with flexible logo and text positioning
@@ -39,7 +39,7 @@ library(bs4Dash)
 library(bs4Dashkit)
 
 # 1. Build the brand object
-ttl <- dash_titles("My Dashboard")
+ttl <- dash_titles("My Dashboard", icon = icon("cloud"))
 
 ui <- bs4DashPage(
   title   = ttl$app_name,           # browser tab title
@@ -56,9 +56,20 @@ shinyApp(ui, server)
 
 [`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md)
 accepts a single string and sensible defaults handle everything else.
+When no icon is supplied, the sidebar brand defaults to text-only modes.
 [`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md)
 loads the CSS dependencies, activates the sidebar brand mode, and
 applies the default theme.
+
+If you prefer, you can also pass a simple
+[`shiny::icon()`](https://rdrr.io/pkg/shiny/man/icon.html) tag:
+
+``` r
+ttl <- dash_titles(
+  brand_text = "My Dashboard",
+  icon = icon("cloud")
+)
+```
 
 ------------------------------------------------------------------------
 
@@ -68,25 +79,45 @@ applies the default theme.
 is the single entry point for all brand-related configuration. It
 returns a named list with three slots:
 
-| Slot           | Where it goes                                                                                                                                         |
-|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `ttl$app_name` | `bs4DashPage(title = ...)`                                                                                                                            |
-| `ttl$brand`    | `bs4DashNavbar(title = ...)` (and/or `bs4DashSidebar(title = ...)`)                                                                                   |
-| `ttl$deps`     | inside `bs4DashBody(...)` (handled automatically by [`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md)) |
+| Slot           | Where it goes                                                                                                                                                           |
+|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ttl$app_name` | `bs4DashPage(title = ...)`                                                                                                                                              |
+| `ttl$brand`    | `bs4DashNavbar(title = ...)`; the sidebar brand mirrors this automatically in a standard [`bs4DashPage()`](https://bs4dash.rinterface.com/reference/dashboardPage.html) |
+| `ttl$deps`     | inside `bs4DashBody(...)` (handled automatically by [`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md))                   |
 
 ``` r
 ttl <- dash_titles(
   brand_text     = "OLTCR Dashboards",
-  icon           = "project-diagram",  # Font Awesome icon name
+  icon           = icon("project-diagram"),
   weight         = 700,
   effect         = "shimmer",          # "none" | "glow" | "shimmer" | "emboss"
   glow_color     = "#2f6f8f",
   size           = "20px",
   collapsed      = "icon-text",
   expanded       = "icon-text",
-  collapsed_text = "DT",               # shown when sidebar is collapsed
+  collapsed_text = "OLT",              # shown when sidebar is collapsed
   expanded_text  = "OLTCR Dashboards",
   brand_divider  = TRUE
+)
+```
+
+`brand_text` is the primary label for the app. It is always used for the
+navbar brand and is also the default expanded sidebar label. Use
+`expanded_text` only when the expanded sidebar should say something
+different, and use `collapsed_text` when the collapsed sidebar needs a
+shorter label. In practice, about 3 characters works best in the narrow
+collapsed sidebar.
+
+If you want a fully textless icon brand, set `brand_text = NULL` and
+keep both sidebar states at `"icon-only"`:
+
+``` r
+ttl <- dash_titles(
+  brand_text = NULL,
+  app_name   = "Icon Lab",
+  icon       = icon("cloud"),
+  collapsed  = "icon-only",
+  expanded   = "icon-only"
 )
 ```
 
@@ -125,8 +156,40 @@ Available presets:
 
 ``` r
 use_bs4Dashkit_core(ttl, preset = "professional")  # cool blue-grey (default)
-use_bs4Dashkit_core(ttl, preset = "vibrant")        # bolder accent colours
-use_bs4Dashkit_core(ttl, preset = "minimal")        # flat, low-contrast
+use_bs4Dashkit_core(ttl, preset = "modern")        # brighter accent colours
+use_bs4Dashkit_core(ttl, preset = "dark-lite")     # dark surfaces and lighter text
+bs4dashkit_theme_presets()                         # list built-in presets
+```
+
+For a runnable template app, use:
+
+``` r
+app <- bs4dashkit_example_app()
+```
+
+For a fuller interactive playground that exercises sidebar states, hover
+behavior, presets, navbar controls, and footer styling together, use:
+
+``` r
+app <- bs4dashkit_demo_app()
+```
+
+You can also launch the packaged example directory directly:
+
+``` r
+shiny::runApp(system.file("examples", "real-shiny-app", package = "bs4Dashkit"))
+```
+
+That packaged example contains the full app code directly in
+`inst/examples/real-shiny-app/app.R`, so it can be read, modified, and
+run as a standalone reference app.
+
+There is also a heavier shipped example that exercises the navbar title
+alignment controls, sidebar text sizing and weights, icon-only branding,
+and theme presets together:
+
+``` r
+shiny::runApp(system.file("examples", "test-all", package = "bs4Dashkit"))
 ```
 
 ------------------------------------------------------------------------
@@ -140,11 +203,11 @@ the sidebar is collapsed or expanded. Set these in
 ``` r
 ttl <- dash_titles(
   brand_text     = "OLTCR Dashboards",
-  icon           = "chart-line",
+  icon           = icon("chart-line"),
   collapsed      = "icon-only",       # just the icon when narrow
   expanded       = "icon-text",       # icon + label when wide
-  collapsed_text = "OL",
-  expanded_text  = "OLTCR Dashboards"
+  collapsed_text = "OLT",
+  expanded_text  = "OLTCR Dashboards" # optional; brand_text is the default
 )
 ```
 
@@ -224,8 +287,9 @@ can omit them from individual calls.
 
 - “Hover expand doesn’t work on mobile”-\> expected (touch devices)
 
-- “Sidebar labels disappear on hover” -\> indicates CSS overrides; use
-  shipped dash-sidebar.css
+- “Sidebar labels do not match the hover-expanded state” -\> update to
+  the current package version so the shipped hover-expanded sidebar
+  rules are used
 
 ## What next?
 
@@ -233,7 +297,7 @@ can omit them from individual calls.
   [`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md)
   arguments
 - **Theming and presets** — CSS variable overrides and custom presets
-- **Navigation utilities** — refresh, help, logout, user menu, and
+- **Navigation utilities** — refresh, help, user menu, and
   [`dash_nav_title()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_title.md)
 - **Footer** — all footer layout combinations
 - **Complete example app** — a single app that exercises every feature

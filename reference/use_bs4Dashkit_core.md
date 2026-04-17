@@ -1,6 +1,7 @@
 # Load bs4Dashkit core dependencies in one call
 
-Recommended entry point for bs4Dashkit in bs4DashBody().
+Recommended entry point for bs4Dashkit in bs4DashBody(). For most apps,
+this should be the first element inside `bs4DashBody(...)`.
 
 ## Usage
 

@@ -26,7 +26,7 @@ dash_nav_title(
 
 - icon:
 
-  Optional fontawesome icon name, e.g. "shield-halved"
+  Optional Font Awesome icon name or simple `icon("shield-halved")` tag.
 
 - align:
 

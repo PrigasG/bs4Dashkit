@@ -24,7 +24,7 @@ and bs4DashBody()."><meta property="og:image" content="https://PrigasG.github.io
 
     <a class="navbar-brand me-2" href="../index.html">bs4Dashkit</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,6 +77,10 @@ and <code><a href="https://bs4dash.rinterface.com/reference/dashboardBody.html" 
 <span>  expanded <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  collapsed_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  expanded_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  collapsed_text_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  expanded_text_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  collapsed_text_weight <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  expanded_text_weight <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  brand_divider <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  debug <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -87,15 +91,19 @@ and <code><a href="https://bs4dash.rinterface.com/reference/dashboardBody.html" 
 
 
 <dl><dt id="arg-brand-text">brand_text<a class="anchor" aria-label="anchor" href="#arg-brand-text"></a></dt>
-<dd><p>Visible brand label shown in the navbar/sidebar.</p></dd>
+<dd><p>Visible brand label shown in the navbar/sidebar. May be
+<code>NULL</code> only when both sidebar modes are <code>"icon-only"</code> and an
+icon or image logo is supplied.</p></dd>
 
 
 <dt id="arg-app-name">app_name<a class="anchor" aria-label="anchor" href="#arg-app-name"></a></dt>
-<dd><p>Browser tab title. If <code>NULL</code>, defaults to <code>brand_text</code>.</p></dd>
+<dd><p>Browser tab title. If <code>NULL</code>, defaults to
+<code>brand_text</code>, or <code>"bs4Dashkit"</code> when <code>brand_text</code> is empty.</p></dd>
 
 
 <dt id="arg-icon">icon<a class="anchor" aria-label="anchor" href="#arg-icon"></a></dt>
-<dd><p>Font Awesome icon name for the brand (e.g. <code>"project-diagram"</code>).
+<dd><p>Font Awesome icon name for the brand (for example
+<code>"project-diagram"</code>) or a simple <code>icon("project-diagram")</code> tag.
 Ignored when <code>icon_img</code> is supplied.</p></dd>
 
 
@@ -175,6 +183,26 @@ option <code>bs4Dashkit.sidebar.expanded</code>.</p></dd>
 <dd><p>Label used in expanded mode (recommended &lt;= 30 chars).</p></dd>
 
 
+<dt id="arg-collapsed-text-size">collapsed_text_size<a class="anchor" aria-label="anchor" href="#arg-collapsed-text-size"></a></dt>
+<dd><p>Optional CSS font-size applied only to the sidebar
+brand label while collapsed (for example <code>"11px"</code> or <code>"0.75rem"</code>).</p></dd>
+
+
+<dt id="arg-expanded-text-size">expanded_text_size<a class="anchor" aria-label="anchor" href="#arg-expanded-text-size"></a></dt>
+<dd><p>Optional CSS font-size applied only to the sidebar
+brand label while expanded.</p></dd>
+
+
+<dt id="arg-collapsed-text-weight">collapsed_text_weight<a class="anchor" aria-label="anchor" href="#arg-collapsed-text-weight"></a></dt>
+<dd><p>Optional CSS font-weight applied only to the
+sidebar brand label while collapsed.</p></dd>
+
+
+<dt id="arg-expanded-text-weight">expanded_text_weight<a class="anchor" aria-label="anchor" href="#arg-expanded-text-weight"></a></dt>
+<dd><p>Optional CSS font-weight applied only to the
+sidebar brand label while expanded.</p></dd>
+
+
 <dt id="arg-brand-divider">brand_divider<a class="anchor" aria-label="anchor" href="#arg-brand-divider"></a></dt>
 <dd><p>Logical. If <code>TRUE</code>, shows a divider under the brand block.
 If <code>NULL</code>, uses option <code>bs4Dashkit.brand_divider</code>.</p></dd>
@@ -191,7 +219,7 @@ If <code>NULL</code>, uses option <code>bs4Dashkit.debug</code>.</p></dd>
 <dd><p>A character string for use in <code>bs4DashPage(title = ...)</code>.</p></dd>
 
 <dt>brand</dt>
-<dd><p>A <code>shiny.tag</code> object for use in <code>bs4DashNavbar(title = ...)</code> and, if desired, as sidebar title UI.</p></dd>
+<dd><p>A <code>shiny.tag</code> object for use in <code>bs4DashNavbar(title = ...)</code>. In a standard <code><a href="https://bs4dash.rinterface.com/reference/dashboardPage.html" class="external-link">bs4DashPage()</a></code>, the sidebar brand mirrors the navbar brand automatically.</p></dd>
 
 <dt>deps</dt>
 <dd><p>A <code>shiny.tag.list</code> containing CSS and JavaScript dependencies to include once in <code>bs4DashBody(...)</code>.</p></dd>

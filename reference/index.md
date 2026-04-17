@@ -23,6 +23,8 @@
 
 ## Theming
 
+- [`bs4dashkit_theme_presets()`](https://PrigasG.github.io/bs4Dashkit/reference/bs4dashkit_theme_presets.md)
+  : Built-in bs4Dashkit theme presets
 - [`use_dash_theme()`](https://PrigasG.github.io/bs4Dashkit/reference/use_dash_theme.md)
   : Apply a theme via CSS variables
 - [`use_dash_theme_preset()`](https://PrigasG.github.io/bs4Dashkit/reference/use_dash_theme_preset.md)
@@ -45,3 +47,10 @@
 
 - [`dash_footer()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_footer.md)
   : Standard footer for bs4Dash dashboards
+
+## Example Apps
+
+- [`bs4dashkit_example_app()`](https://PrigasG.github.io/bs4Dashkit/reference/bs4dashkit_example_app.md)
+  : Minimal bs4Dashkit example app
+- [`bs4dashkit_demo_app()`](https://PrigasG.github.io/bs4Dashkit/reference/bs4dashkit_demo_app.md)
+  : Interactive bs4Dashkit demo app

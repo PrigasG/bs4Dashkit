@@ -12,6 +12,10 @@ use_dash_sidebar_brand_mode(
   expanded = c("icon-text", "icon-only", "text-only"),
   collapsed_text = NULL,
   expanded_text = NULL,
+  collapsed_text_size = NULL,
+  expanded_text_size = NULL,
+  collapsed_text_weight = NULL,
+  expanded_text_weight = NULL,
   debug = FALSE
 )
 ```
@@ -20,8 +24,9 @@ use_dash_sidebar_brand_mode(
 
 - icon:
 
-  Font Awesome icon name used in the brand, e.g. "shield-halved".
-  Required when any mode includes "icon".
+  Font Awesome icon name used in the brand, e.g. "shield-halved", or a
+  simple `icon("shield-halved")` tag. Required when any mode includes
+  "icon".
 
 - collapsed:
 
@@ -36,12 +41,40 @@ use_dash_sidebar_brand_mode(
 - collapsed_text:
 
   Short label for collapsed "icon-text" or "text-only" mode. Keep \<= 8
-  chars. NULL falls back to original DOM text (CSS truncates).
+  chars. NULL falls back to the current brand label already present in
+  the DOM. When using
+  [`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md),
+  the higher-level helper usually resolves this to `brand_text` for
+  visible text modes.
 
 - expanded_text:
 
   Label for expanded "icon-text" or "text-only" mode. Keep \<= 30 chars.
-  NULL falls back to original DOM text.
+  NULL falls back to the current brand label already present in the DOM.
+  When using
+  [`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md),
+  the higher-level helper usually resolves this to `brand_text` for
+  visible text modes.
+
+- collapsed_text_size:
+
+  Optional CSS font-size applied to the sidebar brand label while
+  collapsed.
+
+- expanded_text_size:
+
+  Optional CSS font-size applied to the sidebar brand label while
+  expanded.
+
+- collapsed_text_weight:
+
+  Optional CSS font-weight applied to the sidebar brand label while
+  collapsed.
+
+- expanded_text_weight:
+
+  Optional CSS font-weight applied to the sidebar brand label while
+  expanded.
 
 - debug:
 

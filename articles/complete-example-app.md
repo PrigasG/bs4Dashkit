@@ -9,6 +9,11 @@ This article shows a complete, self-contained
 every major `bs4Dashkit` feature: branding, sidebar modes, hover-expand,
 a theme preset, the full navbar toolkit, and a footer.
 
+For an interactive version with live controls, run
+[`bs4dashkit_demo_app()`](https://PrigasG.github.io/bs4Dashkit/reference/bs4dashkit_demo_app.md)
+or open
+`system.file("examples", "real-shiny-app", package = "bs4Dashkit")`.
+
 Copy the code below into a new R script and run it directly with
 [`shiny::runApp()`](https://rdrr.io/pkg/shiny/man/runApp.html).
 
@@ -22,7 +27,7 @@ library(bs4Dashkit)
 # 1. Build the brand / sidebar configuration object
 ttl <- dash_titles(
   brand_text     = "Test Dashboard",
-  icon           = "project-diagram",
+  icon           = icon("project-diagram"),
   weight         = 700,
   effect         = "shimmer",
   glow_color     = "#2f6f8f",
@@ -30,7 +35,7 @@ ttl <- dash_titles(
   italic         = FALSE,
   collapsed      = "icon-text",
   expanded       = "icon-text",
-  collapsed_text = "DT",
+  collapsed_text = "TDB",
   expanded_text  = "Dashboard",
   brand_divider  = TRUE
 )
@@ -46,7 +51,7 @@ ui <- bs4DashPage(
       dash_nav_title(
         "OLTCR DASHBOARDS",
         "Mission Critical & LTC Main",
-        icon  = "shield-halved",
+        icon  = icon("shield-halved"),
         align = "center"
       ),
       dash_nav_item(dash_nav_refresh_button("refresh")),

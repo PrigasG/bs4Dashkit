@@ -31,6 +31,10 @@ dash_titles(
   expanded = NULL,
   collapsed_text = NULL,
   expanded_text = NULL,
+  collapsed_text_size = NULL,
+  expanded_text_size = NULL,
+  collapsed_text_weight = NULL,
+  expanded_text_weight = NULL,
   brand_divider = NULL,
   debug = NULL
 )
@@ -40,16 +44,20 @@ dash_titles(
 
 - brand_text:
 
-  Visible brand label shown in the navbar/sidebar.
+  Visible brand label shown in the navbar/sidebar. May be `NULL` only
+  when both sidebar modes are `"icon-only"` and an icon or image logo is
+  supplied.
 
 - app_name:
 
-  Browser tab title. If `NULL`, defaults to `brand_text`.
+  Browser tab title. If `NULL`, defaults to `brand_text`, or
+  `"bs4Dashkit"` when `brand_text` is empty.
 
 - icon:
 
-  Font Awesome icon name for the brand (e.g. `"project-diagram"`).
-  Ignored when `icon_img` is supplied.
+  Font Awesome icon name for the brand (for example `"project-diagram"`)
+  or a simple `icon("project-diagram")` tag. Ignored when `icon_img` is
+  supplied.
 
 - icon_img:
 
@@ -129,6 +137,26 @@ dash_titles(
 
   Label used in expanded mode (recommended \<= 30 chars).
 
+- collapsed_text_size:
+
+  Optional CSS font-size applied only to the sidebar brand label while
+  collapsed (for example `"11px"` or `"0.75rem"`).
+
+- expanded_text_size:
+
+  Optional CSS font-size applied only to the sidebar brand label while
+  expanded.
+
+- collapsed_text_weight:
+
+  Optional CSS font-weight applied only to the sidebar brand label while
+  collapsed.
+
+- expanded_text_weight:
+
+  Optional CSS font-weight applied only to the sidebar brand label while
+  expanded.
+
 - brand_divider:
 
   Logical. If `TRUE`, shows a divider under the brand block. If `NULL`,
@@ -149,8 +177,10 @@ A named list with components:
 
 - brand:
 
-  A `shiny.tag` object for use in `bs4DashNavbar(title = ...)` and, if
-  desired, as sidebar title UI.
+  A `shiny.tag` object for use in `bs4DashNavbar(title = ...)`. In a
+  standard
+  [`bs4DashPage()`](https://bs4dash.rinterface.com/reference/dashboardPage.html),
+  the sidebar brand mirrors the navbar brand automatically.
 
 - deps:
 

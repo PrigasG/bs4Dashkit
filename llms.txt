@@ -9,7 +9,7 @@ Structured theming and navigation utilities for
 - Configurable collapsed / expanded sidebar modes
 - Hover-expand sidebar behavior
 - Subtle CSS-variable theming
-- Standardized navigation components (refresh, help, logout)
+- Standardized navigation components (refresh, help, user menu)
 - Lightweight dependency model compatible with native
   [bs4Dash](https://github.com/RinteRface/bs4Dash) layouts
 
@@ -33,7 +33,9 @@ library(bs4Dashkit)
 
 ttl <- dash_titles(
   brand_text = "OLTCR Dashboards",
-  icon = "project-diagram"
+  icon = icon("cloud"),
+  collapsed = "icon-only",
+  expanded = "icon-text"
 )
 
 ui <- bs4DashPage(
@@ -71,6 +73,12 @@ shinyApp(ui, server)
 
 Fully configurable for collapsed and expanded states.
 
+`brand_text` is the primary label. It is used in the navbar and, by
+default, as the expanded sidebar label. The sidebar brand mirrors the
+navbar title you pass to `bs4DashNavbar(title = ttl$brand)`. Use
+`collapsed_text` only when you want a very short label in the narrow
+collapsed sidebar. In practice, about 3 characters works best.
+
 ### Theme System
 
 CSS variable-driven theming:
@@ -79,13 +87,52 @@ CSS variable-driven theming:
 use_dash_theme(accent = "#2f6f8f")
 ```
 
+### New Ergonomics
+
+Recent additions make the package easier to wire up in real apps:
+
+``` r
+ttl <- dash_titles(
+  brand_text = "OLTCR Dashboards",
+  icon = icon("cloud"),
+  collapsed_text = "OLT",
+  expanded_text = "OLTCR Dashboards", # optional; brand_text is the default
+  collapsed_text_size = "10px",
+  expanded_text_size = "15px",
+  collapsed_text_weight = 700,
+  expanded_text_weight = 800
+)
+
+bs4dashkit_theme_presets()
+bs4dashkit_example_app()
+bs4dashkit_demo_app()
+```
+
+For a textless icon brand in both sidebar states:
+
+``` r
+ttl <- dash_titles(
+  brand_text = NULL,
+  app_name = "Icon Lab",
+  icon = icon("cloud"),
+  collapsed = "icon-only",
+  expanded = "icon-only"
+)
+```
+
 ### Navigation Utilities
 
 Prebuilt components:
 
 - [`dash_nav_refresh_button()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_refresh_button.md)
 - [`dash_nav_help_button()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_help_button.md)
-- `dash_nav_logout_button()`
+- [`dash_user_menu()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_user_menu.md)
+
+Available presets:
+
+``` r
+bs4dashkit_theme_presets()
+```
 
 Server-side wiring example:
 
@@ -100,6 +147,29 @@ observeEvent(input$refresh, session$reload())
 Full documentation and examples are available at:
 
 <https://prigasg.github.io/bs4Dashkit/>
+
+For a fuller interactive demo, run:
+
+``` r
+bs4dashkit_demo_app()
+```
+
+or open the packaged example app file:
+
+``` r
+shiny::runApp(system.file("examples", "real-shiny-app", package = "bs4Dashkit"))
+```
+
+For a heavier stress-test example that exercises the shipped features
+together:
+
+``` r
+shiny::runApp(system.file("examples", "test-all", package = "bs4Dashkit"))
+```
+
+That packaged example is now a standalone full app source file, not just
+a wrapper around
+[`bs4dashkit_demo_app()`](https://PrigasG.github.io/bs4Dashkit/reference/bs4dashkit_demo_app.md).
 
 ------------------------------------------------------------------------
 
@@ -139,6 +209,8 @@ preset, navbar tools, footer) is included in the documentation site:
 
 ## Theming
 
+- [`bs4dashkit_theme_presets()`](https://PrigasG.github.io/bs4Dashkit/reference/bs4dashkit_theme_presets.md)
+  : Built-in bs4Dashkit theme presets
 - [`use_dash_theme()`](https://PrigasG.github.io/bs4Dashkit/reference/use_dash_theme.md)
   : Apply a theme via CSS variables
 - [`use_dash_theme_preset()`](https://PrigasG.github.io/bs4Dashkit/reference/use_dash_theme_preset.md)
@@ -161,6 +233,13 @@ preset, navbar tools, footer) is included in the documentation site:
 
 - [`dash_footer()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_footer.md)
   : Standard footer for bs4Dash dashboards
+
+## Example Apps
+
+- [`bs4dashkit_example_app()`](https://PrigasG.github.io/bs4Dashkit/reference/bs4dashkit_example_app.md)
+  : Minimal bs4Dashkit example app
+- [`bs4dashkit_demo_app()`](https://PrigasG.github.io/bs4Dashkit/reference/bs4dashkit_demo_app.md)
+  : Interactive bs4Dashkit demo app
 
 # Articles
 

@@ -23,16 +23,21 @@ body = bs4DashBody(
 )
 ```
 
-| Preset           | Character                                     |
-|------------------|-----------------------------------------------|
-| `"professional"` | Cool blue-grey, medium contrast, soft shadows |
-| `"vibrant"`      | Stronger accent colors, higher contrast       |
-| `"minimal"`      | Flat, low-contrast neutrals, minimal shadows  |
+| Preset           | Character                                           |
+|------------------|-----------------------------------------------------|
+| `"professional"` | Cool blue-grey, medium contrast, soft shadows       |
+| `"modern"`       | Brighter neutrals with a stronger blue accent       |
+| `"dark-lite"`    | Dark surfaces with lighter text and a violet accent |
 
 If `preset = NULL`,
 [`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md)
 falls back to the option `bs4Dashkit.theme_preset` (if set). If no
 option is set, it applies the base theme.
+
+Each preset now carries a fuller set of theme tokens so the dashboard
+chrome feels more intentional out of the box: navbar, sidebar, footer,
+muted text, links, and status colors are all coordinated with the base
+palette instead of only changing the main surface colors.
 
 ## Accent overrides
 
@@ -115,18 +120,24 @@ Apply a preset independently (useful when switching themes at runtime):
 ``` r
 body = bs4DashBody(
   use_bs4Dashkit_core(ttl, preset = NULL),  # load core, no preset
-  use_dash_theme_preset("vibrant"),         # apply preset explicitly
+  use_dash_theme_preset("modern"),         # apply preset explicitly
   # ...
 )
 ```
 
-## `theme_presets()`
+## `bs4dashkit_theme_presets()`
 
 List available presets and their CSS variable values:
 
 ``` r
-theme_presets()
+bs4dashkit_theme_presets()
+bs4dashkit_theme_presets(values = TRUE)
 ```
+
+This helper is useful for populating select controls, validating user
+input, and avoiding guesswork about preset names while coding. With
+`values = TRUE`, it also returns the underlying token lists so you can
+inspect or programmatically reuse the shipped palette values.
 
 ## Example: user-selectable presets
 
@@ -135,7 +146,7 @@ library(shiny)
 library(bs4Dash)
 library(bs4Dashkit)
 
-ttl <- dash_titles("My App", icon = "palette")
+ttl <- dash_titles("My App", icon = icon("palette"))
 
 ui <- bs4DashPage(
   title   = ttl$app_name,
@@ -149,7 +160,7 @@ ui <- bs4DashPage(
     use_bs4Dashkit_core(ttl, preset = "professional"),
     selectInput(
       "theme_choice", "Theme",
-      choices  = c("professional", "vibrant", "minimal"),
+      choices  = c("professional", "modern", "dark-lite"),
       selected = "professional"
     ),
     uiOutput("theme_css"),

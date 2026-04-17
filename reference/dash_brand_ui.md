@@ -29,11 +29,12 @@ dash_brand_ui(
 
 - brand_text:
 
-  Visible brand label (character)
+  Visible brand label (character). May be `NULL` for icon-only brands.
 
 - icon:
 
-  Font Awesome icon name e.g. "shield-halved". NULL for none.
+  Font Awesome icon name e.g. "shield-halved", or a simple
+  `icon("shield-halved")` tag. NULL for none.
 
 - icon_img:
 

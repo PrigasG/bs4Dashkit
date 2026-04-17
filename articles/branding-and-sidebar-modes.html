@@ -40,7 +40,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bs4Dashkit</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,9 +87,9 @@ and sidebar behaviour. It returns a list you destructure into the three
 placement slots described below.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ttl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_titles.html">dash_titles</a></span><span class="op">(</span></span>
-<span>  brand_text     <span class="op">=</span> <span class="st">"My App"</span>,       <span class="co"># required: visible brand label</span></span>
+<span>  brand_text     <span class="op">=</span> <span class="st">"My App"</span>,       <span class="co"># primary navbar label and default expanded sidebar label</span></span>
 <span>  app_name       <span class="op">=</span> <span class="cn">NULL</span>,            <span class="co"># browser tab title; defaults to brand_text</span></span>
-<span>  icon           <span class="op">=</span> <span class="cn">NULL</span>,            <span class="co"># Font Awesome icon name e.g. "shield-halved"</span></span>
+<span>  icon           <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"shield-halved"</span><span class="op">)</span>, <span class="co"># or a Font Awesome name like "shield-halved"</span></span>
 <span>  icon_img       <span class="op">=</span> <span class="cn">NULL</span>,            <span class="co"># image path — overrides icon when set</span></span>
 <span>  icon_shape     <span class="op">=</span> <span class="st">"circle"</span>,        <span class="co"># "circle" | "rounded" | "square"</span></span>
 <span>  icon_size      <span class="op">=</span> <span class="cn">NULL</span>,            <span class="co"># CSS size e.g. "22px"</span></span>
@@ -105,8 +105,8 @@ placement slots described below.</p>
 <span>  glow_color     <span class="op">=</span> <span class="cn">NULL</span>,            <span class="co"># colour for glow / shimmer</span></span>
 <span>  collapsed      <span class="op">=</span> <span class="st">"icon-only"</span>,     <span class="co"># brand mode when sidebar is collapsed</span></span>
 <span>  expanded       <span class="op">=</span> <span class="st">"icon-text"</span>,     <span class="co"># brand mode when sidebar is expanded</span></span>
-<span>  collapsed_text <span class="op">=</span> <span class="cn">NULL</span>,            <span class="co"># short label for collapsed icon-text/text-only</span></span>
-<span>  expanded_text  <span class="op">=</span> <span class="cn">NULL</span>             <span class="co"># full label for expanded icon-text/text-only</span></span>
+<span>  collapsed_text <span class="op">=</span> <span class="cn">NULL</span>,            <span class="co"># optional short label for collapsed icon-text/text-only</span></span>
+<span>  expanded_text  <span class="op">=</span> <span class="cn">NULL</span>             <span class="co"># optional expanded override; defaults to brand_text</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="return-value">Return value<a class="anchor" aria-label="anchor" href="#return-value"></a>
@@ -132,8 +132,9 @@ placement slots described below.</p>
 <td><code>ttl$brand</code></td>
 <td><code>tagList</code></td>
 <td>
-<code>bs4DashNavbar(title = ttl$brand)</code> (and/or
-<code>bs4DashSidebar(title = ttl$brand)</code>)</td>
+<code>bs4DashNavbar(title = ttl$brand)</code>; the sidebar brand
+mirrors this automatically in a standard <code><a href="https://bs4dash.rinterface.com/reference/dashboardPage.html" class="external-link">bs4DashPage()</a></code>
+</td>
 </tr>
 <tr class="odd">
 <td><code>ttl$deps</code></td>
@@ -156,7 +157,7 @@ placement slots described below.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ttl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_titles.html">dash_titles</a></span><span class="op">(</span></span>
 <span>  brand_text <span class="op">=</span> <span class="st">"My App"</span>,</span>
-<span>  icon       <span class="op">=</span> <span class="st">"chart-line"</span>,</span>
+<span>  icon       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"chart-line"</span><span class="op">)</span>,</span>
 <span>  icon_color <span class="op">=</span> <span class="st">"#2f6f8f"</span>,</span>
 <span>  icon_size  <span class="op">=</span> <span class="st">"20px"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -222,6 +223,13 @@ combinable independently for each state.</p>
 </tr>
 </tbody>
 </table>
+<p><code>brand_text</code> is the default expanded sidebar label. Reach
+for <code>collapsed_text</code> when the narrow sidebar needs a shorter
+label, and use <code>expanded_text</code> only when the expanded sidebar
+should differ from <code>brand_text</code>. In practice, collapsed
+labels work best at about 3 characters or fewer. When
+<code>collapsed = "text-only"</code>, the text is centered in the
+collapsed brand strip.</p>
 <div class="section level3">
 <h3 id="common-combinations">Common combinations<a class="anchor" aria-label="anchor" href="#common-combinations"></a>
 </h3>
@@ -229,26 +237,34 @@ combinable independently for each state.</p>
 <code class="sourceCode R"><span><span class="co"># Compact when collapsed, full when expanded (recommended default)</span></span>
 <span><span class="va">ttl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_titles.html">dash_titles</a></span><span class="op">(</span></span>
 <span>  brand_text     <span class="op">=</span> <span class="st">"Test Dashboard"</span>,</span>
-<span>  icon           <span class="op">=</span> <span class="st">"project-diagram"</span>,</span>
+<span>  icon           <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"project-diagram"</span><span class="op">)</span>,</span>
 <span>  collapsed      <span class="op">=</span> <span class="st">"icon-only"</span>,</span>
-<span>  expanded       <span class="op">=</span> <span class="st">"icon-text"</span>,</span>
-<span>  expanded_text  <span class="op">=</span> <span class="st">"Dashboard"</span></span>
+<span>  expanded       <span class="op">=</span> <span class="st">"icon-text"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Show abbreviated text when collapsed</span></span>
 <span><span class="va">ttl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_titles.html">dash_titles</a></span><span class="op">(</span></span>
 <span>  brand_text     <span class="op">=</span> <span class="st">"OLTCR Dashboards"</span>,</span>
-<span>  icon           <span class="op">=</span> <span class="st">"project-diagram"</span>,</span>
+<span>  icon           <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"project-diagram"</span><span class="op">)</span>,</span>
 <span>  collapsed      <span class="op">=</span> <span class="st">"icon-text"</span>,</span>
 <span>  expanded       <span class="op">=</span> <span class="st">"icon-text"</span>,</span>
-<span>  collapsed_text <span class="op">=</span> <span class="st">"DT"</span>,             <span class="co"># ≤ 8 chars recommended</span></span>
+<span>  collapsed_text <span class="op">=</span> <span class="st">"OLT"</span>,            <span class="co"># about 3 chars works best</span></span>
 <span>  expanded_text  <span class="op">=</span> <span class="st">"OLTCR Dashboards"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Icon only in both states</span></span>
 <span><span class="va">ttl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_titles.html">dash_titles</a></span><span class="op">(</span></span>
 <span>  brand_text <span class="op">=</span> <span class="st">"OLTCR Dashboards"</span>,</span>
-<span>  icon       <span class="op">=</span> <span class="st">"project-diagram"</span>,</span>
+<span>  icon       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"project-diagram"</span><span class="op">)</span>,</span>
+<span>  collapsed  <span class="op">=</span> <span class="st">"icon-only"</span>,</span>
+<span>  expanded   <span class="op">=</span> <span class="st">"icon-only"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Textless icon brand in both states</span></span>
+<span><span class="va">ttl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_titles.html">dash_titles</a></span><span class="op">(</span></span>
+<span>  brand_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  app_name   <span class="op">=</span> <span class="st">"Icon Lab"</span>,</span>
+<span>  icon       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"cloud"</span><span class="op">)</span>,</span>
 <span>  collapsed  <span class="op">=</span> <span class="st">"icon-only"</span>,</span>
 <span>  expanded   <span class="op">=</span> <span class="st">"icon-only"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -291,7 +307,7 @@ menu:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ttl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_titles.html">dash_titles</a></span><span class="op">(</span></span>
 <span>  brand_text    <span class="op">=</span> <span class="st">"My App"</span>,</span>
-<span>  icon          <span class="op">=</span> <span class="st">"chart-line"</span>,</span>
+<span>  icon          <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"chart-line"</span><span class="op">)</span>,</span>
 <span>  brand_divider <span class="op">=</span> <span class="cn">TRUE</span>           <span class="co"># default TRUE (can be disabled)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -325,7 +341,7 @@ what differs from the project default.</p>
 <span></span>
 <span><span class="va">ttl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_titles.html">dash_titles</a></span><span class="op">(</span></span>
 <span>  brand_text     <span class="op">=</span> <span class="st">"Test Dashboard"</span>,</span>
-<span>  icon           <span class="op">=</span> <span class="st">"project-diagram"</span>,</span>
+<span>  icon           <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"project-diagram"</span><span class="op">)</span>,</span>
 <span>  weight         <span class="op">=</span> <span class="fl">700</span>,</span>
 <span>  effect         <span class="op">=</span> <span class="st">"shimmer"</span>,</span>
 <span>  glow_color     <span class="op">=</span> <span class="st">"#2f6f8f"</span>,</span>

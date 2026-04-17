@@ -22,7 +22,7 @@ and optional visual effects. Supports Font Awesome icons or image logos."><meta 
 
     <a class="navbar-brand me-2" href="../index.html">bs4Dashkit</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,11 +77,13 @@ and optional visual effects. Supports Font Awesome icons or image logos.</p>
 
 
 <dl><dt id="arg-brand-text">brand_text<a class="anchor" aria-label="anchor" href="#arg-brand-text"></a></dt>
-<dd><p>Visible brand label (character)</p></dd>
+<dd><p>Visible brand label (character). May be <code>NULL</code> for
+icon-only brands.</p></dd>
 
 
 <dt id="arg-icon">icon<a class="anchor" aria-label="anchor" href="#arg-icon"></a></dt>
-<dd><p>Font Awesome icon name e.g. "shield-halved". NULL for none.</p></dd>
+<dd><p>Font Awesome icon name e.g. "shield-halved", or a simple
+<code>icon("shield-halved")</code> tag. NULL for none.</p></dd>
 
 
 <dt id="arg-icon-img">icon_img<a class="anchor" aria-label="anchor" href="#arg-icon-img"></a></dt>

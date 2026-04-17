@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bs4Dashkit</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,17 +44,58 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.0" id="bs4dashkit-010">bs4Dashkit 0.1.0<a class="anchor" aria-label="anchor" href="#bs4dashkit-010"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.2.0" id="bs4dashkit-020">bs4Dashkit 0.2.0<a class="anchor" aria-label="anchor" href="#bs4dashkit-020"></a></h2>
+<div class="section level3">
+<h3 id="ergonomics-and-discoverability-0-2-0">Ergonomics and discoverability<a class="anchor" aria-label="anchor" href="#ergonomics-and-discoverability-0-2-0"></a></h3>
+<ul><li><p><code><a href="../reference/dash_titles.html">dash_titles()</a></code> now accepts simple <code><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">shiny::icon()</a></code> inputs in addition to character icon names, and emits a more targeted error when <code>icon=</code> receives an unsupported object.</p></li>
+<li><p>Added sidebar brand text controls for collapsed and expanded states: <code>collapsed_text_size</code>, <code>expanded_text_size</code>, <code>collapsed_text_weight</code>, and <code>expanded_text_weight</code>.</p></li>
+<li><p>Added <code><a href="../reference/bs4dashkit_theme_presets.html">bs4dashkit_theme_presets()</a></code> to list shipped theme presets and improved unknown-preset errors to enumerate valid choices.</p></li>
+<li><p>Polished the built-in theme presets so they style navbar, sidebar, footer, link, and status colors more coherently, and extended <code>bs4dashkit_theme_presets(values = TRUE)</code> to expose the shipped preset tokens for inspection and customization.</p></li>
+<li><p>Added <code><a href="../reference/bs4dashkit_example_app.html">bs4dashkit_example_app()</a></code> as a minimal runnable example of the recommended <code><a href="../reference/dash_titles.html">dash_titles()</a></code> + <code><a href="../reference/use_bs4Dashkit_core.html">use_bs4Dashkit_core()</a></code> workflow.</p></li>
+<li><p>Added <code><a href="../reference/bs4dashkit_demo_app.html">bs4dashkit_demo_app()</a></code> plus a packaged <code>inst/examples/real-shiny-app/app.R</code> example for interactively testing sidebar brand states, hover-expand behavior, presets, navbar controls, and footer styling together. The packaged example now contains the full standalone app code directly.</p></li>
+<li><p>Added <code>inst/examples/sidebar-smoke-test/app.R</code> as a minimal sidebar verification app and <code>inst/examples/test-all/app.R</code> as a heavier end-to-end stress test for branding, sidebar, navbar, theme, and footer features.</p></li>
+<li><p>Refined sidebar brand state handling so hover-expanded sidebars use the expanded text rules consistently, <code>brand_text</code> is treated as the default expanded label, and icon-requested states fall back more gracefully when no icon is supplied.</p></li>
+<li><p>Fixed reactive sidebar mode updates by clearing stale collapsed/expanded body classes before applying the current mode and cleaning up old observers and hover listeners before installing new ones.</p></li>
+<li><p>Fixed collapsed and expanded sidebar text sizing and weight controls so live updates consistently win over AdminLTE defaults, and centered the collapsed <code>"text-only"</code> label layout.</p></li>
+<li><p>Allowed <code>brand_text = NULL</code> for fully icon-only brands when both sidebar states are <code>"icon-only"</code> and an icon or image brand is supplied, with a browser-title fallback warning when <code>app_name</code> is omitted.</p></li>
+<li><p>Improved <code><a href="../reference/dash_nav_title.html">dash_nav_title()</a></code> centering so the title stays visually centered as the viewport and surrounding navbar content change, and added left/center/right alignment controls to the interactive demo.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-and-package-polish-0-2-0">Documentation and package polish<a class="anchor" aria-label="anchor" href="#documentation-and-package-polish-0-2-0"></a></h3>
+<ul><li>
+<p>Updated README and vignettes to match the shipped API:</p>
+<ul><li><p>removed references to the non-existent <code>dash_nav_logout_button()</code></p></li>
+<li><p>aligned documentation with the current preset names <code>"professional"</code>, <code>"modern"</code>, and <code>"dark-lite"</code></p></li>
+<li><p>clarified preset discoverability and the recommended body-level placement of <code><a href="../reference/use_bs4Dashkit_core.html">use_bs4Dashkit_core()</a></code></p></li>
+<li><p>clarified how <code>brand_text</code>, <code>collapsed_text</code>, and <code>expanded_text</code> interact across collapsed, hover-expanded, and expanded sidebar states</p></li>
+<li><p>documented the textless icon-only brand path, the automatic sidebar mirroring of <code>bs4DashNavbar(title = ttl$brand)</code>, and the shipped example apps for smoke testing and full feature testing</p></li>
+</ul></li>
+</ul></div>
+<div class="section level3">
+<h3 id="testing-0-2-0">Testing<a class="anchor" aria-label="anchor" href="#testing-0-2-0"></a></h3>
+<ul><li>
+<p>Expanded test coverage for:</p>
+<ul><li><p>icon normalization in <code><a href="../reference/dash_titles.html">dash_titles()</a></code></p></li>
+<li><p>targeted validation errors for invalid icon objects</p></li>
+<li><p>collapsed and expanded sidebar brand text styling controls</p></li>
+<li><p>sidebar mode class resets and cleanup of reactive hover/state listeners</p></li>
+<li><p>theme preset discovery and preset validation errors</p></li>
+<li><p>the exported minimal example app helper</p></li>
+</ul></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.1.0" id="bs4dashkit-010">bs4Dashkit 0.1.0<a class="anchor" aria-label="anchor" href="#bs4dashkit-010"></a></h2><p class="text-muted">CRAN release: 2026-03-10</p>
 <div class="section level3">
 <h3 id="initial-release-0-1-0">Initial release<a class="anchor" aria-label="anchor" href="#initial-release-0-1-0"></a></h3>
 <ul><li><p>Added <code><a href="../reference/dash_titles.html">dash_titles()</a></code> as a unified constructor for brand and sidebar configuration. Returns <code>$app_name</code>, <code>$brand</code>, and <code>$deps</code> for placement in <code><a href="https://bs4dash.rinterface.com/reference/dashboardPage.html" class="external-link">bs4DashPage()</a></code>, <code><a href="https://bs4dash.rinterface.com/reference/dashboardHeader.html" class="external-link">bs4DashNavbar()</a></code>, and <code><a href="https://bs4dash.rinterface.com/reference/dashboardBody.html" class="external-link">bs4DashBody()</a></code>.</p></li>
 <li><p>Added <code><a href="../reference/use_bs4Dashkit_core.html">use_bs4Dashkit_core()</a></code> as the recommended entry point for injecting dependencies, applying a theme preset, and configuring sidebar behavior.</p></li>
 <li>
 <p>Added theme support via CSS custom properties:</p>
-<ul><li><p>Presets: <code>"professional"</code>, <code>"vibrant"</code>, and <code>"minimal"</code></p></li>
+<ul><li><p>Presets: <code>"professional"</code>, <code>"modern"</code>, and <code>"dark-lite"</code></p></li>
 <li><p><code><a href="../reference/use_dash_theme.html">use_dash_theme()</a></code> for direct CSS variable overrides</p></li>
 <li><p><code><a href="../reference/use_dash_theme_preset.html">use_dash_theme_preset()</a></code> for applying named presets</p></li>
-<li><p><code>theme_presets()</code> for inspecting available presets</p></li>
+<li><p><code><a href="../reference/bs4dashkit_theme_presets.html">bs4dashkit_theme_presets()</a></code> for inspecting available presets</p></li>
 </ul></li>
 <li>
 <p>Added configurable sidebar brand modes:</p>

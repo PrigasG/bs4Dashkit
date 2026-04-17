@@ -40,7 +40,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bs4Dashkit</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -104,18 +104,22 @@ and button utilities without rewriting many CSS selectors.</p>
 <td>Cool blue-grey, medium contrast, soft shadows</td>
 </tr>
 <tr class="even">
-<td><code>"vibrant"</code></td>
-<td>Stronger accent colors, higher contrast</td>
+<td><code>"modern"</code></td>
+<td>Brighter neutrals with a stronger blue accent</td>
 </tr>
 <tr class="odd">
-<td><code>"minimal"</code></td>
-<td>Flat, low-contrast neutrals, minimal shadows</td>
+<td><code>"dark-lite"</code></td>
+<td>Dark surfaces with lighter text and a violet accent</td>
 </tr>
 </tbody>
 </table>
 <p>If <code>preset = NULL</code>, <code><a href="../reference/use_bs4Dashkit_core.html">use_bs4Dashkit_core()</a></code>
 falls back to the option <code>bs4Dashkit.theme_preset</code> (if set).
 If no option is set, it applies the base theme.</p>
+<p>Each preset now carries a fuller set of theme tokens so the dashboard
+chrome feels more intentional out of the box: navbar, sidebar, footer,
+muted text, links, and status colors are all coordinated with the base
+palette instead of only changing the main surface colors.</p>
 </div>
 <div class="section level2">
 <h2 id="accent-overrides">Accent overrides<a class="anchor" aria-label="anchor" href="#accent-overrides"></a>
@@ -186,17 +190,23 @@ runtime):</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">body</span> <span class="op">=</span> <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dashboardBody.html" class="external-link">bs4DashBody</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/use_bs4Dashkit_core.html">use_bs4Dashkit_core</a></span><span class="op">(</span><span class="va">ttl</span>, preset <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>,  <span class="co"># load core, no preset</span></span>
-<span>  <span class="fu"><a href="../reference/use_dash_theme_preset.html">use_dash_theme_preset</a></span><span class="op">(</span><span class="st">"vibrant"</span><span class="op">)</span>,         <span class="co"># apply preset explicitly</span></span>
+<span>  <span class="fu"><a href="../reference/use_dash_theme_preset.html">use_dash_theme_preset</a></span><span class="op">(</span><span class="st">"modern"</span><span class="op">)</span>,         <span class="co"># apply preset explicitly</span></span>
 <span>  <span class="co"># ...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="theme_presets">
-<code>theme_presets()</code><a class="anchor" aria-label="anchor" href="#theme_presets"></a>
+<h2 id="bs4dashkit_theme_presets">
+<code>bs4dashkit_theme_presets()</code><a class="anchor" aria-label="anchor" href="#bs4dashkit_theme_presets"></a>
 </h2>
 <p>List available presets and their CSS variable values:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">theme_presets</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/bs4dashkit_theme_presets.html">bs4dashkit_theme_presets</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/bs4dashkit_theme_presets.html">bs4dashkit_theme_presets</a></span><span class="op">(</span>values <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>This helper is useful for populating select controls, validating user
+input, and avoiding guesswork about preset names while coding. With
+<code>values = TRUE</code>, it also returns the underlying token lists
+so you can inspect or programmatically reuse the shipped palette
+values.</p>
 </div>
 <div class="section level2">
 <h2 id="example-user-selectable-presets">Example: user-selectable presets<a class="anchor" aria-label="anchor" href="#example-user-selectable-presets"></a>
@@ -206,7 +216,7 @@ runtime):</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RinteRface/bs4Dash" class="external-link">bs4Dash</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PrigasG/bs4Dashkit" class="external-link">bs4Dashkit</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">ttl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_titles.html">dash_titles</a></span><span class="op">(</span><span class="st">"My App"</span>, icon <span class="op">=</span> <span class="st">"palette"</span><span class="op">)</span></span>
+<span><span class="va">ttl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_titles.html">dash_titles</a></span><span class="op">(</span><span class="st">"My App"</span>, icon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"palette"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dashboardPage.html" class="external-link">bs4DashPage</a></span><span class="op">(</span></span>
 <span>  title   <span class="op">=</span> <span class="va">ttl</span><span class="op">$</span><span class="va">app_name</span>,</span>
@@ -220,7 +230,7 @@ runtime):</p>
 <span>    <span class="fu"><a href="../reference/use_bs4Dashkit_core.html">use_bs4Dashkit_core</a></span><span class="op">(</span><span class="va">ttl</span>, preset <span class="op">=</span> <span class="st">"professional"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html" class="external-link">selectInput</a></span><span class="op">(</span></span>
 <span>      <span class="st">"theme_choice"</span>, <span class="st">"Theme"</span>,</span>
-<span>      choices  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"professional"</span>, <span class="st">"vibrant"</span>, <span class="st">"minimal"</span><span class="op">)</span>,</span>
+<span>      choices  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"professional"</span>, <span class="st">"modern"</span>, <span class="st">"dark-lite"</span><span class="op">)</span>,</span>
 <span>      selected <span class="op">=</span> <span class="st">"professional"</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"theme_css"</span><span class="op">)</span>,</span>

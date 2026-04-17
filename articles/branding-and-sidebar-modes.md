@@ -13,9 +13,9 @@ below.
 
 ``` r
 ttl <- dash_titles(
-  brand_text     = "My App",       # required: visible brand label
+  brand_text     = "My App",       # primary navbar label and default expanded sidebar label
   app_name       = NULL,            # browser tab title; defaults to brand_text
-  icon           = NULL,            # Font Awesome icon name e.g. "shield-halved"
+  icon           = icon("shield-halved"), # or a Font Awesome name like "shield-halved"
   icon_img       = NULL,            # image path — overrides icon when set
   icon_shape     = "circle",        # "circle" | "rounded" | "square"
   icon_size      = NULL,            # CSS size e.g. "22px"
@@ -31,18 +31,18 @@ ttl <- dash_titles(
   glow_color     = NULL,            # colour for glow / shimmer
   collapsed      = "icon-only",     # brand mode when sidebar is collapsed
   expanded       = "icon-text",     # brand mode when sidebar is expanded
-  collapsed_text = NULL,            # short label for collapsed icon-text/text-only
-  expanded_text  = NULL             # full label for expanded icon-text/text-only
+  collapsed_text = NULL,            # optional short label for collapsed icon-text/text-only
+  expanded_text  = NULL             # optional expanded override; defaults to brand_text
 )
 ```
 
 ### Return value
 
-| Slot           | Type        | Placement                                                                                                                               |
-|----------------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| `ttl$app_name` | `character` | `bs4DashPage(title = ttl$app_name)`                                                                                                     |
-| `ttl$brand`    | `tagList`   | `bs4DashNavbar(title = ttl$brand)` (and/or `bs4DashSidebar(title = ttl$brand)`)                                                         |
-| `ttl$deps`     | `tagList`   | inside `bs4DashBody(...)` — handled by [`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md) |
+| Slot           | Type        | Placement                                                                                                                                                                     |
+|----------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ttl$app_name` | `character` | `bs4DashPage(title = ttl$app_name)`                                                                                                                                           |
+| `ttl$brand`    | `tagList`   | `bs4DashNavbar(title = ttl$brand)`; the sidebar brand mirrors this automatically in a standard [`bs4DashPage()`](https://bs4dash.rinterface.com/reference/dashboardPage.html) |
+| `ttl$deps`     | `tagList`   | inside `bs4DashBody(...)` — handled by [`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md)                                       |
 
 ------------------------------------------------------------------------
 
@@ -53,7 +53,7 @@ ttl <- dash_titles(
 ``` r
 ttl <- dash_titles(
   brand_text = "My App",
-  icon       = "chart-line",
+  icon       = icon("chart-line"),
   icon_color = "#2f6f8f",
   icon_size  = "20px"
 )
@@ -108,32 +108,47 @@ independently for each state.
 | `"icon-text"` | Icon plus a text label       |
 | `"text-only"` | Text label only — no icon    |
 
+`brand_text` is the default expanded sidebar label. Reach for
+`collapsed_text` when the narrow sidebar needs a shorter label, and use
+`expanded_text` only when the expanded sidebar should differ from
+`brand_text`. In practice, collapsed labels work best at about 3
+characters or fewer. When `collapsed = "text-only"`, the text is
+centered in the collapsed brand strip.
+
 ### Common combinations
 
 ``` r
 # Compact when collapsed, full when expanded (recommended default)
 ttl <- dash_titles(
   brand_text     = "Test Dashboard",
-  icon           = "project-diagram",
+  icon           = icon("project-diagram"),
   collapsed      = "icon-only",
-  expanded       = "icon-text",
-  expanded_text  = "Dashboard"
+  expanded       = "icon-text"
 )
 
 # Show abbreviated text when collapsed
 ttl <- dash_titles(
   brand_text     = "OLTCR Dashboards",
-  icon           = "project-diagram",
+  icon           = icon("project-diagram"),
   collapsed      = "icon-text",
   expanded       = "icon-text",
-  collapsed_text = "DT",             # ≤ 8 chars recommended
+  collapsed_text = "OLT",            # about 3 chars works best
   expanded_text  = "OLTCR Dashboards"
 )
 
 # Icon only in both states
 ttl <- dash_titles(
   brand_text = "OLTCR Dashboards",
-  icon       = "project-diagram",
+  icon       = icon("project-diagram"),
+  collapsed  = "icon-only",
+  expanded   = "icon-only"
+)
+
+# Textless icon brand in both states
+ttl <- dash_titles(
+  brand_text = NULL,
+  app_name   = "Icon Lab",
+  icon       = icon("cloud"),
   collapsed  = "icon-only",
   expanded   = "icon-only"
 )
@@ -182,7 +197,7 @@ A subtle horizontal rule between the brand mark and the sidebar menu:
 ``` r
 ttl <- dash_titles(
   brand_text    = "My App",
-  icon          = "chart-line",
+  icon          = icon("chart-line"),
   brand_divider = TRUE           # default TRUE (can be disabled)
 )
 
@@ -222,7 +237,7 @@ library(bs4Dashkit)
 
 ttl <- dash_titles(
   brand_text     = "Test Dashboard",
-  icon           = "project-diagram",
+  icon           = icon("project-diagram"),
   weight         = 700,
   effect         = "shimmer",
   glow_color     = "#2f6f8f",

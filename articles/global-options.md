@@ -15,14 +15,14 @@ Options are only used when the corresponding argument is not provided
 
 ## Available options
 
-| Option                         | Used by                                                                                          | Purpose                                    | Default       |
-|--------------------------------|--------------------------------------------------------------------------------------------------|--------------------------------------------|---------------|
-| `bs4Dashkit.sidebar.collapsed` | [`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md)                 | Sidebar brand mode when collapsed          | `"icon-only"` |
-| `bs4Dashkit.sidebar.expanded`  | [`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md)                 | Sidebar brand mode when expanded           | `"icon-only"` |
-| `bs4Dashkit.brand_divider`     | [`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md)                 | Show divider under brand strip             | `TRUE`        |
-| `bs4Dashkit.theme_preset`      | [`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md) | Default preset name when `preset = NULL`   | `NULL`        |
-| `bs4Dashkit.accent`            | `use_bs4Dash_core()`                                                                             | Default accent when accent = `NULL`        | `"#2f6f8f"`   |
-| `bs4Dashkit.debug`             | `dash_titles`                                                                                    | Enable debug logging (JS console warnings) | `FALSE`       |
+| Option                         | Used by                                                                                          | Purpose                                    | Default                                                         |
+|--------------------------------|--------------------------------------------------------------------------------------------------|--------------------------------------------|-----------------------------------------------------------------|
+| `bs4Dashkit.sidebar.collapsed` | [`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md)                 | Sidebar brand mode when collapsed          | `"icon-only"` when an icon is supplied, otherwise `"text-only"` |
+| `bs4Dashkit.sidebar.expanded`  | [`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md)                 | Sidebar brand mode when expanded           | `"icon-text"` when an icon is supplied, otherwise `"text-only"` |
+| `bs4Dashkit.brand_divider`     | [`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md)                 | Show divider under brand strip             | `TRUE`                                                          |
+| `bs4Dashkit.theme_preset`      | [`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md) | Default preset name when `preset = NULL`   | `NULL`                                                          |
+| `bs4Dashkit.accent`            | `use_bs4Dash_core()`                                                                             | Default accent when accent = `NULL`        | `"#2f6f8f"`                                                     |
+| `bs4Dashkit.debug`             | `dash_titles`                                                                                    | Enable debug logging (JS console warnings) | `FALSE`                                                         |
 
 The values shown above are the built-in defaults used when neither the
 function argument nor the corresponding option is set.
@@ -65,7 +65,7 @@ After setting these, you can keep individual calls short:
 ``` r
 ttl <- dash_titles(
   brand_text = "Dashboard",
-  icon       = "project-diagram"
+  icon       = icon("project-diagram")
 )
 
 ui <- bs4DashPage(
@@ -88,14 +88,14 @@ arguments.
 ``` r
 ttl <- dash_titles(
   brand_text     = "Special App",
-  icon           = "star",
+  icon           = icon("star"),
   collapsed      = "icon-text",
-  collapsed_text = "SA",
+  collapsed_text = "SAP",
   brand_divider  = FALSE
 )
 
 body <- bs4DashBody(
-  use_bs4Dashkit_core(ttl, preset = "minimal", accent = "#6b2f8f")
+  use_bs4Dashkit_core(ttl, preset = "modern", accent = "#6b2f8f")
 )
 ```
 

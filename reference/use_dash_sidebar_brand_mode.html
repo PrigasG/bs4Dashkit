@@ -22,7 +22,7 @@ collapsed and expanded sidebar states."><meta property="og:image" content="https
 
     <a class="navbar-brand me-2" href="../index.html">bs4Dashkit</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,6 +59,10 @@ collapsed and expanded sidebar states.</p>
 <span>  expanded <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"icon-text"</span>, <span class="st">"icon-only"</span>, <span class="st">"text-only"</span><span class="op">)</span>,</span>
 <span>  collapsed_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  expanded_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  collapsed_text_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  expanded_text_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  collapsed_text_weight <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  expanded_text_weight <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  debug <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -68,8 +72,8 @@ collapsed and expanded sidebar states.</p>
 
 
 <dl><dt id="arg-icon">icon<a class="anchor" aria-label="anchor" href="#arg-icon"></a></dt>
-<dd><p>Font Awesome icon name used in the brand, e.g. "shield-halved".
-Required when any mode includes "icon".</p></dd>
+<dd><p>Font Awesome icon name used in the brand, e.g. "shield-halved",
+or a simple <code>icon("shield-halved")</code> tag. Required when any mode includes "icon".</p></dd>
 
 
 <dt id="arg-collapsed">collapsed<a class="anchor" aria-label="anchor" href="#arg-collapsed"></a></dt>
@@ -84,12 +88,36 @@ Required when any mode includes "icon".</p></dd>
 
 <dt id="arg-collapsed-text">collapsed_text<a class="anchor" aria-label="anchor" href="#arg-collapsed-text"></a></dt>
 <dd><p>Short label for collapsed "icon-text" or "text-only" mode.
-Keep &lt;= 8 chars. NULL falls back to original DOM text (CSS truncates).</p></dd>
+Keep &lt;= 8 chars. NULL falls back to the current brand label already present in
+the DOM. When using <code><a href="dash_titles.html">dash_titles()</a></code>, the higher-level helper usually
+resolves this to <code>brand_text</code> for visible text modes.</p></dd>
 
 
 <dt id="arg-expanded-text">expanded_text<a class="anchor" aria-label="anchor" href="#arg-expanded-text"></a></dt>
 <dd><p>Label for expanded "icon-text" or "text-only" mode.
-Keep &lt;= 30 chars. NULL falls back to original DOM text.</p></dd>
+Keep &lt;= 30 chars. NULL falls back to the current brand label already present
+in the DOM. When using <code><a href="dash_titles.html">dash_titles()</a></code>, the higher-level helper usually
+resolves this to <code>brand_text</code> for visible text modes.</p></dd>
+
+
+<dt id="arg-collapsed-text-size">collapsed_text_size<a class="anchor" aria-label="anchor" href="#arg-collapsed-text-size"></a></dt>
+<dd><p>Optional CSS font-size applied to the sidebar brand
+label while collapsed.</p></dd>
+
+
+<dt id="arg-expanded-text-size">expanded_text_size<a class="anchor" aria-label="anchor" href="#arg-expanded-text-size"></a></dt>
+<dd><p>Optional CSS font-size applied to the sidebar brand
+label while expanded.</p></dd>
+
+
+<dt id="arg-collapsed-text-weight">collapsed_text_weight<a class="anchor" aria-label="anchor" href="#arg-collapsed-text-weight"></a></dt>
+<dd><p>Optional CSS font-weight applied to the sidebar
+brand label while collapsed.</p></dd>
+
+
+<dt id="arg-expanded-text-weight">expanded_text_weight<a class="anchor" aria-label="anchor" href="#arg-expanded-text-weight"></a></dt>
+<dd><p>Optional CSS font-weight applied to the sidebar
+brand label while expanded.</p></dd>
 
 
 <dt id="arg-debug">debug<a class="anchor" aria-label="anchor" href="#arg-debug"></a></dt>
