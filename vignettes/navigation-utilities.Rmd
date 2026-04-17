@@ -122,7 +122,7 @@ use in `leftUi` or `rightUi.`
 dash_nav_title(
   title    = "DASHBOARDS",
   subtitle = "Critical & Main",
-  icon     = "shield-halved",            # Font Awesome icon name
+  icon     = icon("shield-halved"),
   align    = "center"                    # "center" | "left" | "right"
 )
 ```
@@ -135,7 +135,7 @@ dash_nav_title(
 rightUi = tagList(
   dash_nav_title(
     "DASHBOARDS", "Critical & Main",
-    icon  = "shield-halved",
+    icon  = icon("shield-halved"),
     align = "center"
   ),
   dash_nav_item(dash_nav_refresh_button("refresh")),
@@ -151,7 +151,7 @@ rightUi = tagList(
   dash_nav_item(dash_nav_help_button("help")),
   dash_nav_title(
     "DASHBOARDS", "Critical & Main",
-    icon  = "shield-halved",
+    icon  = icon("shield-halved"),
     align = "right"
   )
 )
@@ -163,7 +163,7 @@ rightUi = tagList(
 rightUi = tagList(
   dash_nav_title(
     "DASHBOARDS", "Critical & Main",
-    icon  = "shield-halved",
+    icon  = icon("shield-halved"),
     align = "left"
   ),
   dash_nav_item(dash_nav_refresh_button("refresh")),
@@ -230,7 +230,7 @@ bs4DashNavbar(
     dash_nav_title(
       "DASHBOARDS",
       "Critical & Main",
-      icon  = "shield-halved",
+      icon  = icon("shield-halved"),
       align = "center"
     ),
     dash_nav_item(dash_nav_refresh_button("refresh")),

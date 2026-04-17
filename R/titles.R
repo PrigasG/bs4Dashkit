@@ -4,9 +4,13 @@
 #' reusable object you place into \code{bs4DashPage()}, \code{bs4DashNavbar()},
 #' and \code{bs4DashBody()}.
 #'
-#' @param brand_text Visible brand label shown in the navbar/sidebar.
-#' @param app_name Browser tab title. If \code{NULL}, defaults to \code{brand_text}.
-#' @param icon Font Awesome icon name for the brand (e.g. \code{"project-diagram"}).
+#' @param brand_text Visible brand label shown in the navbar/sidebar. May be
+#'   \code{NULL} only when both sidebar modes are \code{"icon-only"} and an
+#'   icon or image logo is supplied.
+#' @param app_name Browser tab title. If \code{NULL}, defaults to
+#'   \code{brand_text}, or \code{"bs4Dashkit"} when \code{brand_text} is empty.
+#' @param icon Font Awesome icon name for the brand (for example
+#'   \code{"project-diagram"}) or a simple \code{icon("project-diagram")} tag.
 #'   Ignored when \code{icon_img} is supplied.
 #' @param icon_img Path (www relative) or URL to an image logo. Overrides \code{icon}.
 #' @param icon_shape Shape mask for image logos. One of \code{"circle"},
@@ -49,7 +53,7 @@
 #' @return A named list with components:
 #' \describe{
 #'   \item{app_name}{A character string for use in \code{bs4DashPage(title = ...)}.}
-#'   \item{brand}{A \code{shiny.tag} object for use in \code{bs4DashNavbar(title = ...)} and, if desired, as sidebar title UI.}
+#'   \item{brand}{A \code{shiny.tag} object for use in \code{bs4DashNavbar(title = ...)}. In a standard \code{bs4DashPage()}, the sidebar brand mirrors the navbar brand automatically.}
 #'   \item{deps}{A \code{shiny.tag.list} containing CSS and JavaScript dependencies to include once in \code{bs4DashBody(...)}.}
 #' }
 #'
@@ -83,8 +87,10 @@ dash_titles <- function(
     debug = NULL
 ) {
   icon <- dashkit_normalize_icon(icon)
-  collapsed      <- collapsed      %||% dashkit_opt("sidebar.collapsed", "icon-only")
-  expanded       <- expanded       %||% dashkit_opt("sidebar.expanded",  "icon-text")
+  default_collapsed <- if (is.null(icon) && is.null(icon_img)) "text-only" else "icon-only"
+  default_expanded <- if (is.null(icon) && is.null(icon_img)) "text-only" else "icon-text"
+  collapsed      <- collapsed      %||% dashkit_opt("sidebar.collapsed", default_collapsed)
+  expanded       <- expanded       %||% dashkit_opt("sidebar.expanded",  default_expanded)
   brand_divider  <- brand_divider  %||% dashkit_opt("brand_divider", TRUE)
   debug          <- debug          %||% dashkit_opt("debug", FALSE)
 
@@ -92,6 +98,17 @@ dash_titles <- function(
   expanded   <- match.arg(expanded,  c("icon-text", "icon-only", "text-only"))
   icon_shape <- match.arg(icon_shape)
   effect     <- if (!is.null(gradient)) "gradient" else match.arg(effect)
+
+  resolved_sidebar <- dashkit_validate_titles(
+    brand_text = brand_text,
+    icon = icon,
+    icon_img = icon_img,
+    collapsed = collapsed,
+    expanded = expanded,
+    collapsed_text = collapsed_text,
+    expanded_text = expanded_text,
+    app_name = app_name
+  )
 
   brand_obj <- dash_brand_ui(
     brand_text  = brand_text,
@@ -115,16 +132,14 @@ dash_titles <- function(
     icon           = icon,
     collapsed      = collapsed,
     expanded       = expanded,
-    collapsed_text = collapsed_text,
-    expanded_text  = expanded_text,
+    collapsed_text = resolved_sidebar$collapsed_text,
+    expanded_text  = resolved_sidebar$expanded_text,
     collapsed_text_size = collapsed_text_size,
     expanded_text_size  = expanded_text_size,
     collapsed_text_weight = collapsed_text_weight,
     expanded_text_weight  = expanded_text_weight,
     debug          = debug
   )
-
-  dashkit_validate_titles(icon, icon_img, collapsed_text, expanded_text)
 
   deps <- shiny::tagList(
     brand_obj$dep,
@@ -133,7 +148,7 @@ dash_titles <- function(
   )
 
   list(
-    app_name = app_name %||% brand_text,
+    app_name = app_name %||% if (!is.null(brand_text) && nzchar(trimws(brand_text))) brand_text else "bs4Dashkit",
     brand    = brand_obj$ui,
     deps     = deps
   )

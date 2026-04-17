@@ -18,8 +18,8 @@ use_dash_sidebar_brand_mode(
 )
 }
 \arguments{
-\item{icon}{Font Awesome icon name used in the brand, e.g. "shield-halved".
-Required when any mode includes "icon".}
+\item{icon}{Font Awesome icon name used in the brand, e.g. "shield-halved",
+or a simple \code{icon("shield-halved")} tag. Required when any mode includes "icon".}
 
 \item{collapsed}{Display mode when sidebar is collapsed:
 "icon-only", "icon-text", or "text-only"}
@@ -28,10 +28,14 @@ Required when any mode includes "icon".}
 "icon-text", "icon-only", or "text-only"}
 
 \item{collapsed_text}{Short label for collapsed "icon-text" or "text-only" mode.
-Keep <= 8 chars. NULL falls back to original DOM text (CSS truncates).}
+Keep <= 8 chars. NULL falls back to the current brand label already present in
+the DOM. When using \code{dash_titles()}, the higher-level helper usually
+resolves this to \code{brand_text} for visible text modes.}
 
 \item{expanded_text}{Label for expanded "icon-text" or "text-only" mode.
-Keep <= 30 chars. NULL falls back to original DOM text.}
+Keep <= 30 chars. NULL falls back to the current brand label already present
+in the DOM. When using \code{dash_titles()}, the higher-level helper usually
+resolves this to \code{brand_text} for visible text modes.}
 
 \item{collapsed_text_size}{Optional CSS font-size applied to the sidebar brand
 label while collapsed.}

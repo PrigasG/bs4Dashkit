@@ -34,7 +34,9 @@ library(bs4Dashkit)
 
 ttl <- dash_titles(
   brand_text = "OLTCR Dashboards",
-  icon = icon("cloud")
+  icon = icon("cloud"),
+  collapsed = "icon-only",
+  expanded = "icon-text"
 )
 
 ui <- bs4DashPage(
@@ -72,6 +74,12 @@ shinyApp(ui, server)
 
 Fully configurable for collapsed and expanded states.
 
+`brand_text` is the primary label. It is used in the navbar and, by
+default, as the expanded sidebar label. The sidebar brand mirrors the
+navbar title you pass to `bs4DashNavbar(title = ttl$brand)`. Use
+`collapsed_text` only when you want a very short label in the narrow
+collapsed sidebar. In practice, about 3 characters works best.
+
 ### Theme System
 
 CSS variable-driven theming:
@@ -88,8 +96,8 @@ Recent additions make the package easier to wire up in real apps:
 ttl <- dash_titles(
   brand_text = "OLTCR Dashboards",
   icon = icon("cloud"),
-  collapsed_text = "OLTCR",
-  expanded_text = "OLTCR Dashboards",
+  collapsed_text = "OLT",
+  expanded_text = "OLTCR Dashboards", # optional; brand_text is the default
   collapsed_text_size = "10px",
   expanded_text_size = "15px",
   collapsed_text_weight = 700,
@@ -98,6 +106,19 @@ ttl <- dash_titles(
 
 bs4dashkit_theme_presets()
 bs4dashkit_example_app()
+bs4dashkit_demo_app()
+```
+
+For a textless icon brand in both sidebar states:
+
+``` r
+ttl <- dash_titles(
+  brand_text = NULL,
+  app_name = "Icon Lab",
+  icon = icon("cloud"),
+  collapsed = "icon-only",
+  expanded = "icon-only"
+)
 ```
 
 ### Navigation Utilities
@@ -127,6 +148,28 @@ observeEvent(input$refresh, session$reload())
 Full documentation and examples are available at:
 
 <https://prigasg.github.io/bs4Dashkit/>
+
+For a fuller interactive demo, run:
+
+``` r
+bs4dashkit_demo_app()
+```
+
+or open the packaged example app file:
+
+``` r
+shiny::runApp(system.file("examples", "real-shiny-app", package = "bs4Dashkit"))
+```
+
+For a heavier stress-test example that exercises the shipped features
+together:
+
+``` r
+shiny::runApp(system.file("examples", "test-all", package = "bs4Dashkit"))
+```
+
+That packaged example is now a standalone full app source file, not just a
+wrapper around `bs4dashkit_demo_app()`.
 
 ------------------------------------------------------------------------
 

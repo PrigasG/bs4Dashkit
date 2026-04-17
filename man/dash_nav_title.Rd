@@ -16,7 +16,7 @@ dash_nav_title(
 
 \item{subtitle}{Optional subtitle (character or tag)}
 
-\item{icon}{Optional fontawesome icon name, e.g. "shield-halved"}
+\item{icon}{Optional Font Awesome icon name or simple \code{icon("shield-halved")} tag.}
 
 \item{align}{One of c("center","right","left")}
 }

@@ -34,11 +34,15 @@ dash_titles(
 )
 }
 \arguments{
-\item{brand_text}{Visible brand label shown in the navbar/sidebar.}
+\item{brand_text}{Visible brand label shown in the navbar/sidebar. May be
+\code{NULL} only when both sidebar modes are \code{"icon-only"} and an
+icon or image logo is supplied.}
 
-\item{app_name}{Browser tab title. If \code{NULL}, defaults to \code{brand_text}.}
+\item{app_name}{Browser tab title. If \code{NULL}, defaults to
+\code{brand_text}, or \code{"bs4Dashkit"} when \code{brand_text} is empty.}
 
-\item{icon}{Font Awesome icon name for the brand (e.g. \code{"project-diagram"}).
+\item{icon}{Font Awesome icon name for the brand (for example
+\code{"project-diagram"}) or a simple \code{icon("project-diagram")} tag.
 Ignored when \code{icon_img} is supplied.}
 
 \item{icon_img}{Path (www relative) or URL to an image logo. Overrides \code{icon}.}
@@ -105,7 +109,7 @@ If \code{NULL}, uses option \code{bs4Dashkit.debug}.}
 A named list with components:
 \describe{
 \item{app_name}{A character string for use in \code{bs4DashPage(title = ...)}.}
-\item{brand}{A \code{shiny.tag} object for use in \code{bs4DashNavbar(title = ...)} and, if desired, as sidebar title UI.}
+\item{brand}{A \code{shiny.tag} object for use in \code{bs4DashNavbar(title = ...)}. In a standard \code{bs4DashPage()}, the sidebar brand mirrors the navbar brand automatically.}
 \item{deps}{A \code{shiny.tag.list} containing CSS and JavaScript dependencies to include once in \code{bs4DashBody(...)}.}
 }
 }

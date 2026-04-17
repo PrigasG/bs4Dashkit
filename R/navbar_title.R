@@ -12,7 +12,7 @@
 #'
 #' @param title Main title (character or tag)
 #' @param subtitle Optional subtitle (character or tag)
-#' @param icon Optional fontawesome icon name, e.g. "shield-halved"
+#' @param icon Optional Font Awesome icon name or simple \code{icon("shield-halved")} tag.
 #' @param align One of c("center","right","left")
 #'
 #' @return A \code{shiny.tag} object representing the navbar title UI.
@@ -20,6 +20,7 @@
 dash_nav_title <- function(title, subtitle = NULL, icon = NULL,
                            align = c("center", "right", "left")) {
   align <- match.arg(align)
+  icon <- dashkit_normalize_icon(icon)
 
   wrap_class <- switch(align,
                        center = "dash-nav-center-wrap",

@@ -16,3 +16,6 @@
 ^cheatsheet\.pdf$
 ^cheatsheet\.(aux|log|out)$
 ^ROADMAP\.md$
+^\.RData$
+^\.Rhistory$
+^\.gitignore$

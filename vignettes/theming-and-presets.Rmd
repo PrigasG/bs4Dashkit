@@ -155,7 +155,7 @@ library(shiny)
 library(bs4Dash)
 library(bs4Dashkit)
 
-ttl <- dash_titles("My App", icon = "palette")
+ttl <- dash_titles("My App", icon = icon("palette"))
 
 ui <- bs4DashPage(
   title   = ttl$app_name,

@@ -23,9 +23,11 @@ dash_brand_ui(
 )
 }
 \arguments{
-\item{brand_text}{Visible brand label (character)}
+\item{brand_text}{Visible brand label (character). May be \code{NULL} for
+icon-only brands.}
 
-\item{icon}{Font Awesome icon name e.g. "shield-halved". NULL for none.}
+\item{icon}{Font Awesome icon name e.g. "shield-halved", or a simple
+\code{icon("shield-halved")} tag. NULL for none.}
 
 \item{icon_img}{URL or www-relative path to an image logo. Overrides \code{icon}
 when both are supplied.}

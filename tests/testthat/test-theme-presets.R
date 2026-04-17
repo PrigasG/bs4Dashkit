@@ -34,3 +34,9 @@ test_that("use_dash_theme() emits expanded theme variables", {
   expect_match(html, "--dash-accent-soft", fixed = TRUE)
   expect_match(html, "--dash-success", fixed = TRUE)
 })
+
+test_that("demo app helper returns a shiny app object", {
+  app <- bs4dashkit_demo_app()
+
+  expect_s3_class(app, "shiny.appobj")
+})

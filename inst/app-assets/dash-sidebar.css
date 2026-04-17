@@ -229,15 +229,16 @@ body.sidebar-collapse.dash-sb-collapsed-icon_only .main-sidebar .brand-link .das
 
 /* ── COLLAPSED: text-only ── */
 body.sidebar-collapse.dash-sb-collapsed-text_only .main-sidebar .brand-link{
-  justify-content: flex-start !important;
-  padding: 0 12px !important;
+  justify-content: center !important;
+  padding: 0 6px !important;
 }
 body.sidebar-collapse.dash-sb-collapsed-text_only .main-sidebar .brand-link .dash-brand-icon{
   display: none !important;
 }
 body.sidebar-collapse.dash-sb-collapsed-text_only .main-sidebar .brand-link .dash-brand-label{
   display: inline !important;
-  max-width: 3.5rem;
+  max-width: 2.8rem;
+  text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -27,6 +27,40 @@ editor_options:
 -   Added `bs4dashkit_example_app()` as a minimal runnable example of the
     recommended `dash_titles()` + `use_bs4Dashkit_core()` workflow.
 
+-   Added `bs4dashkit_demo_app()` plus a packaged
+    `inst/examples/real-shiny-app/app.R` example for interactively
+    testing sidebar brand states, hover-expand behavior, presets, navbar
+    controls, and footer styling together. The packaged example now
+    contains the full standalone app code directly.
+
+-   Added `inst/examples/sidebar-smoke-test/app.R` as a minimal sidebar
+    verification app and `inst/examples/test-all/app.R` as a heavier
+    end-to-end stress test for branding, sidebar, navbar, theme, and
+    footer features.
+
+-   Refined sidebar brand state handling so hover-expanded sidebars use
+    the expanded text rules consistently, `brand_text` is treated as the
+    default expanded label, and icon-requested states fall back more
+    gracefully when no icon is supplied.
+
+-   Fixed reactive sidebar mode updates by clearing stale
+    collapsed/expanded body classes before applying the current mode and
+    cleaning up old observers and hover listeners before installing new
+    ones.
+
+-   Fixed collapsed and expanded sidebar text sizing and weight controls
+    so live updates consistently win over AdminLTE defaults, and centered
+    the collapsed `"text-only"` label layout.
+
+-   Allowed `brand_text = NULL` for fully icon-only brands when both
+    sidebar states are `"icon-only"` and an icon or image brand is
+    supplied, with a browser-title fallback warning when `app_name` is
+    omitted.
+
+-   Improved `dash_nav_title()` centering so the title stays visually
+    centered as the viewport and surrounding navbar content change, and
+    added left/center/right alignment controls to the interactive demo.
+
 ### Documentation and package polish
 
 -   Updated README and vignettes to match the shipped API:
@@ -40,6 +74,14 @@ editor_options:
     -   clarified preset discoverability and the recommended body-level
         placement of `use_bs4Dashkit_core()`
 
+    -   clarified how `brand_text`, `collapsed_text`, and
+        `expanded_text` interact across collapsed, hover-expanded, and
+        expanded sidebar states
+
+    -   documented the textless icon-only brand path, the automatic
+        sidebar mirroring of `bs4DashNavbar(title = ttl$brand)`, and the
+        shipped example apps for smoke testing and full feature testing
+
 ### Testing
 
 -   Expanded test coverage for:
@@ -49,6 +91,9 @@ editor_options:
     -   targeted validation errors for invalid icon objects
 
     -   collapsed and expanded sidebar brand text styling controls
+
+    -   sidebar mode class resets and cleanup of reactive hover/state
+        listeners
 
     -   theme preset discovery and preset validation errors
 

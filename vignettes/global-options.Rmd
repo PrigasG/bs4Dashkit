@@ -30,8 +30,8 @@ Options are only used when the corresponding argument is not provided (or is `NU
 
 | Option | Used by |Purpose | Default |
 |---|---|---|---|
-| `bs4Dashkit.sidebar.collapsed` | `dash_titles()` | Sidebar brand mode when collapsed | `"icon-only"` |
-| `bs4Dashkit.sidebar.expanded` | `dash_titles()` | Sidebar brand mode when expanded |`"icon-only"` |
+| `bs4Dashkit.sidebar.collapsed` | `dash_titles()` | Sidebar brand mode when collapsed | `"icon-only"` when an icon is supplied, otherwise `"text-only"` |
+| `bs4Dashkit.sidebar.expanded` | `dash_titles()` | Sidebar brand mode when expanded | `"icon-text"` when an icon is supplied, otherwise `"text-only"` |
 | `bs4Dashkit.brand_divider` | `dash_titles()` | Show divider under brand strip |`TRUE` |
 | `bs4Dashkit.theme_preset` | `use_bs4Dashkit_core()` | Default preset name when `preset = NULL` | `NULL` |
 | `bs4Dashkit.accent` | `use_bs4Dash_core()` | Default accent when accent = `NULL` | `"#2f6f8f" ` |
@@ -71,7 +71,7 @@ After setting these, you can keep individual calls short:
 ```{r}
 ttl <- dash_titles(
   brand_text = "Dashboard",
-  icon       = "project-diagram"
+  icon       = icon("project-diagram")
 )
 
 ui <- bs4DashPage(
@@ -94,14 +94,14 @@ Options are just defaults. Any app can override them by supplying arguments.
 ```{r}
 ttl <- dash_titles(
   brand_text     = "Special App",
-  icon           = "star",
+  icon           = icon("star"),
   collapsed      = "icon-text",
-  collapsed_text = "SA",
+  collapsed_text = "SAP",
   brand_divider  = FALSE
 )
 
 body <- bs4DashBody(
-  use_bs4Dashkit_core(ttl, preset = "minimal", accent = "#6b2f8f")
+  use_bs4Dashkit_core(ttl, preset = "modern", accent = "#6b2f8f")
 )
 
 ```

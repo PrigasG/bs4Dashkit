@@ -45,7 +45,7 @@ library(bs4Dash)
 library(bs4Dashkit)
 
 # 1. Build the brand object
-ttl <- dash_titles("My Dashboard")
+ttl <- dash_titles("My Dashboard", icon = icon("cloud"))
 
 ui <- bs4DashPage(
   title   = ttl$app_name,           # browser tab title
@@ -61,7 +61,8 @@ shinyApp(ui, server)
 ```
 
 `dash_titles()` accepts a single string and sensible defaults handle everything
-else. `use_bs4Dashkit_core()` loads the CSS dependencies, activates the sidebar
+else. When no icon is supplied, the sidebar brand defaults to text-only modes.
+`use_bs4Dashkit_core()` loads the CSS dependencies, activates the sidebar
 brand mode, and applies the default theme.
 
 If you prefer, you can also pass a simple `shiny::icon()` tag:
@@ -83,22 +84,41 @@ It returns a named list with three slots:
 | Slot | Where it goes |
 |---|---|
 | `ttl$app_name` | `bs4DashPage(title = ...)` |
-| `ttl$brand` | `bs4DashNavbar(title = ...)` (and/or `bs4DashSidebar(title = ...)`) |
+| `ttl$brand` | `bs4DashNavbar(title = ...)`; the sidebar brand mirrors this automatically in a standard `bs4DashPage()` |
 | `ttl$deps` | inside `bs4DashBody(...)` (handled automatically by `use_bs4Dashkit_core()`) |
 
 ```{r}
 ttl <- dash_titles(
   brand_text     = "OLTCR Dashboards",
-  icon           = "project-diagram",  # Font Awesome icon name
+  icon           = icon("project-diagram"),
   weight         = 700,
   effect         = "shimmer",          # "none" | "glow" | "shimmer" | "emboss"
   glow_color     = "#2f6f8f",
   size           = "20px",
   collapsed      = "icon-text",
   expanded       = "icon-text",
-  collapsed_text = "DT",               # shown when sidebar is collapsed
+  collapsed_text = "OLT",              # shown when sidebar is collapsed
   expanded_text  = "OLTCR Dashboards",
   brand_divider  = TRUE
+)
+```
+
+`brand_text` is the primary label for the app. It is always used for the navbar
+brand and is also the default expanded sidebar label. Use `expanded_text` only
+when the expanded sidebar should say something different, and use
+`collapsed_text` when the collapsed sidebar needs a shorter label. In practice,
+about 3 characters works best in the narrow collapsed sidebar.
+
+If you want a fully textless icon brand, set `brand_text = NULL` and keep both
+sidebar states at `"icon-only"`:
+
+```{r}
+ttl <- dash_titles(
+  brand_text = NULL,
+  app_name   = "Icon Lab",
+  icon       = icon("cloud"),
+  collapsed  = "icon-only",
+  expanded   = "icon-only"
 )
 ```
 
@@ -146,6 +166,31 @@ For a runnable template app, use:
 app <- bs4dashkit_example_app()
 ```
 
+For a fuller interactive playground that exercises sidebar states, hover
+behavior, presets, navbar controls, and footer styling together, use:
+
+```{r}
+app <- bs4dashkit_demo_app()
+```
+
+You can also launch the packaged example directory directly:
+
+```{r}
+shiny::runApp(system.file("examples", "real-shiny-app", package = "bs4Dashkit"))
+```
+
+That packaged example contains the full app code directly in
+`inst/examples/real-shiny-app/app.R`, so it can be read, modified, and run as
+a standalone reference app.
+
+There is also a heavier shipped example that exercises the navbar title
+alignment controls, sidebar text sizing and weights, icon-only branding, and
+theme presets together:
+
+```{r}
+shiny::runApp(system.file("examples", "test-all", package = "bs4Dashkit"))
+```
+
 ---
 
 ## Sidebar modes
@@ -156,11 +201,11 @@ is collapsed or expanded. Set these in `dash_titles()`:
 ```{r}
 ttl <- dash_titles(
   brand_text     = "OLTCR Dashboards",
-  icon           = "chart-line",
+  icon           = icon("chart-line"),
   collapsed      = "icon-only",       # just the icon when narrow
   expanded       = "icon-text",       # icon + label when wide
-  collapsed_text = "OL",
-  expanded_text  = "OLTCR Dashboards"
+  collapsed_text = "OLT",
+  expanded_text  = "OLTCR Dashboards" # optional; brand_text is the default
 )
 ```
 
@@ -225,7 +270,7 @@ so you can omit them from individual calls.
 
 - "Hover expand doesn’t work on mobile "-> expected (touch devices)
 
-- "Sidebar labels disappear on hover" -> indicates CSS overrides; use shipped dash-sidebar.css
+- "Sidebar labels do not match the hover-expanded state" -> update to the current package version so the shipped hover-expanded sidebar rules are used
 
 
 ## What next?
@@ -235,5 +280,6 @@ so you can omit them from individual calls.
 - **Navigation utilities** — refresh, help, user menu, and `dash_nav_title()`
 - **Footer** — all footer layout combinations
 - **Complete example app** — a single app that exercises every feature
+
 
 

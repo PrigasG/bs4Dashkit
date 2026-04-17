@@ -60,6 +60,7 @@ reference:
 
   - title: Theming
     contents:
+      - bs4dashkit_theme_presets
       - use_dash_theme
       - use_dash_theme_preset
 
@@ -74,3 +75,8 @@ reference:
   - title: Footer
     contents:
       - dash_footer
+
+  - title: Example Apps
+    contents:
+      - bs4dashkit_example_app
+      - bs4dashkit_demo_app
