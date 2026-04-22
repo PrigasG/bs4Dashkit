@@ -2,6 +2,8 @@
 
 ## bs4Dashkit 0.2.0
 
+CRAN release: 2026-04-21
+
 ### Ergonomics and discoverability
 
 - [`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md)
