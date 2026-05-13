@@ -42,6 +42,7 @@ articles:
 
   - title: Examples
     contents:
+      - packaged-examples
       - complete-example-app
 
 reference:

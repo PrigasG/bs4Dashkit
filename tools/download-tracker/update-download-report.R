@@ -8,13 +8,48 @@ fetch_downloads <- function(package = package_name, from = Sys.Date() - 365) {
     format(as.Date(from), "%Y-%m-%d")
   )
 
-  stats <- utils::read.csv(query, stringsAsFactors = FALSE)
+  stats <- tryCatch(
+    utils::read.csv(query, stringsAsFactors = FALSE),
+    error = function(err) {
+      warning(
+        sprintf(
+          "Could not fetch CRAN download data for %s from %s: %s",
+          package,
+          query,
+          conditionMessage(err)
+        ),
+        call. = FALSE
+      )
+
+      data.frame(
+        date = as.Date(character()),
+        package = character(),
+        count = numeric(),
+        stringsAsFactors = FALSE
+      )
+    }
+  )
+
   stats$date <- as.Date(stats$date)
   stats$count <- as.numeric(stats$count)
   stats
 }
 
 summarise_downloads <- function(stats) {
+  if (!nrow(stats)) {
+    return(list(
+      package = package_name,
+      latest_date = NA,
+      latest_downloads = 0,
+      total_downloads = 0,
+      downloads_7 = 0,
+      downloads_30 = 0,
+      peak_date = NA,
+      peak_downloads = 0,
+      has_data = FALSE
+    ))
+  }
+
   latest_date <- max(stats$date, na.rm = TRUE)
   last_7_start <- latest_date - 6
   last_30_start <- latest_date - 29
@@ -27,15 +62,30 @@ summarise_downloads <- function(stats) {
     downloads_7 = sum(stats$count[stats$date >= last_7_start], na.rm = TRUE),
     downloads_30 = sum(stats$count[stats$date >= last_30_start], na.rm = TRUE),
     peak_date = stats$date[which.max(stats$count)],
-    peak_downloads = max(stats$count, na.rm = TRUE)
+    peak_downloads = max(stats$count, na.rm = TRUE),
+    has_data = TRUE
   )
 }
 
 write_summary_md <- function(summary, path) {
+  if (!isTRUE(summary$has_data)) {
+    lines <- c(
+      sprintf("# %s CRAN Downloads", summary$package),
+      "",
+      sprintf("Updated: %s", format(Sys.time(), tz = "UTC", usetz = TRUE)),
+      "",
+      "CRAN download data is not available yet.",
+      "",
+      "This can happen before the package is available in CRAN logs, or while the CRAN logs service is temporarily unavailable."
+    )
+    writeLines(lines, path, useBytes = TRUE)
+    return(invisible(path))
+  }
+
   lines <- c(
     sprintf("# %s CRAN Downloads", summary$package),
     "",
-    sprintf("Updated: %s UTC", format(Sys.time(), tz = "UTC", usetz = TRUE)),
+    sprintf("Updated: %s", format(Sys.time(), tz = "UTC", usetz = TRUE)),
     "",
     sprintf("- Latest day: %s (%s downloads)", summary$latest_date, summary$latest_downloads),
     sprintf("- Last 7 days: %s downloads", summary$downloads_7),
@@ -59,4 +109,8 @@ utils::write.csv(
 
 write_summary_md(summary, file.path(output_dir, "download-summary.md"))
 
-cat("Updated download tracker data for", summary$package, "\n")
+if (isTRUE(summary$has_data)) {
+  cat("Updated download tracker data for", summary$package, "\n")
+} else {
+  cat("No CRAN download data available yet for", summary$package, "\n")
+}
