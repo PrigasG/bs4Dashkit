@@ -1,7 +1,9 @@
 # bs4Dashkit CRAN Downloads
 
-Updated: 2026-04-22 11:22:30 UTC
+Updated: 2026-05-14 00:41:00 UTC
 
-CRAN download data is not available yet.
-
-This can happen before the package is available in CRAN logs, or while the CRAN logs service is temporarily unavailable.
+- Latest day: 2026-05-12 (9 downloads)
+- Last 7 days: 113 downloads
+- Last 30 days: 552 downloads
+- Total in tracked period: 1307 downloads
+- Peak day: 2026-03-31 (79 downloads)
