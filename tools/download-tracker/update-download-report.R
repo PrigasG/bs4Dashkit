@@ -1,15 +1,44 @@
 package_name <- "bs4Dashkit"
 output_dir <- file.path("tools", "download-tracker", "data")
 
-fetch_downloads <- function(package = package_name, from = Sys.Date() - 365) {
+`%||%` <- function(x, y) {
+  if (is.null(x)) y else x
+}
+
+fetch_downloads <- function(package = package_name, from = Sys.Date() - 365, to = Sys.Date()) {
   query <- sprintf(
-    "https://cranlogs.r-pkg.org/downloads/daily.csv?package=%s&from=%s",
-    utils::URLencode(package, reserved = TRUE),
-    format(as.Date(from), "%Y-%m-%d")
+    "https://cranlogs.r-pkg.org/downloads/daily/%s:%s/%s",
+    format(as.Date(from), "%Y-%m-%d"),
+    format(as.Date(to), "%Y-%m-%d"),
+    utils::URLencode(package, reserved = TRUE)
   )
 
-  stats <- tryCatch(
-    utils::read.csv(query, stringsAsFactors = FALSE),
+  empty_stats <- function() {
+    data.frame(
+      date = as.Date(character()),
+      package = character(),
+      count = numeric(),
+      stringsAsFactors = FALSE
+    )
+  }
+
+  tryCatch(
+    {
+      response <- jsonlite::fromJSON(query, simplifyVector = FALSE)
+      stats <- response[[1]]
+      downloads <- stats$downloads
+
+      if (!length(downloads)) {
+        return(empty_stats())
+      }
+
+      data.frame(
+        date = as.Date(vapply(downloads, function(x) x$day, character(1))),
+        package = stats$package %||% package,
+        count = vapply(downloads, function(x) as.numeric(x$downloads), numeric(1)),
+        stringsAsFactors = FALSE
+      )
+    },
     error = function(err) {
       warning(
         sprintf(
@@ -21,18 +50,9 @@ fetch_downloads <- function(package = package_name, from = Sys.Date() - 365) {
         call. = FALSE
       )
 
-      data.frame(
-        date = as.Date(character()),
-        package = character(),
-        count = numeric(),
-        stringsAsFactors = FALSE
-      )
+      empty_stats()
     }
   )
-
-  stats$date <- as.Date(stats$date)
-  stats$count <- as.numeric(stats$count)
-  stats
 }
 
 summarise_downloads <- function(stats) {
