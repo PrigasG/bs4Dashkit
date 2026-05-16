@@ -1,6 +1,7 @@
 # Navigation Utilities
 
 ``` r
+
 library(bs4Dashkit)
 ```
 
@@ -19,6 +20,7 @@ applies the wrapper (`<li class="nav-item dropdown"> ... </li>`) so you
 can focus on the content.
 
 ``` r
+
 rightUi = tagList(
   dash_nav_item(dash_nav_refresh_button("refresh")),
   dash_nav_item(dash_nav_help_button("help"))
@@ -38,6 +40,7 @@ Creates a pre-styled
 intended for the navbar.
 
 ``` r
+
 dash_nav_refresh_button("refresh")                      # default label + icon
 dash_nav_refresh_button("refresh", label = "Reload")    # custom label
 dash_nav_refresh_button("refresh", label = "")          # icon only
@@ -49,6 +52,7 @@ dash_nav_refresh_button("refresh", icon = "arrows-rotate")
 The most common behavior is a full app refresh:
 
 ``` r
+
 observeEvent(input$refresh, {
   session$reload()
 })
@@ -65,6 +69,7 @@ Creates a pre-styled
 intended to open help content.
 
 ``` r
+
 dash_nav_help_button("help")                     # default label + icon
 dash_nav_help_button("help", label = "Support")  # custom label
 dash_nav_help_button("help", label = "")         # icon only
@@ -76,6 +81,7 @@ dash_nav_help_button("help", icon = "circle-info")
 A simple help modal:
 
 ``` r
+
 observeEvent(input$help, {
   showModal(modalDialog(
     title     = "Help",
@@ -89,6 +95,7 @@ observeEvent(input$help, {
 A more structured help modal:
 
 ``` r
+
 observeEvent(input$help, {
   showModal(modalDialog(
     title = "Help & Documentation",
@@ -113,6 +120,7 @@ Renders a title block with optional subtitle and icon, designed for use
 in `leftUi` or `rightUi.`
 
 ``` r
+
 dash_nav_title(
   title    = "DASHBOARDS",
   subtitle = "Critical & Main",
@@ -127,6 +135,7 @@ dash_nav_title(
 other items:
 
 ``` r
+
 rightUi = tagList(
   dash_nav_title(
     "DASHBOARDS", "Critical & Main",
@@ -141,6 +150,7 @@ rightUi = tagList(
 **Right-aligned** — title sits after all other right items:
 
 ``` r
+
 rightUi = tagList(
   dash_nav_item(dash_nav_refresh_button("refresh")),
   dash_nav_item(dash_nav_help_button("help")),
@@ -155,6 +165,7 @@ rightUi = tagList(
 **Left-aligned** — title appears before other right items:
 
 ``` r
+
 rightUi = tagList(
   dash_nav_title(
     "DASHBOARDS", "Critical & Main",
@@ -178,6 +189,7 @@ Because it already returns a `<li>`, **do not** wrap it in
 [`dash_nav_item()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_item.md).
 
 ``` r
+
 dash_user_menu(
   dropdownMenu(
     type = "notifications",
@@ -195,6 +207,7 @@ sign-out inside the user dropdown menu, which keeps the navbar clean.
 ### Option 1: “Logout” inside the dropdown menu
 
 ``` r
+
 dash_user_menu(
   dropdownMenu(
     type = "notifications",
@@ -209,6 +222,7 @@ authentication framework you’re using. If you just want a simple
 confirmation and reload:
 
 ``` r
+
 # Example only: you control the real sign-out logic
 observeEvent(input$logout, { ... })
 ```
@@ -216,6 +230,7 @@ observeEvent(input$logout, { ... })
 ## Full navbar example
 
 ``` r
+
 bs4DashNavbar(
   title = ttl$brand,
   skin  = "light",
@@ -242,6 +257,7 @@ bs4DashNavbar(
 **Server:**
 
 ``` r
+
 server <- function(input, output, session) {
   observeEvent(input$refresh, session$reload())
 

@@ -1,6 +1,7 @@
 # Getting Started
 
 ``` r
+
 library(bs4Dashkit)
 ```
 
@@ -34,6 +35,7 @@ The smallest possible `bs4Dashkit` app requires exactly two calls beyond
 normal `bs4Dash` boilerplate:
 
 ``` r
+
 library(shiny)
 library(bs4Dash)
 library(bs4Dashkit)
@@ -65,6 +67,7 @@ If you prefer, you can also pass a simple
 [`shiny::icon()`](https://rdrr.io/pkg/shiny/man/icon.html) tag:
 
 ``` r
+
 ttl <- dash_titles(
   brand_text = "My Dashboard",
   icon = icon("cloud")
@@ -79,13 +82,14 @@ ttl <- dash_titles(
 is the single entry point for all brand-related configuration. It
 returns a named list with three slots:
 
-| Slot           | Where it goes                                                                                                                                                           |
-|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `ttl$app_name` | `bs4DashPage(title = ...)`                                                                                                                                              |
-| `ttl$brand`    | `bs4DashNavbar(title = ...)`; the sidebar brand mirrors this automatically in a standard [`bs4DashPage()`](https://bs4dash.rinterface.com/reference/dashboardPage.html) |
-| `ttl$deps`     | inside `bs4DashBody(...)` (handled automatically by [`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md))                   |
+| Slot | Where it goes |
+|----|----|
+| `ttl$app_name` | `bs4DashPage(title = ...)` |
+| `ttl$brand` | `bs4DashNavbar(title = ...)`; the sidebar brand mirrors this automatically in a standard [`bs4DashPage()`](https://bs4dash.rinterface.com/reference/dashboardPage.html) |
+| `ttl$deps` | inside `bs4DashBody(...)` (handled automatically by [`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md)) |
 
 ``` r
+
 ttl <- dash_titles(
   brand_text     = "OLTCR Dashboards",
   icon           = icon("project-diagram"),
@@ -112,6 +116,7 @@ If you want a fully textless icon brand, set `brand_text = NULL` and
 keep both sidebar states at `"icon-only"`:
 
 ``` r
+
 ttl <- dash_titles(
   brand_text = NULL,
   app_name   = "Icon Lab",
@@ -124,6 +129,7 @@ ttl <- dash_titles(
 Alternatively, use an image instead of a Font Awesome icon:
 
 ``` r
+
 ttl <- dash_titles(
   brand_text = "My App",
   icon_img   = "logo.png",        # overrides `icon`
@@ -146,6 +152,7 @@ It:
 - Applies a theme preset (default: `"professional"`)
 
 ``` r
+
 body = bs4DashBody(
   use_bs4Dashkit_core(ttl, preset = "professional"),
   # ... rest of your content
@@ -155,6 +162,7 @@ body = bs4DashBody(
 Available presets:
 
 ``` r
+
 use_bs4Dashkit_core(ttl, preset = "professional")  # cool blue-grey (default)
 use_bs4Dashkit_core(ttl, preset = "modern")        # brighter accent colours
 use_bs4Dashkit_core(ttl, preset = "dark-lite")     # dark surfaces and lighter text
@@ -164,6 +172,7 @@ bs4dashkit_theme_presets()                         # list built-in presets
 For a runnable template app, use:
 
 ``` r
+
 app <- bs4dashkit_example_app()
 ```
 
@@ -171,12 +180,14 @@ For a fuller interactive playground that exercises sidebar states, hover
 behavior, presets, navbar controls, and footer styling together, use:
 
 ``` r
+
 app <- bs4dashkit_demo_app()
 ```
 
 You can also launch the packaged example directory directly:
 
 ``` r
+
 shiny::runApp(system.file("examples", "real-shiny-app", package = "bs4Dashkit"))
 ```
 
@@ -189,6 +200,7 @@ alignment controls, sidebar text sizing and weights, icon-only branding,
 and theme presets together:
 
 ``` r
+
 shiny::runApp(system.file("examples", "test-all", package = "bs4Dashkit"))
 ```
 
@@ -201,6 +213,7 @@ the sidebar is collapsed or expanded. Set these in
 [`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md):
 
 ``` r
+
 ttl <- dash_titles(
   brand_text     = "OLTCR Dashboards",
   icon           = icon("chart-line"),
@@ -221,6 +234,7 @@ Add hover-expand behavior (sidebar expands on mouse-over even when
 collapsed):
 
 ``` r
+
 body = bs4DashBody(
   use_bs4Dashkit_core(
     ttl,
@@ -253,6 +267,7 @@ Set package-level defaults once (e.g. in your `global.R`) so every app
 in a project inherits them:
 
 ``` r
+
 options(
   bs4Dashkit.sidebar.collapsed = "icon-only",
   bs4Dashkit.sidebar.expanded  = "icon-text",
@@ -268,6 +283,7 @@ uses the package option `bs4Dashkit.theme_preset (if set)`. If
 `accent = NULL`, it uses `bs4Dashkit.accent`.
 
 ``` r
+
 use_bs4Dashkit_core(ttl, preset = NULL) # uses option if set
 use_bs4Dashkit_core(ttl, accent = NULL) # uses option if set
 ```

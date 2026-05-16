@@ -1,6 +1,7 @@
 # Footer
 
 ``` r
+
 library(bs4Dashkit)
 ```
 
@@ -15,21 +16,22 @@ right side.
 
 ## Arguments
 
-| Argument        | Type                  | Default                           | Description                                                      |
-|-----------------|-----------------------|-----------------------------------|------------------------------------------------------------------|
-| `logo_src`      | `character` or `NULL` | —                                 | Path to logo image (relative to `www/`). Set `NULL` for no logo. |
-| `left_text`     | `character`           | (required)                        | Left footer text. If `NULL` or empty, no main text is rendered.  |
-| `right_text`    | `character`           | `format(Sys.Date(), "%B %d, %Y")` | Text on the opposite side (often a date/version)                 |
-| `logo_position` | `"left"` or `"right"` | `"left"`                          | Which side the logo appears on                                   |
-| `text_position` | `"left"` or `"right"` | `"left"`                          | Which side the text appears on                                   |
-| `logo height`   | `numeric`             | `20`                              | Logo height in pixels                                            |
-| `fixed`         | `logical`             | `TRUE`                            | Fixed footer at the bottom                                       |
+| Argument | Type | Default | Description |
+|----|----|----|----|
+| `logo_src` | `character` or `NULL` | — | Path to logo image (relative to `www/`). Set `NULL` for no logo. |
+| `left_text` | `character` | (required) | Left footer text. If `NULL` or empty, no main text is rendered. |
+| `right_text` | `character` | `format(Sys.Date(), "%B %d, %Y")` | Text on the opposite side (often a date/version) |
+| `logo_position` | `"left"` or `"right"` | `"left"` | Which side the logo appears on |
+| `text_position` | `"left"` or `"right"` | `"left"` | Which side the text appears on |
+| `logo height` | `numeric` | `20` | Logo height in pixels |
+| `fixed` | `logical` | `TRUE` | Fixed footer at the bottom |
 
 ------------------------------------------------------------------------
 
 ## Default — logo left, text left
 
 ``` r
+
 dash_footer(
   logo_src  = "logo.png",
   left_text = "My Org",
@@ -40,6 +42,7 @@ dash_footer(
 To include version/date, you can try:
 
 ``` r
+
 
 dash_footer(
   logo_src = "logo.png",
@@ -53,6 +56,7 @@ dash_footer(
 ## Logo right, text left
 
 ``` r
+
 dash_footer(
   logo_src       = "logo.png",
   left_text      = "Your Organisation",
@@ -65,6 +69,7 @@ dash_footer(
 ## Both logo and text on the right
 
 ``` r
+
 dash_footer(
   logo_src = "logo.png",
   left_text = "My Org",
@@ -81,6 +86,7 @@ choice when you have no logo asset or want a plain, minimal footer. A
 `NULL` value avoids a broken-image placeholder in the rendered page.
 
 ``` r
+
 dash_footer(
   logo_src  = NULL,
   left_text = "Your Organisation \u2022 2025"
@@ -90,6 +96,7 @@ dash_footer(
 or
 
 ``` r
+
 dash_footer(
   left_text = NULL,
   right_text = "Internal Use Only",
@@ -107,6 +114,7 @@ footer text — e.g. `"NYS DOH \u2022 Internal Use Only"`.
 Use `right_text` for a version, environment label, or static date:
 
 ``` r
+
 dash_footer(
   logo_src   = "logo.png",
   left_text  = "Your Organisation",
@@ -123,6 +131,7 @@ It should **not** be placed inside
 [`bs4DashBody()`](https://bs4dash.rinterface.com/reference/dashboardBody.html).
 
 ``` r
+
 library(shiny)
 library(bs4Dash)
 library(bs4Dashkit)
@@ -154,12 +163,14 @@ The `logo_src` path is resolved relative to your app’s `www/` folder.
 For a logo at `www/assets/logo.png` use:
 
 ``` r
+
 dash_footer(logo_src = "assets/logo.png", left_text = "My Org")
 ```
 
 **Avoid windows file paths like**
 
 ``` r
+
 # Don't do this (file path will not load in the browser):
 dash_footer(logo_src = "C:/Users/.../logo.png", left_text = "My Org")
 ```

@@ -1,6 +1,7 @@
 # Complete Example App
 
 ``` r
+
 library(bs4Dashkit)
 ```
 
@@ -20,6 +21,7 @@ Copy the code below into a new R script and run it directly with
 ------------------------------------------------------------------------
 
 ``` r
+
 library(shiny)
 library(bs4Dash)
 library(bs4Dashkit)

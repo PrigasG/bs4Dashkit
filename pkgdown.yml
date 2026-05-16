@@ -1,4 +1,4 @@
-pandoc: 3.1.11
+pandoc: 3.8.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
@@ -8,8 +8,9 @@ articles:
   getting-started: getting-started.html
   global-options: global-options.html
   navigation-utilities: navigation-utilities.html
+  packaged-examples: packaged-examples.html
   theming-and-presets: theming-and-presets.html
-last_built: 2026-04-22T11:27Z
+last_built: 2026-05-16T22:09Z
 urls:
   reference: https://PrigasG.github.io/bs4Dashkit/reference
   article: https://PrigasG.github.io/bs4Dashkit/articles

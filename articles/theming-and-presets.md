@@ -1,6 +1,7 @@
 # Theming and Presets
 
 ``` r
+
 library(bs4Dashkit)
 ```
 
@@ -17,6 +18,7 @@ The simplest way to theme an app is to pick a preset when calling
 [`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md).
 
 ``` r
+
 body = bs4DashBody(
   use_bs4Dashkit_core(ttl, preset = "professional"),  # default
   # ...
@@ -45,6 +47,7 @@ You can override the preset accent using the `accent` argument in
 [`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md):
 
 ``` r
+
 body = bs4DashBody(
   use_bs4Dashkit_core(ttl, preset = "professional", accent = "#2f6f8f"),
   # ...
@@ -64,6 +67,7 @@ via `...`. These are passed through to
 [`use_dash_theme_preset()`](https://PrigasG.github.io/bs4Dashkit/reference/use_dash_theme_preset.md).
 
 ``` r
+
 body = bs4DashBody(
   use_bs4Dashkit_core(
     ttl,
@@ -78,6 +82,7 @@ body = bs4DashBody(
 If you are not using a preset, you can apply the base theme directly:
 
 ``` r
+
 body = bs4DashBody(
   use_bs4Dashkit_core(ttl, preset = NULL, accent = "#2f6f8f"),
   # ...
@@ -99,6 +104,7 @@ Use
 if you want complete control without presets:
 
 ``` r
+
 body = bs4DashBody(
   use_bs4Dashkit_core(ttl, preset = NULL),
   use_dash_theme(
@@ -118,6 +124,7 @@ body = bs4DashBody(
 Apply a preset independently (useful when switching themes at runtime):
 
 ``` r
+
 body = bs4DashBody(
   use_bs4Dashkit_core(ttl, preset = NULL),  # load core, no preset
   use_dash_theme_preset("modern"),         # apply preset explicitly
@@ -130,6 +137,7 @@ body = bs4DashBody(
 List available presets and their CSS variable values:
 
 ``` r
+
 bs4dashkit_theme_presets()
 bs4dashkit_theme_presets(values = TRUE)
 ```
@@ -142,6 +150,7 @@ inspect or programmatically reuse the shipped palette values.
 ## Example: user-selectable presets
 
 ``` r
+
 library(shiny)
 library(bs4Dash)
 library(bs4Dashkit)

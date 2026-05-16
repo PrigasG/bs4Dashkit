@@ -1,6 +1,7 @@
 # Branding and Sidebar Modes
 
 ``` r
+
 library(bs4Dashkit)
 ```
 
@@ -12,6 +13,7 @@ returns a list you destructure into the three placement slots described
 below.
 
 ``` r
+
 ttl <- dash_titles(
   brand_text     = "My App",       # primary navbar label and default expanded sidebar label
   app_name       = NULL,            # browser tab title; defaults to brand_text
@@ -38,11 +40,11 @@ ttl <- dash_titles(
 
 ### Return value
 
-| Slot           | Type        | Placement                                                                                                                                                                     |
-|----------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `ttl$app_name` | `character` | `bs4DashPage(title = ttl$app_name)`                                                                                                                                           |
-| `ttl$brand`    | `tagList`   | `bs4DashNavbar(title = ttl$brand)`; the sidebar brand mirrors this automatically in a standard [`bs4DashPage()`](https://bs4dash.rinterface.com/reference/dashboardPage.html) |
-| `ttl$deps`     | `tagList`   | inside `bs4DashBody(...)` — handled by [`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md)                                       |
+| Slot | Type | Placement |
+|----|----|----|
+| `ttl$app_name` | `character` | `bs4DashPage(title = ttl$app_name)` |
+| `ttl$brand` | `tagList` | `bs4DashNavbar(title = ttl$brand)`; the sidebar brand mirrors this automatically in a standard [`bs4DashPage()`](https://bs4dash.rinterface.com/reference/dashboardPage.html) |
+| `ttl$deps` | `tagList` | inside `bs4DashBody(...)` — handled by [`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md) |
 
 ------------------------------------------------------------------------
 
@@ -51,6 +53,7 @@ ttl <- dash_titles(
 ### Font Awesome icon
 
 ``` r
+
 ttl <- dash_titles(
   brand_text = "My App",
   icon       = icon("chart-line"),
@@ -65,6 +68,7 @@ ttl <- dash_titles(
 folder.
 
 ``` r
+
 ttl <- dash_titles(
   brand_text = "My App",
   icon_img   = "logo.png",    # served from www/logo.png
@@ -78,6 +82,7 @@ ttl <- dash_titles(
 ## Label effects
 
 ``` r
+
 # No effect (plain text)
 ttl <- dash_titles(brand_text = "My App", effect = "none")
 
@@ -118,6 +123,7 @@ centered in the collapsed brand strip.
 ### Common combinations
 
 ``` r
+
 # Compact when collapsed, full when expanded (recommended default)
 ttl <- dash_titles(
   brand_text     = "Test Dashboard",
@@ -165,6 +171,7 @@ collapsed on desktop, it expands temporarily on mouse hover.
 Configure it with the sizing arguments:
 
 ``` r
+
 body = bs4DashBody(
   use_bs4Dashkit_core(
     ttl,
@@ -180,6 +187,7 @@ If you are not using use_bs4Dashkit_core(), you can enable hover-expand
 directly:
 
 ``` r
+
 body = bs4DashBody(
   use_bs4Dashkit(),
   ttl$deps,
@@ -195,6 +203,7 @@ body = bs4DashBody(
 A subtle horizontal rule between the brand mark and the sidebar menu:
 
 ``` r
+
 ttl <- dash_titles(
   brand_text    = "My App",
   icon          = icon("chart-line"),
@@ -214,6 +223,7 @@ calling
 [`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md):
 
 ``` r
+
 options(
   bs4Dashkit.sidebar.collapsed = "icon-only",
   bs4Dashkit.sidebar.expanded  = "icon-text",
@@ -231,6 +241,7 @@ default.
 ## Putting it together
 
 ``` r
+
 library(shiny)
 library(bs4Dash)
 library(bs4Dashkit)

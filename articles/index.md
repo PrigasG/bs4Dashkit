@@ -25,5 +25,7 @@
 
 ### Examples
 
+- [Packaged
+  Examples](https://PrigasG.github.io/bs4Dashkit/articles/packaged-examples.md):
 - [Complete Example
   App](https://PrigasG.github.io/bs4Dashkit/articles/complete-example-app.md):
