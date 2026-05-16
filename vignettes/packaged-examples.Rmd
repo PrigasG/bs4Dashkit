@@ -1,0 +1,78 @@
+---
+title: "Packaged Examples"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Packaged Examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment  = "#>",
+  eval     = FALSE
+)
+```
+
+## Overview
+
+`bs4Dashkit` ships with three runnable example apps under `inst/examples/`.
+These are useful for smoke testing, regression checks, and quick reference when
+you want to compare package behavior against a known working app.
+
+## Included examples
+
+### Real Shiny App
+
+The main interactive playground for sidebar brand modes, navbar title
+alignment, theme presets, footer styling, and live brand controls.
+
+```{r}
+shiny::runApp(system.file("examples", "real-shiny-app", package = "bs4Dashkit"))
+```
+
+Source file:
+
+```{r}
+file.show(system.file("examples", "real-shiny-app", "app.R", package = "bs4Dashkit"))
+```
+
+### Sidebar Smoke Test
+
+A compact app focused on the sidebar brand behavior. Use this when you want to
+quickly verify collapsed labels, hover-expanded labels, and stable sidebar menu
+item positioning.
+
+```{r}
+shiny::runApp(system.file("examples", "sidebar-smoke-test", package = "bs4Dashkit"))
+```
+
+Source file:
+
+```{r}
+file.show(system.file("examples", "sidebar-smoke-test", "app.R", package = "bs4Dashkit"))
+```
+
+### Test All
+
+A heavier end-to-end example that exercises the package more aggressively:
+centered navbar titles, collapsed text-only branding, icon-only branding,
+collapsed and expanded text size / weight controls, theme presets, alerts,
+badges, and footer styling.
+
+```{r}
+shiny::runApp(system.file("examples", "test-all", package = "bs4Dashkit"))
+```
+
+Source file:
+
+```{r}
+file.show(system.file("examples", "test-all", "app.R", package = "bs4Dashkit"))
+```
+
+## When to use which
+
+- Use `real-shiny-app` when you want the interactive demo.
+- Use `sidebar-smoke-test` when you are debugging sidebar regressions.
+- Use `test-all` when you want a broader package-level stress test.
