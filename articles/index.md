@@ -21,6 +21,8 @@
 
 - [Navigation
   Utilities](https://PrigasG.github.io/bs4Dashkit/articles/navigation-utilities.md):
+- [Top Navigation
+  Prototype](https://PrigasG.github.io/bs4Dashkit/articles/top-navigation.md):
 - [Footer](https://PrigasG.github.io/bs4Dashkit/articles/footer.md):
 
 ### Examples

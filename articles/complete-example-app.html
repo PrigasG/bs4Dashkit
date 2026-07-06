@@ -12,8 +12,8 @@
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Inter-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/Inter-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Complete Example App">
@@ -40,7 +40,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bs4Dashkit</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +54,7 @@
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/PrigasG/bs4Dashkit"><span class="fa fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/PrigasG/bs4Dashkit" aria-label="GitHub repository"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -123,15 +123,14 @@ toolkit, and a footer.</p>
 <span>        icon  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"shield-halved"</span><span class="op">)</span>,</span>
 <span>        align <span class="op">=</span> <span class="st">"center"</span></span>
 <span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/dash_nav_item.html">dash_nav_item</a></span><span class="op">(</span><span class="fu"><a href="../reference/dash_nav_refresh_button.html">dash_nav_refresh_button</a></span><span class="op">(</span><span class="st">"refresh"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/dash_nav_item.html">dash_nav_item</a></span><span class="op">(</span><span class="fu"><a href="../reference/dash_nav_help_button.html">dash_nav_help_button</a></span><span class="op">(</span><span class="st">"help"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/dash_nav_item.html">dash_nav_item</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="../reference/dash_user_menu.html">dash_user_menu</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dropdownMenu.html" class="external-link">dropdownMenu</a></span><span class="op">(</span></span>
-<span>            type <span class="op">=</span> <span class="st">"notifications"</span>,</span>
-<span>            <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dropdownMenu.html" class="external-link">notificationItem</a></span><span class="op">(</span><span class="st">"Profile"</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dropdownMenu.html" class="external-link">notificationItem</a></span><span class="op">(</span><span class="st">"Logout"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span></span>
+<span>      <span class="fu"><a href="../reference/dash_nav_status_item.html">dash_nav_status_item</a></span><span class="op">(</span><span class="st">"Ready"</span>, status <span class="op">=</span> <span class="st">"success"</span>, icon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"circle-check"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/dash_nav_refresh_item.html">dash_nav_refresh_item</a></span><span class="op">(</span><span class="st">"refresh"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/dash_nav_help_item.html">dash_nav_help_item</a></span><span class="op">(</span><span class="st">"help"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/dash_user_menu.html">dash_user_menu</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dropdownMenu.html" class="external-link">dropdownMenu</a></span><span class="op">(</span></span>
+<span>          type <span class="op">=</span> <span class="st">"notifications"</span>,</span>
+<span>          <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dropdownMenu.html" class="external-link">notificationItem</a></span><span class="op">(</span><span class="st">"Profile"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dropdownMenu.html" class="external-link">notificationItem</a></span><span class="op">(</span><span class="st">"Logout"</span><span class="op">)</span></span>
 <span>        <span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
@@ -151,9 +150,9 @@ toolkit, and a footer.</p>
 <span>    <span class="fu"><a href="../reference/use_bs4Dashkit_core.html">use_bs4Dashkit_core</a></span><span class="op">(</span></span>
 <span>      <span class="va">ttl</span>,</span>
 <span>      preset <span class="op">=</span> <span class="st">"professional"</span>,</span>
-<span>      topbar_h <span class="op">=</span> <span class="fl">56</span>,</span>
-<span>      collapsed_w <span class="op">=</span> <span class="fl">4.2</span>,</span>
-<span>      expanded_w <span class="op">=</span> <span class="fl">250</span></span>
+<span>      topbar_h <span class="op">=</span> <span class="st">"56px"</span>,</span>
+<span>      collapsed_w <span class="op">=</span> <span class="st">"4.25rem"</span>,</span>
+<span>      expanded_w <span class="op">=</span> <span class="st">"270px"</span></span>
 <span>    <span class="op">)</span>,</span>
 <span></span>
 <span>    <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dashboardBody.html" class="external-link">bs4TabItems</a></span><span class="op">(</span></span>

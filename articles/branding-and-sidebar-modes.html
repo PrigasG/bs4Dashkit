@@ -12,8 +12,8 @@
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Inter-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/Inter-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Branding and Sidebar Modes">
@@ -40,7 +40,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bs4Dashkit</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +54,7 @@
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/PrigasG/bs4Dashkit"><span class="fa fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/PrigasG/bs4Dashkit" aria-label="GitHub repository"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -178,9 +178,38 @@ relative to your app’s <code>www/</code> folder.</p>
 </div>
 </div>
 <div class="section level2">
+<h2 id="reusable-brand-options">Reusable brand options<a class="anchor" aria-label="anchor" href="#reusable-brand-options"></a>
+</h2>
+<p>Use <code><a href="../reference/dash_brand_options.html">dash_brand_options()</a></code> when multiple apps share a
+brand but each app still needs the regular <code><a href="../reference/dash_titles.html">dash_titles()</a></code>
+output:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">brand</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_brand_options.html">dash_brand_options</a></span><span class="op">(</span></span>
+<span>  name      <span class="op">=</span> <span class="st">"Atlas Forge"</span>,</span>
+<span>  icon      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"layer-group"</span><span class="op">)</span>,</span>
+<span>  collapsed <span class="op">=</span> <span class="st">"AF"</span>,</span>
+<span>  expanded  <span class="op">=</span> <span class="st">"Atlas Forge"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ttl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_titles_from.html">dash_titles_from</a></span><span class="op">(</span><span class="va">brand</span><span class="op">)</span></span></code></pre></div>
+<p>Any extra arguments are forwarded to <code><a href="../reference/dash_titles.html">dash_titles()</a></code>, and
+direct arguments to <code><a href="../reference/dash_titles_from.html">dash_titles_from()</a></code> override stored
+options:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">brand</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_brand_options.html">dash_brand_options</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="st">"Atlas Forge"</span>,</span>
+<span>  icon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"layer-group"</span><span class="op">)</span>,</span>
+<span>  effect <span class="op">=</span> <span class="st">"glow"</span>,</span>
+<span>  glow_color <span class="op">=</span> <span class="st">"#2f6f8f"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ttl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_titles_from.html">dash_titles_from</a></span><span class="op">(</span><span class="va">brand</span>, app_name <span class="op">=</span> <span class="st">"Atlas Forge Ops"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
 <h2 id="label-effects">Label effects<a class="anchor" aria-label="anchor" href="#label-effects"></a>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># No effect (plain text)</span></span>
 <span><span class="va">ttl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_titles.html">dash_titles</a></span><span class="op">(</span>brand_text <span class="op">=</span> <span class="st">"My App"</span>, effect <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
@@ -233,7 +262,7 @@ collapsed brand strip.</p>
 <div class="section level3">
 <h3 id="common-combinations">Common combinations<a class="anchor" aria-label="anchor" href="#common-combinations"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Compact when collapsed, full when expanded (recommended default)</span></span>
 <span><span class="va">ttl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_titles.html">dash_titles</a></span><span class="op">(</span></span>
 <span>  brand_text     <span class="op">=</span> <span class="st">"Test Dashboard"</span>,</span>
@@ -278,19 +307,24 @@ collapsed brand strip.</p>
 behavior by default. When the sidebar is collapsed on desktop, it
 expands temporarily on mouse hover.</p>
 <p>Configure it with the sizing arguments:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">body</span> <span class="op">=</span> <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dashboardBody.html" class="external-link">bs4DashBody</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/use_bs4Dashkit_core.html">use_bs4Dashkit_core</a></span><span class="op">(</span></span>
 <span>    <span class="va">ttl</span>,</span>
-<span>    topbar_h <span class="op">=</span> <span class="fl">56</span>,</span>
-<span>    collapsed_w <span class="op">=</span> <span class="fl">4.2</span>,</span>
-<span>    expanded_w <span class="op">=</span> <span class="fl">250</span></span>
+<span>    topbar_h <span class="op">=</span> <span class="st">"56px"</span>,</span>
+<span>    collapsed_w <span class="op">=</span> <span class="st">"4.25rem"</span>,</span>
+<span>    expanded_w <span class="op">=</span> <span class="st">"270px"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="co"># ...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+<p>Numeric values remain supported for compatibility:
+<code>topbar_h</code> uses pixels, <code>collapsed_w</code> uses rem,
+and <code>expanded_w</code> uses pixels. Explicit CSS units are
+recommended in new code because they avoid guessing which unit a number
+means.</p>
 <p>If you are not using use_bs4Dashkit_core(), you can enable
 hover-expand directly:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">body</span> <span class="op">=</span> <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dashboardBody.html" class="external-link">bs4DashBody</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/use_bs4Dashkit.html">use_bs4Dashkit</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">ttl</span><span class="op">$</span><span class="va">deps</span>,</span>
@@ -304,7 +338,7 @@ hover-expand directly:</p>
 </h2>
 <p>A subtle horizontal rule between the brand mark and the sidebar
 menu:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ttl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dash_titles.html">dash_titles</a></span><span class="op">(</span></span>
 <span>  brand_text    <span class="op">=</span> <span class="st">"My App"</span>,</span>
 <span>  icon          <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"chart-line"</span><span class="op">)</span>,</span>
@@ -320,7 +354,7 @@ menu:</p>
 </h2>
 <p>Set defaults for your whole project in <code>global.R</code> or
 <code>app.R</code> before calling <code><a href="../reference/dash_titles.html">dash_titles()</a></code>:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span></span>
 <span>  bs4Dashkit.sidebar.collapsed <span class="op">=</span> <span class="st">"icon-only"</span>,</span>
 <span>  bs4Dashkit.sidebar.expanded  <span class="op">=</span> <span class="st">"icon-text"</span>,</span>
@@ -334,7 +368,7 @@ what differs from the project default.</p>
 <div class="section level2">
 <h2 id="putting-it-together">Putting it together<a class="anchor" aria-label="anchor" href="#putting-it-together"></a>
 </h2>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RinteRface/bs4Dash" class="external-link">bs4Dash</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PrigasG/bs4Dashkit" class="external-link">bs4Dashkit</a></span><span class="op">)</span></span>

@@ -10,7 +10,8 @@ articles:
   navigation-utilities: navigation-utilities.html
   packaged-examples: packaged-examples.html
   theming-and-presets: theming-and-presets.html
-last_built: 2026-05-16T22:09Z
+  top-navigation: top-navigation.html
+last_built: 2026-07-06T20:28Z
 urls:
   reference: https://PrigasG.github.io/bs4Dashkit/reference
   article: https://PrigasG.github.io/bs4Dashkit/articles

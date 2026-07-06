@@ -56,15 +56,14 @@ ui <- bs4DashPage(
         icon  = icon("shield-halved"),
         align = "center"
       ),
-      dash_nav_item(dash_nav_refresh_button("refresh")),
-      dash_nav_item(dash_nav_help_button("help")),
-      dash_nav_item(
-        dash_user_menu(
-          dropdownMenu(
-            type = "notifications",
-            notificationItem("Profile"),
-            notificationItem("Logout")
-          )
+      dash_nav_status_item("Ready", status = "success", icon = icon("circle-check")),
+      dash_nav_refresh_item("refresh"),
+      dash_nav_help_item("help"),
+      dash_user_menu(
+        dropdownMenu(
+          type = "notifications",
+          notificationItem("Profile"),
+          notificationItem("Logout")
         )
       )
     )
@@ -84,9 +83,9 @@ ui <- bs4DashPage(
     use_bs4Dashkit_core(
       ttl,
       preset = "professional",
-      topbar_h = 56,
-      collapsed_w = 4.2,
-      expanded_w = 250
+      topbar_h = "56px",
+      collapsed_w = "4.25rem",
+      expanded_w = "270px"
     ),
 
     bs4TabItems(

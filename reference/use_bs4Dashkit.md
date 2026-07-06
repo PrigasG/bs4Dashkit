@@ -1,7 +1,10 @@
 # Load core CSS and JS for bs4Dashkit
 
 Adds the package's bundled CSS (core, theme, sidebar) and optional JS
-helpers.
+helpers. All assets are attached as named
+[`htmltools::htmlDependency`](https://rstudio.github.io/htmltools/reference/htmlDependency.html)
+objects, so they are included once per page regardless of how many
+bs4Dashkit helpers request them.
 
 ## Usage
 
@@ -20,6 +23,6 @@ use_bs4Dashkit(include_center_js = TRUE)
 
 A
 [`htmltools::tagList`](https://rstudio.github.io/htmltools/reference/tagList.html)
-containing an
+containing
 [`htmltools::htmlDependency`](https://rstudio.github.io/htmltools/reference/htmlDependency.html)
-for the package CSS and optional JavaScript helpers.
+objects for the package CSS and optional JavaScript helpers.

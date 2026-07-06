@@ -12,8 +12,8 @@
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Inter-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/Inter-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Navigation Utilities">
@@ -40,7 +40,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bs4Dashkit</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +54,7 @@
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/PrigasG/bs4Dashkit"><span class="fa fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/PrigasG/bs4Dashkit" aria-label="GitHub repository"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -78,61 +78,91 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PrigasG/bs4Dashkit" class="external-link">bs4Dashkit</a></span><span class="op">)</span></span></code></pre></div>
-<p><code>bs4Dashkit</code> provides a few navbar helpers designed for
-<a href="https://github.com/RinteRface/bs4Dash" class="external-link">bs4Dash</a>. They return standard Shiny UI (mostly
-<code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">actionButton()</a></code> wrapped for navbar use) and are styled
-consistently with <code>btn-nav-pill</code>.</p>
+<p><code>bs4Dashkit</code> provides navbar helpers designed for
+<a href="https://github.com/RinteRface/bs4Dash" class="external-link">bs4Dash</a>. The complete item helpers return valid direct
+children for <code>bs4DashNavbar(rightUi = ...)</code>, while
+lower-level button helpers remain available for custom wrappers.</p>
 <div class="section level2">
-<h2 id="dash_nav_item-wrapping-elements-for-the-navbar">
-<code>dash_nav_item()</code> — wrapping elements for the navbar<a class="anchor" aria-label="anchor" href="#dash_nav_item-wrapping-elements-for-the-navbar"></a>
+<h2 id="complete-navbar-items">Complete navbar items<a class="anchor" aria-label="anchor" href="#complete-navbar-items"></a>
 </h2>
-<p><a href="https://github.com/RinteRface/bs4Dash" class="external-link">bs4Dash</a>’s navbar typically expects items wrapped in a
-<code>&lt;li class="nav-item"&gt;</code>. <code><a href="../reference/dash_nav_item.html">dash_nav_item()</a></code>
-applies the wrapper
-(<code>&lt;li class="nav-item dropdown"&gt; ... &lt;/li&gt;</code>) so
-you can focus on the content.</p>
+<p>Prefer these helpers for standard right-side navbar controls:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rightUi</span> <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/dash_nav_item.html">dash_nav_item</a></span><span class="op">(</span><span class="fu"><a href="../reference/dash_nav_refresh_button.html">dash_nav_refresh_button</a></span><span class="op">(</span><span class="st">"refresh"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/dash_nav_item.html">dash_nav_item</a></span><span class="op">(</span><span class="fu"><a href="../reference/dash_nav_help_button.html">dash_nav_help_button</a></span><span class="op">(</span><span class="st">"help"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p>If a component already returns a <code>&lt;li&gt;</code> (for example
-<code><a href="../reference/dash_nav_title.html">dash_nav_title()</a></code>), you do not need to wrap it again.</p>
-<hr>
+<code class="sourceCode R"><span><span class="va">rightUi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/dash_nav_status_item.html">dash_nav_status_item</a></span><span class="op">(</span><span class="st">"Ready"</span>, status <span class="op">=</span> <span class="st">"success"</span>, icon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"circle-check"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/dash_nav_refresh_item.html">dash_nav_refresh_item</a></span><span class="op">(</span><span class="st">"refresh"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/dash_nav_help_item.html">dash_nav_help_item</a></span><span class="op">(</span><span class="st">"help"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/validate_bs4dash_navbar.html">validate_bs4dash_navbar</a></span><span class="op">(</span><span class="va">rightUi</span><span class="op">)</span></span></code></pre></div>
+<p><code><a href="../reference/dash_nav_status_item.html">dash_nav_status_item()</a></code>,
+<code><a href="../reference/dash_nav_refresh_item.html">dash_nav_refresh_item()</a></code>, and
+<code><a href="../reference/dash_nav_help_item.html">dash_nav_help_item()</a></code> all return the complete
+<code>&lt;li class="nav-item dropdown"&gt;</code> structure expected by
+bs4Dash/AdminLTE.</p>
 </div>
 <div class="section level2">
-<h2 id="refresh-button">Refresh button<a class="anchor" aria-label="anchor" href="#refresh-button"></a>
+<h2 id="dash_nav_item---wrapping-custom-elements">
+<code>dash_nav_item()</code> - wrapping custom elements<a class="anchor" aria-label="anchor" href="#dash_nav_item---wrapping-custom-elements"></a>
 </h2>
-<p>Creates a pre-styled <code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">actionButton()</a></code> intended for the
-navbar.</p>
+<p>Use <code><a href="../reference/dash_nav_item.html">dash_nav_item()</a></code> for custom controls that do not
+already return a navbar <code>&lt;li&gt;</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/dash_nav_refresh_button.html">dash_nav_refresh_button</a></span><span class="op">(</span><span class="st">"refresh"</span><span class="op">)</span>                      <span class="co"># default label + icon</span></span>
-<span><span class="fu"><a href="../reference/dash_nav_refresh_button.html">dash_nav_refresh_button</a></span><span class="op">(</span><span class="st">"refresh"</span>, label <span class="op">=</span> <span class="st">"Reload"</span><span class="op">)</span>    <span class="co"># custom label</span></span>
-<span><span class="fu"><a href="../reference/dash_nav_refresh_button.html">dash_nav_refresh_button</a></span><span class="op">(</span><span class="st">"refresh"</span>, label <span class="op">=</span> <span class="st">""</span><span class="op">)</span>          <span class="co"># icon only</span></span>
-<span><span class="fu"><a href="../reference/dash_nav_refresh_button.html">dash_nav_refresh_button</a></span><span class="op">(</span><span class="st">"refresh"</span>, icon <span class="op">=</span> <span class="st">"arrows-rotate"</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Server wiring:</strong></p>
-<p>The most common behavior is a full app refresh:</p>
+<code class="sourceCode R"><span><span class="va">rightUi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/dash_nav_item.html">dash_nav_item</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">actionButton</a></span><span class="op">(</span><span class="st">"custom"</span>, <span class="st">"Custom"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>If a component already returns a <code>&lt;li&gt;</code> (for example
+<code><a href="../reference/dash_nav_title.html">dash_nav_title()</a></code>, <code><a href="../reference/dash_nav_refresh_item.html">dash_nav_refresh_item()</a></code>,
+<code><a href="../reference/dash_nav_help_item.html">dash_nav_help_item()</a></code>, <code><a href="../reference/dash_nav_status_item.html">dash_nav_status_item()</a></code>,
+or <code><a href="../reference/dash_user_menu.html">dash_user_menu()</a></code>), do not wrap it again.</p>
+</div>
+<div class="section level2">
+<h2 id="validate-mixed-navbar-ui">Validate mixed navbar UI<a class="anchor" aria-label="anchor" href="#validate-mixed-navbar-ui"></a>
+</h2>
+<p>When mixing custom and packaged components,
+<code><a href="../reference/validate_bs4dash_navbar.html">validate_bs4dash_navbar()</a></code> catches common structural
+mistakes before bs4Dash emits a lower-level error:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rightUi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/dash_nav_refresh_item.html">dash_nav_refresh_item</a></span><span class="op">(</span><span class="st">"refresh"</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">li</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"nav-item"</span>, <span class="st">"Missing dropdown class"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/validate_bs4dash_navbar.html">validate_bs4dash_navbar</a></span><span class="op">(</span><span class="va">rightUi</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error: Navbar item 2 is an &lt;li&gt; but is missing class "dropdown".</span></span>
+<span><span class="co">#&gt; Wrap it with dash_nav_item().</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="refresh-controls">Refresh controls<a class="anchor" aria-label="anchor" href="#refresh-controls"></a>
+</h2>
+<p><code><a href="../reference/dash_nav_refresh_item.html">dash_nav_refresh_item()</a></code> returns a complete navbar item.
+The lower-level <code><a href="../reference/dash_nav_refresh_button.html">dash_nav_refresh_button()</a></code> returns only the
+styled <code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">actionButton()</a></code> when you need custom structure.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dash_nav_refresh_item.html">dash_nav_refresh_item</a></span><span class="op">(</span><span class="st">"refresh"</span><span class="op">)</span>                      <span class="co"># complete navbar item</span></span>
+<span><span class="fu"><a href="../reference/dash_nav_refresh_item.html">dash_nav_refresh_item</a></span><span class="op">(</span><span class="st">"refresh"</span>, label <span class="op">=</span> <span class="st">"Reload"</span><span class="op">)</span>    <span class="co"># custom label</span></span>
+<span><span class="fu"><a href="../reference/dash_nav_refresh_item.html">dash_nav_refresh_item</a></span><span class="op">(</span><span class="st">"refresh"</span>, label <span class="op">=</span> <span class="st">""</span><span class="op">)</span>          <span class="co"># icon only</span></span>
+<span><span class="fu"><a href="../reference/dash_nav_refresh_item.html">dash_nav_refresh_item</a></span><span class="op">(</span><span class="st">"refresh"</span>, icon <span class="op">=</span> <span class="st">"arrows-rotate"</span><span class="op">)</span></span></code></pre></div>
+<p>The most common server behavior is a full app refresh:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">refresh</span>, <span class="op">{</span></span>
 <span>  <span class="va">session</span><span class="op">$</span><span class="fu">reload</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>If you prefer a “soft refresh”, you can invalidate reactive chains
-instead (for example, by updating a reactive counter). That pattern is
-app-specific.</p>
+<p>If you prefer a soft refresh, invalidate reactive chains instead.
+That pattern is app-specific.</p>
 </div>
 <div class="section level2">
-<h2 id="help-button">Help button<a class="anchor" aria-label="anchor" href="#help-button"></a>
+<h2 id="help-controls">Help controls<a class="anchor" aria-label="anchor" href="#help-controls"></a>
 </h2>
-<p>Creates a pre-styled <code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">actionButton()</a></code> intended to open
-help content.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/dash_nav_help_button.html">dash_nav_help_button</a></span><span class="op">(</span><span class="st">"help"</span><span class="op">)</span>                     <span class="co"># default label + icon</span></span>
-<span><span class="fu"><a href="../reference/dash_nav_help_button.html">dash_nav_help_button</a></span><span class="op">(</span><span class="st">"help"</span>, label <span class="op">=</span> <span class="st">"Support"</span><span class="op">)</span>  <span class="co"># custom label</span></span>
-<span><span class="fu"><a href="../reference/dash_nav_help_button.html">dash_nav_help_button</a></span><span class="op">(</span><span class="st">"help"</span>, label <span class="op">=</span> <span class="st">""</span><span class="op">)</span>         <span class="co"># icon only</span></span>
-<span><span class="fu"><a href="../reference/dash_nav_help_button.html">dash_nav_help_button</a></span><span class="op">(</span><span class="st">"help"</span>, icon <span class="op">=</span> <span class="st">"circle-info"</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Server wiring </strong></p>
+<p><code><a href="../reference/dash_nav_help_item.html">dash_nav_help_item()</a></code> returns a complete navbar item. The
+lower-level <code><a href="../reference/dash_nav_help_button.html">dash_nav_help_button()</a></code> returns only the styled
+<code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">actionButton()</a></code>.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dash_nav_help_item.html">dash_nav_help_item</a></span><span class="op">(</span><span class="st">"help"</span><span class="op">)</span>                     <span class="co"># complete navbar item</span></span>
+<span><span class="fu"><a href="../reference/dash_nav_help_item.html">dash_nav_help_item</a></span><span class="op">(</span><span class="st">"help"</span>, label <span class="op">=</span> <span class="st">"Support"</span><span class="op">)</span>  <span class="co"># custom label</span></span>
+<span><span class="fu"><a href="../reference/dash_nav_help_item.html">dash_nav_help_item</a></span><span class="op">(</span><span class="st">"help"</span>, label <span class="op">=</span> <span class="st">""</span><span class="op">)</span>         <span class="co"># icon only</span></span>
+<span><span class="fu"><a href="../reference/dash_nav_help_item.html">dash_nav_help_item</a></span><span class="op">(</span><span class="st">"help"</span>, icon <span class="op">=</span> <span class="st">"circle-info"</span><span class="op">)</span></span></code></pre></div>
 <p>A simple help modal:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">help</span>, <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/showModal.html" class="external-link">showModal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/modalDialog.html" class="external-link">modalDialog</a></span><span class="op">(</span></span>
 <span>    title     <span class="op">=</span> <span class="st">"Help"</span>,</span>
@@ -142,7 +172,7 @@ help content.</p>
 <span>  <span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>A more structured help modal:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">help</span>, <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/showModal.html" class="external-link">showModal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/modalDialog.html" class="external-link">modalDialog</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Help &amp; Documentation"</span>,</span>
@@ -161,12 +191,22 @@ help content.</p>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="dash_nav_title-styled-title-block">
-<code>dash_nav_title()</code> — styled title block<a class="anchor" aria-label="anchor" href="#dash_nav_title-styled-title-block"></a>
+<h2 id="status-badge">Status badge<a class="anchor" aria-label="anchor" href="#status-badge"></a>
+</h2>
+<p>Use <code><a href="../reference/dash_nav_status_item.html">dash_nav_status_item()</a></code> for compact state
+indicators:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dash_nav_status_item.html">dash_nav_status_item</a></span><span class="op">(</span><span class="st">"Ready"</span>, status <span class="op">=</span> <span class="st">"success"</span>, icon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"circle-check"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/dash_nav_status_item.html">dash_nav_status_item</a></span><span class="op">(</span><span class="st">"Syncing"</span>, status <span class="op">=</span> <span class="st">"info"</span>, icon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"rotate"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/dash_nav_status_item.html">dash_nav_status_item</a></span><span class="op">(</span><span class="st">"Review"</span>, status <span class="op">=</span> <span class="st">"warning"</span>, icon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"triangle-exclamation"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="dash_nav_title---styled-title-block">
+<code>dash_nav_title()</code> - styled title block<a class="anchor" aria-label="anchor" href="#dash_nav_title---styled-title-block"></a>
 </h2>
 <p>Renders a title block with optional subtitle and icon, designed for
-use in <code>leftUi</code> or <code>rightUi.</code></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+use in <code>leftUi</code> or <code>rightUi</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dash_nav_title.html">dash_nav_title</a></span><span class="op">(</span></span>
 <span>  title    <span class="op">=</span> <span class="st">"DASHBOARDS"</span>,</span>
 <span>  subtitle <span class="op">=</span> <span class="st">"Critical &amp; Main"</span>,</span>
@@ -176,57 +216,50 @@ use in <code>leftUi</code> or <code>rightUi.</code></p>
 <div class="section level3">
 <h3 id="alignment-patterns">Alignment patterns<a class="anchor" aria-label="anchor" href="#alignment-patterns"></a>
 </h3>
-<p><strong>Centered</strong> — title floats to the middle of the navbar
-regardless of other items:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rightUi</span> <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<p>Centered title:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rightUi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/dash_nav_title.html">dash_nav_title</a></span><span class="op">(</span></span>
 <span>    <span class="st">"DASHBOARDS"</span>, <span class="st">"Critical &amp; Main"</span>,</span>
 <span>    icon  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"shield-halved"</span><span class="op">)</span>,</span>
 <span>    align <span class="op">=</span> <span class="st">"center"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/dash_nav_item.html">dash_nav_item</a></span><span class="op">(</span><span class="fu"><a href="../reference/dash_nav_refresh_button.html">dash_nav_refresh_button</a></span><span class="op">(</span><span class="st">"refresh"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/dash_nav_item.html">dash_nav_item</a></span><span class="op">(</span><span class="fu"><a href="../reference/dash_nav_help_button.html">dash_nav_help_button</a></span><span class="op">(</span><span class="st">"help"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/dash_nav_status_item.html">dash_nav_status_item</a></span><span class="op">(</span><span class="st">"Ready"</span>, status <span class="op">=</span> <span class="st">"success"</span>, icon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"circle-check"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/dash_nav_refresh_item.html">dash_nav_refresh_item</a></span><span class="op">(</span><span class="st">"refresh"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/dash_nav_help_item.html">dash_nav_help_item</a></span><span class="op">(</span><span class="st">"help"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><strong>Right-aligned</strong> — title sits after all other right
-items:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rightUi</span> <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/dash_nav_item.html">dash_nav_item</a></span><span class="op">(</span><span class="fu"><a href="../reference/dash_nav_refresh_button.html">dash_nav_refresh_button</a></span><span class="op">(</span><span class="st">"refresh"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/dash_nav_item.html">dash_nav_item</a></span><span class="op">(</span><span class="fu"><a href="../reference/dash_nav_help_button.html">dash_nav_help_button</a></span><span class="op">(</span><span class="st">"help"</span><span class="op">)</span><span class="op">)</span>,</span>
+<p>Right-aligned title:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rightUi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/dash_nav_refresh_item.html">dash_nav_refresh_item</a></span><span class="op">(</span><span class="st">"refresh"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/dash_nav_help_item.html">dash_nav_help_item</a></span><span class="op">(</span><span class="st">"help"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/dash_nav_title.html">dash_nav_title</a></span><span class="op">(</span></span>
 <span>    <span class="st">"DASHBOARDS"</span>, <span class="st">"Critical &amp; Main"</span>,</span>
 <span>    icon  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"shield-halved"</span><span class="op">)</span>,</span>
 <span>    align <span class="op">=</span> <span class="st">"right"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><strong>Left-aligned</strong> — title appears before other right
-items:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rightUi</span> <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<p>Left-aligned title:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rightUi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/dash_nav_title.html">dash_nav_title</a></span><span class="op">(</span></span>
 <span>    <span class="st">"DASHBOARDS"</span>, <span class="st">"Critical &amp; Main"</span>,</span>
 <span>    icon  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"shield-halved"</span><span class="op">)</span>,</span>
 <span>    align <span class="op">=</span> <span class="st">"left"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/dash_nav_item.html">dash_nav_item</a></span><span class="op">(</span><span class="fu"><a href="../reference/dash_nav_refresh_button.html">dash_nav_refresh_button</a></span><span class="op">(</span><span class="st">"refresh"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/dash_nav_item.html">dash_nav_item</a></span><span class="op">(</span><span class="fu"><a href="../reference/dash_nav_help_button.html">dash_nav_help_button</a></span><span class="op">(</span><span class="st">"help"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/dash_nav_refresh_item.html">dash_nav_refresh_item</a></span><span class="op">(</span><span class="st">"refresh"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/dash_nav_help_item.html">dash_nav_help_item</a></span><span class="op">(</span><span class="st">"help"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="dash_user_menu-user-menu-wrapper">
-<code>dash_user_menu()</code> — user menu wrapper<a class="anchor" aria-label="anchor" href="#dash_user_menu-user-menu-wrapper"></a>
+<h2 id="dash_user_menu---user-menu-wrapper">
+<code>dash_user_menu()</code> - user menu wrapper<a class="anchor" aria-label="anchor" href="#dash_user_menu---user-menu-wrapper"></a>
 </h2>
 <p><code><a href="../reference/dash_user_menu.html">dash_user_menu()</a></code> is a lightweight wrapper that ensures
 your dropdown menu is placed in the correct navbar
 <code>&lt;li&gt;</code> container with a consistent class:</p>
-<ul>
-<li><code>&lt;li class="nav-item dropdown dash-user-menu"&gt; ... &lt;/li&gt;</code></li>
-</ul>
-<p>Because it already returns a <code>&lt;li&gt;</code>, <strong>do
-not</strong> wrap it in <code><a href="../reference/dash_nav_item.html">dash_nav_item()</a></code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dash_user_menu.html">dash_user_menu</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dropdownMenu.html" class="external-link">dropdownMenu</a></span><span class="op">(</span></span>
 <span>    type <span class="op">=</span> <span class="st">"notifications"</span>,</span>
@@ -234,17 +267,16 @@ not</strong> wrap it in <code><a href="../reference/dash_nav_item.html">dash_nav
 <span>    <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dropdownMenu.html" class="external-link">notificationItem</a></span><span class="op">(</span><span class="st">"Logout"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+<p>Because it already returns a <code>&lt;li&gt;</code>, do not wrap it
+in <code><a href="../reference/dash_nav_item.html">dash_nav_item()</a></code>.</p>
 </div>
 <div class="section level2">
-<h2 id="sign-out-patterns-no-dedicated-button">Sign out patterns (no dedicated button)<a class="anchor" aria-label="anchor" href="#sign-out-patterns-no-dedicated-button"></a>
+<h2 id="sign-out-patterns">Sign out patterns<a class="anchor" aria-label="anchor" href="#sign-out-patterns"></a>
 </h2>
 <p><code>bs4Dashkit</code> does not ship a dedicated logout button. Most
 apps place sign-out inside the user dropdown menu, which keeps the
 navbar clean.</p>
-<div class="section level3">
-<h3 id="option-1-logout-inside-the-dropdown-menu">Option 1: “Logout” inside the dropdown menu<a class="anchor" aria-label="anchor" href="#option-1-logout-inside-the-dropdown-menu"></a>
-</h3>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dash_user_menu.html">dash_user_menu</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dropdownMenu.html" class="external-link">dropdownMenu</a></span><span class="op">(</span></span>
 <span>    type <span class="op">=</span> <span class="st">"notifications"</span>,</span>
@@ -253,61 +285,45 @@ navbar clean.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Handle sign-out by listening to your own input or by using whatever
-authentication framework you’re using. If you just want a simple
-confirmation and reload:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Example only: you control the real sign-out logic</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">logout</span>, <span class="op">{</span> <span class="va">...</span> <span class="op">}</span><span class="op">)</span></span></code></pre></div>
-</div>
+authentication framework your app uses.</p>
 </div>
 <div class="section level2">
 <h2 id="full-navbar-example">Full navbar example<a class="anchor" aria-label="anchor" href="#full-navbar-example"></a>
 </h2>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://bs4dash.rinterface.com/reference/dashboardHeader.html" class="external-link">bs4DashNavbar</a></span><span class="op">(</span></span>
-<span>  title <span class="op">=</span> <span class="va">ttl</span><span class="op">$</span><span class="va">brand</span>,</span>
-<span>  skin  <span class="op">=</span> <span class="st">"light"</span>,</span>
-<span>  rightUi <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/dash_nav_title.html">dash_nav_title</a></span><span class="op">(</span></span>
-<span>      <span class="st">"DASHBOARDS"</span>,</span>
-<span>      <span class="st">"Critical &amp; Main"</span>,</span>
-<span>      icon  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"shield-halved"</span><span class="op">)</span>,</span>
-<span>      align <span class="op">=</span> <span class="st">"center"</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../reference/dash_nav_item.html">dash_nav_item</a></span><span class="op">(</span><span class="fu"><a href="../reference/dash_nav_refresh_button.html">dash_nav_refresh_button</a></span><span class="op">(</span><span class="st">"refresh"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../reference/dash_nav_item.html">dash_nav_item</a></span><span class="op">(</span><span class="fu"><a href="../reference/dash_nav_help_button.html">dash_nav_help_button</a></span><span class="op">(</span><span class="st">"help"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../reference/dash_user_menu.html">dash_user_menu</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dropdownMenu.html" class="external-link">dropdownMenu</a></span><span class="op">(</span></span>
-<span>        type <span class="op">=</span> <span class="st">"notifications"</span>,</span>
-<span>        <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dropdownMenu.html" class="external-link">notificationItem</a></span><span class="op">(</span><span class="st">"Profile"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dropdownMenu.html" class="external-link">notificationItem</a></span><span class="op">(</span><span class="st">"Sign out"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rightUi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/dash_nav_title.html">dash_nav_title</a></span><span class="op">(</span></span>
+<span>    <span class="st">"DASHBOARDS"</span>,</span>
+<span>    <span class="st">"Critical &amp; Main"</span>,</span>
+<span>    icon  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"shield-halved"</span><span class="op">)</span>,</span>
+<span>    align <span class="op">=</span> <span class="st">"center"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/dash_nav_status_item.html">dash_nav_status_item</a></span><span class="op">(</span><span class="st">"Ready"</span>, status <span class="op">=</span> <span class="st">"success"</span>, icon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"circle-check"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/dash_nav_refresh_item.html">dash_nav_refresh_item</a></span><span class="op">(</span><span class="st">"refresh"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/dash_nav_help_item.html">dash_nav_help_item</a></span><span class="op">(</span><span class="st">"help"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/dash_user_menu.html">dash_user_menu</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dropdownMenu.html" class="external-link">dropdownMenu</a></span><span class="op">(</span></span>
+<span>      type <span class="op">=</span> <span class="st">"notifications"</span>,</span>
+<span>      <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dropdownMenu.html" class="external-link">notificationItem</a></span><span class="op">(</span><span class="st">"Profile"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://bs4dash.rinterface.com/reference/dropdownMenu.html" class="external-link">notificationItem</a></span><span class="op">(</span><span class="st">"Sign out"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/validate_bs4dash_navbar.html">validate_bs4dash_navbar</a></span><span class="op">(</span><span class="va">rightUi</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://bs4dash.rinterface.com/reference/dashboardHeader.html" class="external-link">bs4DashNavbar</a></span><span class="op">(</span></span>
+<span>  title <span class="op">=</span> <span class="va">ttl</span><span class="op">$</span><span class="va">brand</span>,</span>
+<span>  skin  <span class="op">=</span> <span class="st">"light"</span>,</span>
+<span>  rightUi <span class="op">=</span> <span class="va">rightUi</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><strong>Server:</strong></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<p>Server:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">refresh</span>, <span class="va">session</span><span class="op">$</span><span class="fu">reload</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">help</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/showModal.html" class="external-link">showModal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/modalDialog.html" class="external-link">modalDialog</a></span><span class="op">(</span><span class="st">"Help content."</span>, easyClose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">logout</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/showModal.html" class="external-link">showModal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/modalDialog.html" class="external-link">modalDialog</a></span><span class="op">(</span></span>
-<span>      title  <span class="op">=</span> <span class="st">"Sign out"</span>,</span>
-<span>      <span class="st">"Are you sure?"</span>,</span>
-<span>      footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/modalDialog.html" class="external-link">modalButton</a></span><span class="op">(</span><span class="st">"Cancel"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">actionButton</a></span><span class="op">(</span><span class="st">"logout_confirm"</span>, <span class="st">"Sign out"</span>, class <span class="op">=</span> <span class="st">"btn btn-danger"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">logout_confirm</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/showModal.html" class="external-link">removeModal</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>    <span class="va">session</span><span class="op">$</span><span class="fu">reload</span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>

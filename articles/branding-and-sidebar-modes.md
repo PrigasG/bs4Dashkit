@@ -79,6 +79,46 @@ ttl <- dash_titles(
 
 ------------------------------------------------------------------------
 
+## Reusable brand options
+
+Use
+[`dash_brand_options()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_brand_options.md)
+when multiple apps share a brand but each app still needs the regular
+[`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md)
+output:
+
+``` r
+
+brand <- dash_brand_options(
+  name      = "Atlas Forge",
+  icon      = icon("layer-group"),
+  collapsed = "AF",
+  expanded  = "Atlas Forge"
+)
+
+ttl <- dash_titles_from(brand)
+```
+
+Any extra arguments are forwarded to
+[`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md),
+and direct arguments to
+[`dash_titles_from()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles_from.md)
+override stored options:
+
+``` r
+
+brand <- dash_brand_options(
+  name = "Atlas Forge",
+  icon = icon("layer-group"),
+  effect = "glow",
+  glow_color = "#2f6f8f"
+)
+
+ttl <- dash_titles_from(brand, app_name = "Atlas Forge Ops")
+```
+
+------------------------------------------------------------------------
+
 ## Label effects
 
 ``` r
@@ -175,13 +215,18 @@ Configure it with the sizing arguments:
 body = bs4DashBody(
   use_bs4Dashkit_core(
     ttl,
-    topbar_h = 56,
-    collapsed_w = 4.2,
-    expanded_w = 250
+    topbar_h = "56px",
+    collapsed_w = "4.25rem",
+    expanded_w = "270px"
   ),
   # ...
 )
 ```
+
+Numeric values remain supported for compatibility: `topbar_h` uses
+pixels, `collapsed_w` uses rem, and `expanded_w` uses pixels. Explicit
+CSS units are recommended in new code because they avoid guessing which
+unit a number means.
 
 If you are not using use_bs4Dashkit_core(), you can enable hover-expand
 directly:

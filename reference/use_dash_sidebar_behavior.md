@@ -12,15 +12,18 @@ use_dash_sidebar_behavior(topbar_h = 56, collapsed_w = 4.2, expanded_w = 250)
 
 - topbar_h:
 
-  Height in px for navbar and sidebar brand strip
+  Height for navbar and sidebar brand strip. Numeric values are treated
+  as pixels; CSS lengths such as `"3.5rem"` are also accepted.
 
 - collapsed_w:
 
-  Width for icon-only sidebar (rem)
+  Width for icon-only sidebar. Numeric values are treated as rem; CSS
+  lengths such as `"4.25rem"` are also accepted.
 
 - expanded_w:
 
-  Expanded sidebar width (px)
+  Expanded sidebar width. Numeric values are treated as pixels; CSS
+  lengths such as `"270px"` are also accepted.
 
 ## Value
 

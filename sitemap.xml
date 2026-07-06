@@ -12,19 +12,27 @@
 <url><loc>https://PrigasG.github.io/bs4Dashkit/articles/navigation-utilities.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/articles/packaged-examples.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/articles/theming-and-presets.html</loc></url>
+<url><loc>https://PrigasG.github.io/bs4Dashkit/articles/top-navigation.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/authors.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/index.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/news/index.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/bs4dashkit_demo_app.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/bs4dashkit_example_app.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/bs4dashkit_theme_presets.html</loc></url>
+<url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dash_brand_options.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dash_brand_ui.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dash_footer.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_help_button.html</loc></url>
+<url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_help_item.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_item.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_refresh_button.html</loc></url>
+<url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_refresh_item.html</loc></url>
+<url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_status_badge.html</loc></url>
+<url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_status_item.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_title.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.html</loc></url>
+<url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dash_titles_from.html</loc></url>
+<url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dash_topnav_options.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dash_user_menu.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dashkit_opt.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/dashkit_register_resources.html</loc></url>
@@ -36,5 +44,7 @@
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/use_dash_sidebar_brand_mode.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/use_dash_theme.html</loc></url>
 <url><loc>https://PrigasG.github.io/bs4Dashkit/reference/use_dash_theme_preset.html</loc></url>
+<url><loc>https://PrigasG.github.io/bs4Dashkit/reference/use_dash_topnav.html</loc></url>
+<url><loc>https://PrigasG.github.io/bs4Dashkit/reference/validate_bs4dash_navbar.html</loc></url>
 </urlset>
 

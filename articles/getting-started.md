@@ -22,7 +22,7 @@ The package is organised around four areas:
     and named presets
 3.  **Navbar** —
     [`dash_nav_title()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_title.md),
-    refresh / help buttons, and user menu
+    status / refresh / help items, validation, and user menu
 4.  **Footer** —
     [`dash_footer()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_footer.md)
     with flexible logo and text positioning
@@ -124,6 +124,21 @@ ttl <- dash_titles(
   collapsed  = "icon-only",
   expanded   = "icon-only"
 )
+```
+
+For app suites that share the same brand, you can keep the brand options
+in a small reusable object:
+
+``` r
+
+brand <- dash_brand_options(
+  name      = "Atlas Forge",
+  icon      = icon("layer-group"),
+  collapsed = "AF",
+  expanded  = "Atlas Forge"
+)
+
+ttl <- dash_titles_from(brand)
 ```
 
 Alternatively, use an image instead of a Font Awesome icon:
@@ -239,9 +254,9 @@ body = bs4DashBody(
   use_bs4Dashkit_core(
     ttl,
     preset = "professional",
-    topbar_h = 56,
-    collapsed_w = 4.2,
-    expanded_w = 250
+    topbar_h = "56px",
+    collapsed_w = "4.25rem",
+    expanded_w = "270px"
   )
   # ...
 )
@@ -255,9 +270,36 @@ Call it directly only if you are not using the core helper.
 
 Hover-expand behavior is included by
 [`use_bs4Dashkit_core()`](https://PrigasG.github.io/bs4Dashkit/reference/use_bs4Dashkit_core.md).
-Configure it via `topbar_h`, `collapsed_w`, and `expanded_w`. Call
+Configure it via `topbar_h`, `collapsed_w`, and `expanded_w`. Numeric
+values remain supported with the historical units (`px`, `rem`, `px`
+respectively), but explicit CSS units are clearer and recommended. Call
 [`use_dash_sidebar_behavior()`](https://PrigasG.github.io/bs4Dashkit/reference/use_dash_sidebar_behavior.md)
 directly only when not using the core helper.
+
+------------------------------------------------------------------------
+
+## Navbar structure
+
+For `bs4DashNavbar(rightUi = ...)`, prefer the complete item helpers.
+They return the `<li class="nav-item dropdown">` wrapper expected by
+bs4Dash:
+
+``` r
+
+rightUi <- tagList(
+  dash_nav_status_item("Ready", status = "success", icon = icon("circle-check")),
+  dash_nav_refresh_item("refresh"),
+  dash_nav_help_item("help")
+)
+
+validate_bs4dash_navbar(rightUi)
+```
+
+Use
+[`dash_nav_item()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_item.md)
+for custom controls that do not already return a navbar `<li>`.
+[`validate_bs4dash_navbar()`](https://PrigasG.github.io/bs4Dashkit/reference/validate_bs4dash_navbar.md)
+is useful when mixing custom and packaged navbar components.
 
 ------------------------------------------------------------------------
 
@@ -313,7 +355,8 @@ can omit them from individual calls.
   [`dash_titles()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_titles.md)
   arguments
 - **Theming and presets** — CSS variable overrides and custom presets
-- **Navigation utilities** — refresh, help, user menu, and
+- **Navigation utilities** — status, refresh, help, user menu,
+  validation, and
   [`dash_nav_title()`](https://PrigasG.github.io/bs4Dashkit/reference/dash_nav_title.md)
 - **Footer** — all footer layout combinations
 - **Complete example app** — a single app that exercises every feature
