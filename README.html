@@ -607,10 +607,13 @@ padding-top: 0px;
 <p><code>bs4Dashkit</code> provides:</p>
 <ul>
 <li>Unified brand and sidebar configuration</li>
+<li>Reusable brand option objects for shared app families</li>
 <li>Configurable collapsed / expanded sidebar modes</li>
 <li>Hover-expand sidebar behavior</li>
+<li>Prototype top-navigation mode for no-sidebar dashboards</li>
 <li>Subtle CSS-variable theming</li>
-<li>Standardized navigation components (refresh, help, logout)</li>
+<li>Complete standardized navbar components (status, refresh, help, user
+menu)</li>
 <li>Lightweight dependency model compatible with native
 <code>{bs4Dash}</code> layouts</li>
 </ul>
@@ -626,30 +629,32 @@ padding-top: 0px;
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>ttl <span class="ot">&lt;-</span> <span class="fu">dash_titles</span>(</span>
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">brand_text =</span> <span class="st">&quot;OLTCR Dashboards&quot;</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">icon =</span> <span class="st">&quot;project-diagram&quot;</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>)</span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">bs4DashPage</span>(</span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="at">title =</span> ttl<span class="sc">$</span>app_name,</span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  <span class="at">header =</span> <span class="fu">bs4DashNavbar</span>(<span class="at">title =</span> ttl<span class="sc">$</span>brand),</span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="at">sidebar =</span> <span class="fu">bs4DashSidebar</span>(</span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>    <span class="fu">bs4SidebarMenu</span>(</span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>      <span class="fu">bs4SidebarMenuItem</span>(<span class="st">&quot;Dashboard&quot;</span>, <span class="at">tabName =</span> <span class="st">&quot;dash&quot;</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>    )</span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>  ),</span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>  <span class="at">body =</span> <span class="fu">bs4DashBody</span>(</span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>    <span class="fu">use_bs4Dashkit_core</span>(ttl),</span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>    <span class="fu">bs4TabItems</span>(</span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>      <span class="fu">bs4TabItem</span>(</span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>        <span class="at">tabName =</span> <span class="st">&quot;dash&quot;</span>,</span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>        <span class="fu">h2</span>(<span class="st">&quot;Hello Dashboard&quot;</span>)</span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>      )</span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>    )</span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>  )</span>
-<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>)</span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {}</span>
-<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;cloud&quot;</span>),</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">collapsed =</span> <span class="st">&quot;icon-only&quot;</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="at">expanded =</span> <span class="st">&quot;icon-text&quot;</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>)</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">bs4DashPage</span>(</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="at">title =</span> ttl<span class="sc">$</span>app_name,</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="at">header =</span> <span class="fu">bs4DashNavbar</span>(<span class="at">title =</span> ttl<span class="sc">$</span>brand),</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>  <span class="at">sidebar =</span> <span class="fu">bs4DashSidebar</span>(</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>    <span class="fu">bs4SidebarMenu</span>(</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>      <span class="fu">bs4SidebarMenuItem</span>(<span class="st">&quot;Dashboard&quot;</span>, <span class="at">tabName =</span> <span class="st">&quot;dash&quot;</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    )</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>  ),</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>  <span class="at">body =</span> <span class="fu">bs4DashBody</span>(</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>    <span class="fu">use_bs4Dashkit_core</span>(ttl),</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>    <span class="fu">bs4TabItems</span>(</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>      <span class="fu">bs4TabItem</span>(</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>        <span class="at">tabName =</span> <span class="st">&quot;dash&quot;</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>        <span class="fu">h2</span>(<span class="st">&quot;Hello Dashboard&quot;</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>      )</span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>    )</span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>  )</span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>)</span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {}</span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
 <hr />
 <h2 id="key-features">Key Features</h2>
 <h3 id="sidebar-modes">Sidebar Modes</h3>
@@ -659,25 +664,119 @@ padding-top: 0px;
 <li><code>&quot;text-only&quot;</code></li>
 </ul>
 <p>Fully configurable for collapsed and expanded states.</p>
+<p><code>brand_text</code> is the primary label. It is used in the
+navbar and, by default, as the expanded sidebar label. The sidebar brand
+mirrors the navbar title you pass to
+<code>bs4DashNavbar(title = ttl$brand)</code>. Use
+<code>collapsed_text</code> only when you want a very short label in the
+narrow collapsed sidebar. In practice, about 3 characters works
+best.</p>
 <h3 id="theme-system">Theme System</h3>
 <p>CSS variable-driven theming:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">use_dash_theme</span>(<span class="at">accent =</span> <span class="st">&quot;#2f6f8f&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">use_dash_theme</span>(<span class="at">accent =</span> <span class="st">&quot;#2f6f8f&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">bs4dashkit_theme_presets</span>()</span></code></pre></div>
+<h3 id="top-navigation-prototype">Top Navigation Prototype</h3>
+<p>Use <code>layout = &quot;topnav&quot;</code> when you want a no-sidebar
+dashboard. Keep the normal <code>bs4DashSidebar()</code> and
+<code>bs4SidebarMenu()</code> in your app; bs4Dashkit hides the sidebar
+and mirrors its menu into the navbar so native tab switching still
+works.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>body <span class="ot">=</span> <span class="fu">bs4DashBody</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">use_bs4Dashkit_core</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>    ttl,</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>    <span class="at">preset =</span> <span class="st">&quot;professional&quot;</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    <span class="at">layout =</span> <span class="st">&quot;topnav&quot;</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    <span class="at">topnav =</span> <span class="fu">dash_topnav_options</span>(</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>      <span class="at">align =</span> <span class="st">&quot;left&quot;</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>      <span class="at">gap =</span> <span class="dv">6</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>      <span class="at">mobile =</span> <span class="st">&quot;collapse&quot;</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>      <span class="at">style =</span> <span class="st">&quot;compact&quot;</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>      <span class="at">overflow =</span> <span class="st">&quot;more&quot;</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>      <span class="at">more_after =</span> <span class="dv">4</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">&quot;auto&quot;</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>      <span class="at">page_title =</span> <span class="st">&quot;tab&quot;</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>    )</span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>  ),</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>  <span class="fu">bs4TabItems</span>(...)</span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>)</span></code></pre></div>
+<p><code>dash_topnav_options()</code> keeps top-nav setup in one
+memorable object. The prefixed arguments such as
+<code>topnav_align</code> and <code>topnav_gap</code> remain available
+for small one-off overrides.</p>
+<p><code>align</code> can be <code>&quot;left&quot;</code>, <code>&quot;center&quot;</code>,
+or <code>&quot;right&quot;</code>. If you also use a centered
+<code>dash_nav_title()</code>, left or right tab alignment usually
+leaves the title clearer; centered tabs are best when the navbar has no
+centered title or only a few tabs.</p>
+<p>Top-nav mode also includes mobile hamburger behavior, an animated
+active underline, optional pill/compact tab styles, a <code>More</code>
+overflow mode, and a separate <code>input$bs4dashkit_topnav</code> click
+event for server-side logging or analytics. Use
+<code>topnav_page_title = &quot;tab&quot;</code> when you want a small content
+title synced from the selected tab.</p>
+<p>For a runnable prototype:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runApp</span>(<span class="fu">system.file</span>(<span class="st">&quot;examples&quot;</span>, <span class="st">&quot;topnav-prototype&quot;</span>, <span class="at">package =</span> <span class="st">&quot;bs4Dashkit&quot;</span>))</span></code></pre></div>
+<h3 id="new-ergonomics">New Ergonomics</h3>
+<p>Recent additions make the package easier to wire up in real apps:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>brand <span class="ot">&lt;-</span> <span class="fu">dash_brand_options</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;Atlas Forge&quot;</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;layer-group&quot;</span>),</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="at">collapsed =</span> <span class="st">&quot;AF&quot;</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="at">expanded =</span> <span class="st">&quot;Atlas Forge&quot;</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>)</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>ttl <span class="ot">&lt;-</span> <span class="fu">dash_titles_from</span>(brand)</span></code></pre></div>
+<p>For a textless icon brand in both sidebar states:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>ttl <span class="ot">&lt;-</span> <span class="fu">dash_titles</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="at">brand_text =</span> <span class="cn">NULL</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="at">app_name =</span> <span class="st">&quot;Icon Lab&quot;</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;cloud&quot;</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="at">collapsed =</span> <span class="st">&quot;icon-only&quot;</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="at">expanded =</span> <span class="st">&quot;icon-only&quot;</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>)</span></code></pre></div>
 <h3 id="navigation-utilities">Navigation Utilities</h3>
 <p>Prebuilt components:</p>
 <ul>
-<li><code>dash_nav_refresh_button()</code></li>
-<li><code>dash_nav_help_button()</code></li>
-<li><code>dash_nav_logout_button()</code></li>
+<li><code>dash_nav_status_item()</code></li>
+<li><code>dash_nav_refresh_item()</code></li>
+<li><code>dash_nav_help_item()</code></li>
+<li><code>dash_user_menu()</code></li>
+<li><code>validate_bs4dash_navbar()</code></li>
 </ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>rightUi <span class="ot">&lt;-</span> <span class="fu">tagList</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">dash_nav_status_item</span>(<span class="st">&quot;Ready&quot;</span>, <span class="at">status =</span> <span class="st">&quot;success&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;circle-check&quot;</span>)),</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="fu">dash_nav_refresh_item</span>(<span class="st">&quot;refresh&quot;</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="fu">dash_nav_help_item</span>(<span class="st">&quot;help&quot;</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="fu">validate_bs4dash_navbar</span>(rightUi)</span></code></pre></div>
+<p>The lower-level <code>dash_nav_refresh_button()</code> and
+<code>dash_nav_help_button()</code> remain available when you need to
+build a custom wrapper yourself.</p>
 <p>Server-side wiring example:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">observeEvent</span>(input<span class="sc">$</span>refresh, session<span class="sc">$</span><span class="fu">reload</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">observeEvent</span>(input<span class="sc">$</span>refresh, session<span class="sc">$</span><span class="fu">reload</span>())</span></code></pre></div>
 <hr />
 <h2 id="documentation">Documentation</h2>
 <p>Full documentation and examples are available at:</p>
-<p><a href="https://PrigasG.github.io/bs4Dashkit">https://PrigasG.github.io/bs4Dashkit</a></p>
+<p><a href="https://prigasg.github.io/bs4Dashkit/">https://prigasg.github.io/bs4Dashkit/</a></p>
+<p>For a fuller interactive demo, run:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">bs4dashkit_demo_app</span>()</span></code></pre></div>
+<p>or open the packaged example app file:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runApp</span>(<span class="fu">system.file</span>(<span class="st">&quot;examples&quot;</span>, <span class="st">&quot;real-shiny-app&quot;</span>, <span class="at">package =</span> <span class="st">&quot;bs4Dashkit&quot;</span>))</span></code></pre></div>
+<p>For a heavier stress-test example that exercises the shipped features
+together:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runApp</span>(<span class="fu">system.file</span>(<span class="st">&quot;examples&quot;</span>, <span class="st">&quot;test-all&quot;</span>, <span class="at">package =</span> <span class="st">&quot;bs4Dashkit&quot;</span>))</span></code></pre></div>
+<p>That packaged example is now a standalone full app source file, not
+just a wrapper around <code>bs4dashkit_demo_app()</code>.</p>
 <hr />
 <h2 id="license">License</h2>
 <p>MIT</p>
+<h2 id="full-example-app">Full Example App</h2>
+<p>A complete working example (brand, sidebar modes, hover expand, theme
+preset, navbar tools, footer) is included in the documentation site:</p>
+<ul>
+<li>Articles -&gt; Complete Example App</li>
+</ul>
 
 </body>
 </html>

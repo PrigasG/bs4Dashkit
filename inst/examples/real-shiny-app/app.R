@@ -21,16 +21,15 @@ ui <- bs4DashPage(
     leftUi = uiOutput("header_left_ui"),
     rightUi = tagList(
       uiOutput("header_title_right_ui"),
-      dash_nav_item(dash_nav_refresh_button("refresh_demo", label = "Refresh")),
-      dash_nav_item(dash_nav_help_button("help_demo", label = "Guide")),
-      dash_nav_item(
-        dash_user_menu(
-          dropdownMenu(
-            type = "notifications",
-            notificationItem("Sidebar hover uses the expanded label rules."),
-            notificationItem("Leave expanded_text blank to use brand_text."),
-            notificationItem("Collapsed icon-text can use a shorter label.")
-          )
+      dash_nav_status_item("Ready", status = "success", icon = "circle-check"),
+      dash_nav_refresh_item("refresh_demo", label = "Refresh"),
+      dash_nav_help_item("help_demo", label = "Guide"),
+      dash_user_menu(
+        dropdownMenu(
+          type = "notifications",
+          notificationItem("Sidebar hover uses the expanded label rules."),
+          notificationItem("Leave expanded_text blank to use brand_text."),
+          notificationItem("Collapsed icon-text can use a shorter label.")
         )
       )
     )
@@ -55,41 +54,12 @@ ui <- bs4DashPage(
     )
   ),
   body = bs4DashBody(
-    tags$script(HTML("
-      Shiny.addCustomMessageHandler('bs4dashkit-demo-brand', function(message) {
-        function updateLabel(label) {
-          if (!label) return;
-          label.textContent = message.brand_text || '';
-        }
-
-        function updateIcon(label) {
-          if (!label || !label.parentElement) return;
-          var parent = label.parentElement;
-          var icon = parent.querySelector('.dash-brand-icon');
-          var hasIcon = !!(message.icon && message.icon.length);
-
-          if (!hasIcon) {
-            if (icon) icon.style.display = 'none';
-            return;
-          }
-
-          if (!icon) {
-            icon = document.createElement('i');
-            parent.insertBefore(icon, label);
-          }
-
-          icon.className = 'fas fa-' + message.icon + ' fa-fw dash-brand-icon';
-          icon.style.display = '';
-          icon.style.fontSize = message.icon_size || '';
-        }
-
-        var labels = document.querySelectorAll('.main-header .dash-brand-label, .main-sidebar .dash-brand-label');
-        labels.forEach(function(label) {
-          updateLabel(label);
-          updateIcon(label);
-        });
-      });
-    ")),
+    htmltools::htmlDependency(
+      name = "bs4dashkit-demo-brand",
+      version = as.character(utils::packageVersion("bs4Dashkit")),
+      src = c(file = system.file("app-assets", package = "bs4Dashkit")),
+      script = "dash-demo-brand.js"
+    ),
     uiOutput("core_ui"),
     bs4TabItems(
       bs4TabItem(

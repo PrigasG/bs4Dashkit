@@ -4,6 +4,35 @@ test_that("dash_titles() returns expected slots", {
   expect_named(ttl, c("app_name", "brand", "deps"))
 })
 
+test_that("dash_brand_options() feeds dash_titles_from()", {
+  brand <- dash_brand_options(
+    name = "Atlas Forge",
+    icon = "layer-group",
+    collapsed = "AF",
+    expanded = "Atlas Forge"
+  )
+
+  ttl <- dash_titles_from(brand)
+  expect_equal(ttl$app_name, "Atlas Forge")
+  expect_match(as.character(ttl$brand), "fa-layer-group", fixed = TRUE)
+
+  deps <- as.character(ttl$deps)
+  expect_match(deps, "AF", fixed = TRUE)
+  expect_match(deps, "Atlas Forge", fixed = TRUE)
+})
+
+test_that("dash_titles_from() allows overrides", {
+  brand <- dash_brand_options(
+    name = "Atlas Forge",
+    icon = "layer-group",
+    collapsed = "AF",
+    expanded = "Atlas Forge"
+  )
+
+  ttl <- dash_titles_from(brand, app_name = "Custom")
+  expect_equal(ttl$app_name, "Custom")
+})
+
 test_that("app_name defaults to brand_text when not supplied", {
   ttl <- dash_titles("My App")
   expect_equal(ttl$app_name, "My App")
@@ -164,6 +193,31 @@ test_that("sidebar title sizing and weight options are forwarded", {
   expect_match(html, "setProperty('font-weight'", fixed = TRUE)
 })
 
+test_that("sidebar mode text is encoded as JavaScript literals", {
+  deps <- use_dash_sidebar_brand_mode(
+    icon = "cloud",
+    collapsed = "icon-text",
+    expanded = "icon-text",
+    collapsed_text = "O'Brien\\Short",
+    expanded_text = "Line one\n</script> line two"
+  )
+
+  html <- as.character(deps)
+  expect_match(html, 'var SHORT          = "O\'Brien\\\\Short";', fixed = TRUE)
+  expect_match(html, 'var LONG           = "Line one\\n', fixed = TRUE)
+  expect_false(grepl("var SHORT          = 'O'Brien", html, fixed = TRUE))
+})
+
+test_that("sidebar mode validates CSS style options", {
+  expect_error(
+    use_dash_sidebar_brand_mode(
+      icon = "cloud",
+      collapsed_text_size = "11px;display:none"
+    ),
+    "collapsed_text_size"
+  )
+})
+
 test_that("brand_text may be omitted for fully icon-only brands", {
   ttl <- dash_titles(
     brand_text = NULL,
@@ -203,4 +257,15 @@ test_that("missing brand_text falls back to bs4Dashkit app_name with a warning",
   )
 
   expect_equal(ttl$app_name, "bs4Dashkit")
+})
+
+test_that("brand UI validates CSS style options", {
+  expect_error(
+    dash_brand_ui("My App", color = "#fff;background:red"),
+    "color"
+  )
+  expect_error(
+    dash_brand_ui("My App", gradient = c("#fff", "</style>")),
+    "gradient"
+  )
 })

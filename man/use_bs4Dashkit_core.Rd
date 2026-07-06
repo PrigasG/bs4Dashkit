@@ -11,7 +11,19 @@ use_bs4Dashkit_core(
   ...,
   topbar_h = 56,
   collapsed_w = 4.2,
-  expanded_w = 250
+  expanded_w = 250,
+  layout = c("sidebar", "topnav"),
+  topnav = NULL,
+  topnav_align = c("left", "center", "right"),
+  topnav_gap = 0,
+  topnav_style = c("underline", "pill", "compact"),
+  topnav_mobile = c("collapse", "scroll"),
+  topnav_overflow = c("auto", "more", "scroll"),
+  topnav_more_after = Inf,
+  topnav_title = c("auto", "show", "compact", "hide"),
+  topnav_page_title = c("none", "tab"),
+  topnav_brand = TRUE,
+  topnav_debug = FALSE
 )
 }
 \arguments{
@@ -25,11 +37,54 @@ If preset is used, this overrides the preset accent.}
 
 \item{...}{Optional overrides passed to use_dash_theme_preset() when preset is used.}
 
-\item{topbar_h}{Height (px) for topbar + brand strip}
+\item{topbar_h}{Height for topbar + brand strip. Numeric values are treated
+as pixels; CSS lengths such as \code{"3.5rem"} are also accepted.}
 
-\item{collapsed_w}{Sidebar collapsed width (rem)}
+\item{collapsed_w}{Sidebar collapsed width. Numeric values are treated as
+rem; CSS lengths such as \code{"4.25rem"} are also accepted.}
 
-\item{expanded_w}{Sidebar expanded width (px)}
+\item{expanded_w}{Sidebar expanded width. Numeric values are treated as
+pixels; CSS lengths such as \code{"270px"} are also accepted.}
+
+\item{layout}{Layout behavior to apply. \code{"sidebar"} keeps the default
+bs4Dash sidebar with hover-expand behavior. \code{"topnav"} hides the
+sidebar and mirrors its menu into the navbar with \code{use_dash_topnav()}.}
+
+\item{topnav}{Optional output from \code{dash_topnav_options()}. When
+supplied, its values are used for the top-navigation settings below.}
+
+\item{topnav_align}{Horizontal alignment for the mirrored top-nav menu when
+\code{layout = "topnav"}: \code{"left"}, \code{"center"}, or
+\code{"right"}. If a centered \code{dash_nav_title()} is also present,
+\code{"left"} or \code{"right"} usually leaves the title more readable.}
+
+\item{topnav_gap}{Space between mirrored top-nav items. Numeric values are
+treated as pixels; CSS lengths such as \code{"0.5rem"} are also accepted.}
+
+\item{topnav_style}{Visual style for top-nav tabs: \code{"underline"},
+\code{"pill"}, or \code{"compact"}.}
+
+\item{topnav_mobile}{Mobile behavior: \code{"collapse"} shows a hamburger
+for tabs; \code{"scroll"} keeps a horizontal tab row.}
+
+\item{topnav_overflow}{Desktop overflow behavior: \code{"auto"},
+\code{"more"}, or \code{"scroll"}.}
+
+\item{topnav_more_after}{Number of top-level items kept visible when
+\code{topnav_overflow = "more"}.}
+
+\item{topnav_title}{How centered \code{dash_nav_title()} behaves when tabs
+need space: \code{"auto"}, \code{"show"}, \code{"compact"}, or
+\code{"hide"}.}
+
+\item{topnav_page_title}{Optional content title synced from the active
+top-nav tab: \code{"none"} or \code{"tab"}.}
+
+\item{topnav_brand}{Logical. If \code{TRUE}, mirror the sidebar brand into
+the navbar when bs4Dash has not already placed one there.}
+
+\item{topnav_debug}{Logical. If \code{TRUE}, print top-nav diagnostics to the
+browser console.}
 }
 \value{
 A \code{shiny.tag.list} containing core CSS and/or JavaScript dependencies for bs4Dashkit.

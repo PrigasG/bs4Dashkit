@@ -37,16 +37,15 @@ ui <- bs4DashPage(
       align = "center"
     ),
     rightUi = tagList(
-      dash_nav_item(dash_nav_refresh_button("refresh_all", label = "Refresh")),
-      dash_nav_item(dash_nav_help_button("help_all", label = "Guide")),
-      dash_nav_item(
-        dash_user_menu(
-          dropdownMenu(
-            type = "notifications",
-            notificationItem("Collapsed text-only brand is centered."),
-            notificationItem("Sidebar hover uses expanded text rules."),
-            notificationItem("Navbar title alignment is live-tested here.")
-          )
+      dash_nav_status_item("Ready", status = "success", icon = "circle-check"),
+      dash_nav_refresh_item("refresh_all", label = "Refresh"),
+      dash_nav_help_item("help_all", label = "Guide"),
+      dash_user_menu(
+        dropdownMenu(
+          type = "notifications",
+          notificationItem("Collapsed text-only brand is centered."),
+          notificationItem("Sidebar hover uses expanded text rules."),
+          notificationItem("Navbar title alignment is live-tested here.")
         )
       )
     )

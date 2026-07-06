@@ -1,6 +1,6 @@
 ## Test environments
 
-- Local: Windows (R release)
+- Local: Windows 11, R 4.5.1
 - GitHub Actions:
   - macOS-latest (R release)
   - windows-latest (R release)
@@ -10,38 +10,34 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note
 
-## Resubmission
+The note was:
 
-This is a resubmission. In response to the previous CRAN review:
+* checking for future file timestamps ... NOTE
+  unable to verify current time
 
-* improved API ergonomics in `dash_titles()` by accepting simple
-  `shiny::icon()` inputs and adding more targeted validation errors for
-  unsupported icon objects
-* added collapsed and expanded sidebar brand text controls for size and
-  weight
-* fixed reactive sidebar mode updates by clearing stale mode classes and
-  cleaning up old hover/listener state before applying new settings
-* allowed `brand_text = NULL` for fully icon-only brands when both
-  sidebar states are `"icon-only"` and an icon or image brand is
-  supplied
-* improved navbar title centering under resize/layout changes and added
-  alignment controls to the interactive demo
-* added `bs4dashkit_theme_presets()` to make preset discovery explicit
-  and improved preset validation messages
-* added `bs4dashkit_example_app()` as a minimal runnable example of the
-  recommended setup
-* added packaged smoke-test and full-feature example apps for manual
-  verification
-* updated README and vignette content so the documentation now matches
-  the shipped API and current preset names
-* expanded test coverage for the new behaviors and reran checks
+This appears to be a local system-clock verification issue in the check
+environment. No future timestamps were reported.
 
-## Versioning note
+## Release summary
 
-These changes remain part of the in-development 0.2.0 work. We did not
-create an additional release tag because the previous development tag
-has not been submitted to CRAN yet.
+This is a minor release focused on navbar ergonomics, reusable branding
+configuration, and clearer sidebar sizing inputs.
 
-Thank you for your time and review
+Notable changes:
+
+- Added complete navbar item helpers:
+  `dash_nav_help_item()`, `dash_nav_refresh_item()`, and
+  `dash_nav_status_item()`.
+- Added `dash_nav_status_badge()` for compact navbar state indicators.
+- Added `validate_bs4dash_navbar()` for targeted validation of custom
+  `bs4DashNavbar(rightUi = ...)` children.
+- Added `dash_brand_options()` and `dash_titles_from()` for reusable brand
+  configuration.
+- Allowed explicit CSS lengths for sidebar sizing arguments such as
+  `collapsed_w = "4.25rem"` and `expanded_w = "270px"` while retaining
+  backwards-compatible numeric inputs.
+- Updated README, vignettes, examples, pkgdown reference navigation, and tests.
+
+Thank you for your time and review.

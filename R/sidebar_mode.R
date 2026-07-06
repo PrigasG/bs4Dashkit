@@ -56,23 +56,32 @@ dash_brand_ui <- function(
   icon_shape <- match.arg(icon_shape)
   effect     <- if (!is.null(gradient)) "gradient" else match.arg(effect)
 
-  # ── validation ---------------------------------------
   if (!is.null(gradient) && length(gradient) != 2) {
-    stop("`gradient` must be a character vector of exactly 2 CSS color strings.")
+    stop("`gradient` must be a character vector of exactly 2 CSS color strings.", call. = FALSE)
   }
+  if (!is.null(gradient)) {
+    gradient <- vapply(seq_along(gradient), function(i) {
+      dashkit_validate_css_value(gradient[[i]], sprintf("gradient[%d]", i), allow_null = FALSE)
+    }, character(1))
+  }
+  dashkit_validate_css_values(list(
+    icon_size = icon_size,
+    icon_color = icon_color,
+    weight = weight,
+    spacing = spacing,
+    size = size,
+    font_family = font_family,
+    color = color,
+    glow_color = glow_color
+  ))
 
-  # ── resolve glow color --------------------------------
   glow_col <- glow_color %||%
     if (!is.null(gradient)) gradient[[1]] else
       if (!is.null(color))    color         else
         "#2f6f8f"
 
-  # ── unique id for scoped styles -------------------------------
-  uid <- paste0("dbl-", substr(digest::digest(
-    paste(brand_text, weight, size, effect, paste(gradient, collapse=""))
-  ), 1, 7))
+  uid <- dashkit_uid("dbl")
 
-  # ── build label inline style (base) -------------------------
   base_style_parts <- c(
     sprintf("font-weight:%s", weight),
     sprintf("letter-spacing:%s", spacing),
@@ -82,12 +91,10 @@ dash_brand_ui <- function(
     if (!is.null(color) && effect != "gradient") sprintf("color:%s", color)
   )
 
-  # ── build scoped CSS block ---------------------------
   scoped_css <- local({
 
     sel <- sprintf(".dash-brand-label.%s", uid)
 
-    # base overrides (needed because AdminLTE has !important on brand font styles)
     base_overrides <- sprintf(
       "%s { font-weight:%s !important; %s%s%s%s }",
       sel,
@@ -156,14 +163,12 @@ dash_brand_ui <- function(
                                            uid
                          ),
 
-                         # "none"
                          ""
     )
 
     paste(base_overrides, effect_css)
   })
 
-  # ── icon element ----------------------------
   icon_el <- if (!is.null(icon_img)) {
 
     img_shape_css <- switch(icon_shape,
@@ -177,7 +182,6 @@ dash_brand_ui <- function(
       "width:1.4em; height:1.4em; object-fit:cover;"
     }
     tint_css <- if (!is.null(icon_color)) {
-      # subtle tint via sepia + hue-rotate approximation
       "filter:saturate(1.2) brightness(0.95);"
     } else ""
 
@@ -205,7 +209,6 @@ dash_brand_ui <- function(
 
   } else NULL
 
-  # ── assemble ---------------------------------
   dep <- shiny::tags$head(
     shiny::tags$style(shiny::HTML(scoped_css))
   )
@@ -228,8 +231,6 @@ dash_brand_ui <- function(
 
 }
 
-
-# Sidebar brand behavior -----------------------
 
 #' Set sidebar brand display mode for expanded and collapsed states
 #'
@@ -296,6 +297,13 @@ use_dash_sidebar_brand_mode <- function(
   short_weight <- if (!is.null(collapsed_text_weight)) as.character(collapsed_text_weight) else ""
   long_weight  <- if (!is.null(expanded_text_weight)) as.character(expanded_text_weight) else ""
 
+  dashkit_validate_css_values(list(
+    collapsed_text_size = collapsed_text_size,
+    expanded_text_size = expanded_text_size,
+    collapsed_text_weight = collapsed_text_weight,
+    expanded_text_weight = expanded_text_weight
+  ))
+
   icon_collapsed <- tolower(collapsed) %in% c("icon-only", "icon-text")
   icon_expanded  <- tolower(expanded)  %in% c("icon-only", "icon-text")
   text_collapsed <- tolower(collapsed) %in% c("icon-text", "text-only")
@@ -307,13 +315,13 @@ use_dash_sidebar_brand_mode <- function(
         window.__bs4DashkitSidebarBrandCleanup();
       }
 
-      var ICON_NAME      = '%s';
-      var SHORT          = '%s';
-      var LONG           = '%s';
-      var SHORT_SIZE     = '%s';
-      var LONG_SIZE      = '%s';
-      var SHORT_WEIGHT   = '%s';
-      var LONG_WEIGHT    = '%s';
+      var ICON_NAME      = %s;
+      var SHORT          = %s;
+      var LONG           = %s;
+      var SHORT_SIZE     = %s;
+      var LONG_SIZE      = %s;
+      var SHORT_WEIGHT   = %s;
+      var LONG_WEIGHT    = %s;
       var ICON_COLLAPSED = %s;
       var ICON_EXPANDED  = %s;
       var TEXT_COLLAPSED = %s;
@@ -347,7 +355,6 @@ use_dash_sidebar_brand_mode <- function(
         var bt = getBrandLink();
         if(!bt) return;
 
-        // If any icon already exists, don't inject another
         if(getIcons().length) return;
 
         var i = document.createElement('i');
@@ -457,13 +464,13 @@ use_dash_sidebar_brand_mode <- function(
       }
     })();
   ",
-                     icon_name,
-                     gsub("'", "\\\\'", short),
-                     gsub("'", "\\\\'", long),
-                     gsub("'", "\\\\'", short_size),
-                     gsub("'", "\\\\'", long_size),
-                     gsub("'", "\\\\'", short_weight),
-                     gsub("'", "\\\\'", long_weight),
+                     dashkit_js_literal(icon_name),
+                     dashkit_js_literal(short),
+                     dashkit_js_literal(long),
+                     dashkit_js_literal(short_size),
+                     dashkit_js_literal(long_size),
+                     dashkit_js_literal(short_weight),
+                     dashkit_js_literal(long_weight),
                      tolower(icon_collapsed),
                      tolower(icon_expanded),
                      tolower(text_collapsed),

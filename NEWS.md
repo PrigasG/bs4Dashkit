@@ -4,6 +4,97 @@ editor_options:
     wrap: 72
 ---
 
+## bs4Dashkit 0.3.0
+
+### Navbar ergonomics
+
+-   Added complete navbar item helpers for safer `bs4DashNavbar(rightUi = ...)`
+    usage:
+
+    -   `dash_nav_help_item()`
+
+    -   `dash_nav_refresh_item()`
+
+    -   `dash_nav_status_item()`
+
+-   Added `dash_nav_status_badge()` for compact navbar status indicators.
+
+-   Added `validate_bs4dash_navbar()` to catch common custom navbar structure
+    mistakes, including `<li>` children missing the required `"dropdown"` class.
+
+-   Kept `dash_nav_help_button()` and `dash_nav_refresh_button()` as lower-level
+    button builders for custom wrappers.
+
+### Branding and layout
+
+-   Added `dash_brand_options()` and `dash_titles_from()` so shared brand
+    configuration can be reused across app families without growing each
+    `dash_titles()` call.
+
+-   Added prototype top-navigation support with `use_dash_topnav()` and
+    `use_bs4Dashkit_core(layout = "topnav")`. The sidebar menu remains the
+    source of truth and is mirrored into the navbar so `bs4TabItems()`,
+    `input$sidebar`, `updateTabItems()`, and bookmarking can keep using native
+    `{bs4Dash}` wiring.
+
+-   Top-navigation tabs can now be aligned left, center, or right with
+    `align` / `topnav_align`, and spaced with `gap` / `topnav_gap`.
+
+-   Added `dash_topnav_options()` so production apps can pass one compact
+    `topnav = ...` object to `use_bs4Dashkit_core(layout = "topnav")` instead
+    of a long run of `topnav_*` arguments.
+
+-   Top-navigation mode now includes an animated active underline, mobile
+    hamburger behavior, optional pill and compact tab styles, optional `More`
+    overflow, centered title auto-compact/hide behavior, keyboard navigation,
+    optional active page-title sync, a Shiny click event at
+    `input$bs4dashkit_topnav`, and a debug outline mode.
+
+-   `use_bs4Dashkit_core()` and `use_dash_sidebar_behavior()` now accept
+    explicit CSS lengths for `topbar_h`, `collapsed_w`, and `expanded_w`, such
+    as `"56px"`, `"4.25rem"`, and `"270px"`. Existing numeric values remain
+    supported with their historical default units.
+
+-   Removed the `digest` import; scoped brand CSS now uses a tiny internal ID
+    counter.
+
+### Documentation and examples
+
+-   Updated README, vignettes, packaged examples, and pkgdown reference
+    navigation to show the complete navbar item helpers and top-navigation
+    prototype as the preferred API.
+
+-   Updated examples to avoid wrapping helpers that already return navbar
+    `<li>` elements.
+
+### Testing
+
+-   Added regression coverage for complete navbar item helpers, navbar
+    validation messages, CSS-unit sidebar dimensions, reusable brand options,
+    status badges, core helper layout selection, and top-navigation dependency
+    injection.
+
+## bs4Dashkit 0.2.1
+
+-   Hardened generated JavaScript by encoding dynamic sidebar brand
+    strings as JSON literals.
+
+-   Added validation for CSS values used in theme, brand, and sidebar
+    helpers before they are emitted into HTML/style blocks.
+
+-   Reused sidebar dimension validation for direct
+    `use_dash_sidebar_behavior()` calls.
+
+-   Removed unused package metadata and cleaned unnecessary source
+    comments.
+
+-   Added regression tests for JavaScript escaping, CSS validation, and
+    direct sidebar dimension validation.
+
+-   Added a packaged hardening regression example app that exercises
+    JavaScript label escaping, CSS validation, sidebar dimensions,
+    runtime DOM tracing, and visual theme fixtures.
+
 ## bs4Dashkit 0.2.0
 
 ### Ergonomics and discoverability

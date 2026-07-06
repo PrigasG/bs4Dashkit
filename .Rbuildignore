@@ -1,5 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.git$
+^\.git/
 ^LICENSE\.md$
 ^_pkgdown\.yml$
 ^docs$
@@ -16,6 +18,7 @@
 ^cheatsheet\.pdf$
 ^cheatsheet\.(aux|log|out)$
 ^ROADMAP\.md$
+^\.future-topnav-roadmap\.md$
 ^\.RData$
 ^\.Rhistory$
 ^\.gitignore$

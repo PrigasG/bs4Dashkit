@@ -2,7 +2,7 @@
 title: "Global Options"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{global-options}
+  %\VignetteIndexEntry{Global Options}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -34,8 +34,8 @@ Options are only used when the corresponding argument is not provided (or is `NU
 | `bs4Dashkit.sidebar.expanded` | `dash_titles()` | Sidebar brand mode when expanded | `"icon-text"` when an icon is supplied, otherwise `"text-only"` |
 | `bs4Dashkit.brand_divider` | `dash_titles()` | Show divider under brand strip |`TRUE` |
 | `bs4Dashkit.theme_preset` | `use_bs4Dashkit_core()` | Default preset name when `preset = NULL` | `NULL` |
-| `bs4Dashkit.accent` | `use_bs4Dash_core()` | Default accent when accent = `NULL` | `"#2f6f8f" ` |
-| `bs4Dashkit.debug` | `dash_titles` | Enable debug logging (JS console warnings) |  `FALSE` |
+| `bs4Dashkit.accent` | `use_bs4Dashkit_core()` | Default accent when `accent = NULL` | `"#2f6f8f"` |
+| `bs4Dashkit.debug` | `dash_titles()` | Enable debug logging (JS console warnings) | `FALSE` |
 
 
 The values shown above are the built-in defaults used when neither the function argument nor the corresponding option is set.

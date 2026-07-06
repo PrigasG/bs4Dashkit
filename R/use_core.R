@@ -9,9 +9,40 @@
 #' @param accent Optional accent override. If NULL, uses option bs4Dashkit.accent.
 #'   If preset is used, this overrides the preset accent.
 #' @param ... Optional overrides passed to use_dash_theme_preset() when preset is used.
-#' @param topbar_h Height (px) for topbar + brand strip
-#' @param collapsed_w Sidebar collapsed width (rem)
-#' @param expanded_w Sidebar expanded width (px)
+#' @param topbar_h Height for topbar + brand strip. Numeric values are treated
+#'   as pixels; CSS lengths such as \code{"3.5rem"} are also accepted.
+#' @param collapsed_w Sidebar collapsed width. Numeric values are treated as
+#'   rem; CSS lengths such as \code{"4.25rem"} are also accepted.
+#' @param expanded_w Sidebar expanded width. Numeric values are treated as
+#'   pixels; CSS lengths such as \code{"270px"} are also accepted.
+#' @param layout Layout behavior to apply. \code{"sidebar"} keeps the default
+#'   bs4Dash sidebar with hover-expand behavior. \code{"topnav"} hides the
+#'   sidebar and mirrors its menu into the navbar with \code{use_dash_topnav()}.
+#' @param topnav Optional output from \code{dash_topnav_options()}. When
+#'   supplied, its values are used for the top-navigation settings below.
+#' @param topnav_align Horizontal alignment for the mirrored top-nav menu when
+#'   \code{layout = "topnav"}: \code{"left"}, \code{"center"}, or
+#'   \code{"right"}. If a centered \code{dash_nav_title()} is also present,
+#'   \code{"left"} or \code{"right"} usually leaves the title more readable.
+#' @param topnav_gap Space between mirrored top-nav items. Numeric values are
+#'   treated as pixels; CSS lengths such as \code{"0.5rem"} are also accepted.
+#' @param topnav_style Visual style for top-nav tabs: \code{"underline"},
+#'   \code{"pill"}, or \code{"compact"}.
+#' @param topnav_mobile Mobile behavior: \code{"collapse"} shows a hamburger
+#'   for tabs; \code{"scroll"} keeps a horizontal tab row.
+#' @param topnav_overflow Desktop overflow behavior: \code{"auto"},
+#'   \code{"more"}, or \code{"scroll"}.
+#' @param topnav_more_after Number of top-level items kept visible when
+#'   \code{topnav_overflow = "more"}.
+#' @param topnav_title How centered \code{dash_nav_title()} behaves when tabs
+#'   need space: \code{"auto"}, \code{"show"}, \code{"compact"}, or
+#'   \code{"hide"}.
+#' @param topnav_page_title Optional content title synced from the active
+#'   top-nav tab: \code{"none"} or \code{"tab"}.
+#' @param topnav_brand Logical. If \code{TRUE}, mirror the sidebar brand into
+#'   the navbar when bs4Dash has not already placed one there.
+#' @param topnav_debug Logical. If \code{TRUE}, print top-nav diagnostics to the
+#'   browser console.
 #'
 #' @return A \code{shiny.tag.list} containing core CSS and/or JavaScript dependencies for bs4Dashkit.
 #' @export
@@ -22,21 +53,71 @@ use_bs4Dashkit_core <- function(
     ...,
     topbar_h = 56,
     collapsed_w = 4.2,
-    expanded_w = 250
+    expanded_w = 250,
+    layout = c("sidebar", "topnav"),
+    topnav = NULL,
+    topnav_align = c("left", "center", "right"),
+    topnav_gap = 0,
+    topnav_style = c("underline", "pill", "compact"),
+    topnav_mobile = c("collapse", "scroll"),
+    topnav_overflow = c("auto", "more", "scroll"),
+    topnav_more_after = Inf,
+    topnav_title = c("auto", "show", "compact", "hide"),
+    topnav_page_title = c("none", "tab"),
+    topnav_brand = TRUE,
+    topnav_debug = FALSE
 ) {
   if (!is.list(ttl) || is.null(ttl$deps)) {
     stop("`ttl` must be the result of dash_titles() and contain `$deps`.")
   }
 
-  if (!is.numeric(collapsed_w) || length(collapsed_w) != 1 || is.na(collapsed_w) || collapsed_w <= 0) {
-    stop("`collapsed_w` must be a single positive number (rem).")
+  if (identical(layout, c("sidebar", "topnav"))) {
+    layout <- "sidebar"
   }
-  if (!is.numeric(expanded_w) || length(expanded_w) != 1 || is.na(expanded_w) || expanded_w <= 0) {
-    stop("`expanded_w` must be a single positive number (px).")
+  if (identical(topnav_align, c("left", "center", "right"))) {
+    topnav_align <- "left"
   }
-  if (!is.numeric(topbar_h) || length(topbar_h) != 1 || is.na(topbar_h) || topbar_h <= 0) {
-    stop("`topbar_h` must be a single positive number (px).")
+
+  if (!is.null(topnav)) {
+    if (!is.list(topnav)) {
+      stop("`topnav` must be the result of dash_topnav_options() or a named list.", call. = FALSE)
+    }
+    topnav_align <- topnav$align %||% topnav_align
+    topnav_gap <- topnav$gap %||% topnav_gap
+    topnav_style <- topnav$style %||% topnav_style
+    topnav_mobile <- topnav$mobile %||% topnav_mobile
+    topnav_overflow <- topnav$overflow %||% topnav_overflow
+    topnav_more_after <- topnav$more_after %||% topnav_more_after
+    topnav_title <- topnav$title %||% topnav_title
+    topnav_page_title <- topnav$page_title %||% topnav_page_title
+    topnav_brand <- topnav$brand %||% topnav_brand
+    topnav_debug <- topnav$debug %||% topnav_debug
   }
+
+  if (!dashkit_is_scalar_character(layout) || !(layout %in% c("sidebar", "topnav"))) {
+    stop('`layout` must be either "sidebar" or "topnav".', call. = FALSE)
+  }
+  if (!dashkit_is_scalar_character(topnav_align) || !(topnav_align %in% c("left", "center", "right"))) {
+    stop('`topnav_align` must be one of "left", "center", or "right".', call. = FALSE)
+  }
+  topnav_style <- dashkit_match_choice(topnav_style, c("underline", "pill", "compact"), "topnav_style")
+  topnav_mobile <- dashkit_match_choice(topnav_mobile, c("collapse", "scroll"), "topnav_mobile")
+  topnav_overflow <- dashkit_match_choice(topnav_overflow, c("auto", "more", "scroll"), "topnav_overflow")
+  topnav_title <- dashkit_match_choice(topnav_title, c("auto", "show", "compact", "hide"), "topnav_title")
+  topnav_page_title <- dashkit_match_choice(topnav_page_title, c("none", "tab"), "topnav_page_title")
+  if (!is.numeric(topnav_more_after) || length(topnav_more_after) != 1 || is.na(topnav_more_after) || topnav_more_after < 1) {
+    stop("`topnav_more_after` must be a single positive number or Inf.", call. = FALSE)
+  }
+  if (!is.logical(topnav_brand) || length(topnav_brand) != 1 || is.na(topnav_brand)) {
+    stop("`topnav_brand` must be TRUE or FALSE.", call. = FALSE)
+  }
+  if (!is.logical(topnav_debug) || length(topnav_debug) != 1 || is.na(topnav_debug)) {
+    stop("`topnav_debug` must be TRUE or FALSE.", call. = FALSE)
+  }
+  collapsed_w <- dashkit_validate_css_dimension(collapsed_w, "collapsed_w", "rem")
+  expanded_w <- dashkit_validate_css_dimension(expanded_w, "expanded_w", "px")
+  topbar_h <- dashkit_validate_css_dimension(topbar_h, "topbar_h", "px")
+  topnav_gap <- dashkit_validate_css_dimension(topnav_gap, "topnav_gap", "px", allow_zero = TRUE)
 
   preset <- preset %||% dashkit_opt("theme_preset", NULL)
   if (!is.null(preset) && length(preset) != 1) {
@@ -59,11 +140,27 @@ use_bs4Dashkit_core <- function(
     use_bs4Dashkit(),
     ttl$deps,
     theme_tag,
-    use_dash_sidebar_behavior(
-      topbar_h    = topbar_h,
-      collapsed_w = collapsed_w,
-      expanded_w  = expanded_w
-    )
+    if (identical(layout, "topnav")) {
+      use_dash_topnav(
+        topbar_h = topbar_h,
+        align = topnav_align,
+        gap = topnav_gap,
+        style = topnav_style,
+        mobile = topnav_mobile,
+        overflow = topnav_overflow,
+        more_after = topnav_more_after,
+        title = topnav_title,
+        page_title = topnav_page_title,
+        brand = topnav_brand,
+        debug = topnav_debug
+      )
+    } else {
+      use_dash_sidebar_behavior(
+        topbar_h    = topbar_h,
+        collapsed_w = collapsed_w,
+        expanded_w  = expanded_w
+      )
+    }
   )
 }
 
@@ -145,16 +242,15 @@ bs4dashkit_demo_app <- function() {
       leftUi = shiny::uiOutput("header_left_ui"),
       rightUi = shiny::tagList(
         shiny::uiOutput("header_title_right_ui"),
-        dash_nav_item(dash_nav_refresh_button("refresh_demo", label = "Refresh")),
-        dash_nav_item(dash_nav_help_button("help_demo", label = "Guide")),
-        dash_nav_item(
-          dash_user_menu(
-            bs4Dash::dropdownMenu(
-              type = "notifications",
-              bs4Dash::notificationItem("Sidebar hover uses the expanded label rules."),
-              bs4Dash::notificationItem("Leave expanded_text blank to use brand_text."),
-              bs4Dash::notificationItem("Collapsed icon-text can use a shorter label.")
-            )
+        dash_nav_status_item("Ready", status = "success", icon = "circle-check"),
+        dash_nav_refresh_item("refresh_demo", label = "Refresh"),
+        dash_nav_help_item("help_demo", label = "Guide"),
+        dash_user_menu(
+          bs4Dash::dropdownMenu(
+            type = "notifications",
+            bs4Dash::notificationItem("Sidebar hover uses the expanded label rules."),
+            bs4Dash::notificationItem("Leave expanded_text blank to use brand_text."),
+            bs4Dash::notificationItem("Collapsed icon-text can use a shorter label.")
           )
         )
       )
@@ -179,41 +275,7 @@ bs4dashkit_demo_app <- function() {
       )
     ),
     body = bs4Dash::bs4DashBody(
-      shiny::tags$script(shiny::HTML("
-        Shiny.addCustomMessageHandler('bs4dashkit-demo-brand', function(message) {
-          function updateLabel(label) {
-            if (!label) return;
-            label.textContent = message.brand_text || '';
-          }
-
-          function updateIcon(label) {
-            if (!label || !label.parentElement) return;
-            var parent = label.parentElement;
-            var icon = parent.querySelector('.dash-brand-icon');
-            var hasIcon = !!(message.icon && message.icon.length);
-
-            if (!hasIcon) {
-              if (icon) icon.style.display = 'none';
-              return;
-            }
-
-            if (!icon) {
-              icon = document.createElement('i');
-              parent.insertBefore(icon, label);
-            }
-
-            icon.className = 'fas fa-' + message.icon + ' fa-fw dash-brand-icon';
-            icon.style.display = '';
-            icon.style.fontSize = message.icon_size || '';
-          }
-
-          var labels = document.querySelectorAll('.main-header .dash-brand-label, .main-sidebar .dash-brand-label');
-          labels.forEach(function(label) {
-            updateLabel(label);
-            updateIcon(label);
-          });
-        });
-      ")),
+      dashkit_demo_brand_dependency(),
       shiny::uiOutput("core_ui"),
       bs4Dash::bs4TabItems(
         bs4Dash::bs4TabItem(

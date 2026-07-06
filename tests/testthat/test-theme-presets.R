@@ -35,6 +35,32 @@ test_that("use_dash_theme() emits expanded theme variables", {
   expect_match(html, "--dash-success", fixed = TRUE)
 })
 
+test_that("use_dash_theme() validates CSS variable values", {
+  expect_error(use_dash_theme(accent = "#fff;display:none"), "accent")
+  expect_error(use_dash_theme(shadow = "</style>"), "shadow")
+  expect_error(use_dash_theme(radius = -1), "radius")
+})
+
+test_that("use_dash_sidebar_behavior() validates dimensions directly", {
+  expect_error(use_dash_sidebar_behavior(collapsed_w = -1), "collapsed_w")
+  expect_error(use_dash_sidebar_behavior(expanded_w = NA), "expanded_w")
+  expect_error(use_dash_sidebar_behavior(topbar_h = c(56, 60)), "topbar_h")
+})
+
+test_that("use_dash_sidebar_behavior() accepts explicit CSS units", {
+  html <- htmltools::renderTags(use_dash_sidebar_behavior(
+    topbar_h = "3.5rem",
+    collapsed_w = "4.25rem",
+    expanded_w = "270px"
+  ))$head
+
+  expect_match(html, "--dash-topbar-h:3.5rem", fixed = TRUE)
+  expect_match(html, "--dash-sidebar-collapsed-w:4.25rem", fixed = TRUE)
+  expect_match(html, "--dash-sidebar-expanded-w:270px", fixed = TRUE)
+  expect_error(use_dash_sidebar_behavior(collapsed_w = "4.25"), "CSS length")
+  expect_error(use_dash_sidebar_behavior(collapsed_w = "0px"), "positive CSS length")
+})
+
 test_that("demo app helper returns a shiny app object", {
   app <- bs4dashkit_demo_app()
 

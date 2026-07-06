@@ -7,11 +7,15 @@
 use_dash_sidebar_behavior(topbar_h = 56, collapsed_w = 4.2, expanded_w = 250)
 }
 \arguments{
-\item{topbar_h}{Height in px for navbar and sidebar brand strip}
+\item{topbar_h}{Height for navbar and sidebar brand strip. Numeric values
+are treated as pixels; CSS lengths such as \code{"3.5rem"} are also
+accepted.}
 
-\item{collapsed_w}{Width for icon-only sidebar (rem)}
+\item{collapsed_w}{Width for icon-only sidebar. Numeric values are treated
+as rem; CSS lengths such as \code{"4.25rem"} are also accepted.}
 
-\item{expanded_w}{Expanded sidebar width (px)}
+\item{expanded_w}{Expanded sidebar width. Numeric values are treated as
+pixels; CSS lengths such as \code{"270px"} are also accepted.}
 }
 \value{
 A \code{shiny.tag} or \code{shiny.tag.list} containing sidebar behavior dependencies to include in the UI.

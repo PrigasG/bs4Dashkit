@@ -19,6 +19,7 @@ navbar:
   components:
     github:
       icon: fa-github
+      aria-label: GitHub repository
       href: https://github.com/PrigasG/bs4Dashkit
 
 articles:
@@ -38,6 +39,7 @@ articles:
   - title: Navigation
     contents:
       - navigation-utilities
+      - top-navigation
       - footer
 
   - title: Examples
@@ -48,6 +50,8 @@ articles:
 reference:
   - title: Core
     contents:
+      - dash_brand_options
+      - dash_titles_from
       - dash_titles
       - use_bs4Dashkit_core
       - use_bs4Dashkit
@@ -67,11 +71,18 @@ reference:
 
   - title: Navbar
     contents:
+      - dash_topnav_options
+      - use_dash_topnav
       - dash_nav_title
       - dash_nav_item
+      - dash_nav_status_badge
+      - dash_nav_status_item
       - dash_nav_refresh_button
+      - dash_nav_refresh_item
       - dash_nav_help_button
+      - dash_nav_help_item
       - dash_user_menu
+      - validate_bs4dash_navbar
 
   - title: Footer
     contents:

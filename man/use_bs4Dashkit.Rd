@@ -11,9 +11,12 @@ use_bs4Dashkit(include_center_js = TRUE)
 JavaScript helper that supports the centered navbar title layout.}
 }
 \value{
-A \code{htmltools::tagList} containing an \code{htmltools::htmlDependency}
-for the package CSS and optional JavaScript helpers.
+A \code{htmltools::tagList} containing \code{htmltools::htmlDependency}
+objects for the package CSS and optional JavaScript helpers.
 }
 \description{
 Adds the package's bundled CSS (core, theme, sidebar) and optional JS helpers.
+All assets are attached as named \code{htmltools::htmlDependency} objects, so
+they are included once per page regardless of how many bs4Dashkit helpers
+request them.
 }

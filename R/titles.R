@@ -1,3 +1,84 @@
+#' Brand options for bs4Dashkit titles
+#'
+#' Creates a reusable brand configuration that can be converted to
+#' \code{dash_titles()} output with \code{dash_titles_from()}.
+#'
+#' @param name Visible brand label.
+#' @param icon Font Awesome icon name or simple \code{shiny::icon()} tag.
+#' @param collapsed Short label used when the sidebar brand is collapsed.
+#' @param expanded Label used when the sidebar brand is expanded.
+#' @param app_name Browser tab title.
+#' @param collapsed_mode Sidebar brand mode when collapsed. If \code{NULL},
+#'   \code{dash_titles()} uses its normal default.
+#' @param expanded_mode Sidebar brand mode when expanded. If \code{NULL},
+#'   \code{dash_titles()} uses its normal default.
+#' @param ... Additional options forwarded to \code{dash_titles()} by
+#'   \code{dash_titles_from()}.
+#'
+#' @return A \code{bs4dashkit_brand_options} object.
+#' @export
+dash_brand_options <- function(
+    name,
+    icon = NULL,
+    collapsed = NULL,
+    expanded = NULL,
+    app_name = NULL,
+    collapsed_mode = NULL,
+    expanded_mode = NULL,
+    ...
+) {
+  if (!is.null(name) && !dashkit_is_scalar_character(name)) {
+    stop("`name` must be a single string or NULL.", call. = FALSE)
+  }
+
+  structure(
+    list(
+      name = name,
+      icon = icon,
+      collapsed = collapsed,
+      expanded = expanded,
+      app_name = app_name,
+      collapsed_mode = collapsed_mode,
+      expanded_mode = expanded_mode,
+      options = list(...)
+    ),
+    class = "bs4dashkit_brand_options"
+  )
+}
+
+#' Create dashboard titles from brand options
+#'
+#' @param brand A \code{bs4dashkit_brand_options} object created by
+#'   \code{dash_brand_options()}.
+#' @param ... Additional arguments passed to \code{dash_titles()}, overriding
+#'   values stored in \code{brand}.
+#'
+#' @return A named list with \code{app_name}, \code{brand}, and \code{deps};
+#'   see \code{dash_titles()}.
+#' @export
+dash_titles_from <- function(brand, ...) {
+  if (!inherits(brand, "bs4dashkit_brand_options")) {
+    stop("`brand` must be created by dash_brand_options().", call. = FALSE)
+  }
+
+  args <- list(
+    brand_text = brand$name,
+    app_name = brand$app_name,
+    icon = brand$icon,
+    collapsed = brand$collapsed_mode,
+    expanded = brand$expanded_mode,
+    collapsed_text = brand$collapsed,
+    expanded_text = brand$expanded
+  )
+
+  stored_options <- brand$options
+  override_options <- list(...)
+  args[names(stored_options)] <- stored_options
+  args[names(override_options)] <- override_options
+
+  do.call(dash_titles, args[!vapply(args, is.null, logical(1))])
+}
+
 #' Dashboard brand and sidebar configuration
 #'
 #' Single entry point for branding and sidebar brand behavior. Creates a

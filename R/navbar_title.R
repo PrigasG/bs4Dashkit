@@ -1,5 +1,3 @@
-# navbar_title.R
-
 #' Navbar title (center, right, or left)
 #'
 #' Creates a consistent title block for bs4Dash navbars, with optional subtitle

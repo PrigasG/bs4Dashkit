@@ -47,7 +47,27 @@ use_dash_theme <- function(
     radius = 12,
     shadow = "0 1px 3px rgba(0,0,0,0.07)"
 ) {
-  dashkit_register_resources()
+  dashkit_validate_css_values(list(
+    bg = bg,
+    surface = surface,
+    border = border,
+    text = text,
+    muted = muted,
+    accent = accent,
+    accent_soft = accent_soft,
+    navbar_bg = navbar_bg,
+    navbar_text = navbar_text,
+    sidebar_bg = sidebar_bg,
+    sidebar_text = sidebar_text,
+    sidebar_hover = sidebar_hover,
+    footer_bg = footer_bg,
+    footer_text = footer_text,
+    success = success,
+    warning = warning,
+    danger = danger,
+    shadow = shadow
+  ))
+  radius <- dashkit_validate_positive_number(radius, "radius", "px")
 
   vars <- sprintf(
     paste0(
@@ -69,7 +89,7 @@ use_dash_theme <- function(
       "--dash-success:%s;",
       "--dash-warning:%s;",
       "--dash-danger:%s;",
-      "--dash-radius:%dpx;",
+      "--dash-radius:%spx;",
       "--dash-shadow:%s;",
       "}"
     ),
@@ -82,12 +102,8 @@ use_dash_theme <- function(
   )
 
   shiny::tagList(
+    dashkit_theme_dependency(),
     shiny::tags$head(
-      shiny::tags$link(
-        rel  = "stylesheet",
-        type = "text/css",
-        href = "bs4dashkit-assets/dash-theme.css"
-      ),
       shiny::tags$style(shiny::HTML(vars))
     )
   )
