@@ -192,6 +192,7 @@ rightUi = tagList(
   dash_nav_item(
     dash_nav_help_button("help")
   ),
+  dash_nav_divider(),
   dash_user_menu(
     dropdownMenu(
       type = "notifications",
@@ -245,6 +246,18 @@ footer = dash_footer(
 
 \begin{lstlisting}[style=rstyle]
 app <- bs4dashkit_example_app()
+app <- bs4dashkit_example_app(
+  layout = "topnav"
+)
+\end{lstlisting}
+
+\textbf{Back to top}
+
+\begin{lstlisting}[style=rstyle]
+dash_back_to_top(
+  show_after = 400,
+  position = "bottom-right"
+)
 \end{lstlisting}
 
 \textbf{Global defaults}

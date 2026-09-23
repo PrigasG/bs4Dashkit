@@ -242,3 +242,21 @@ dashkit_tag_classes <- function(tag) {
 
   unique(strsplit(classes, "\\s+")[[1]])
 }
+
+#' Navbar vertical divider
+#'
+#' A slim vertical rule for visually grouping controls inside
+#' \code{bs4DashNavbar(rightUi = ...)}. Keeps the \code{dropdown} class so
+#' it passes \code{validate_bs4dash_navbar()}.
+#'
+#' @param class Additional classes.
+#'
+#' @return A \code{shiny.tag} list item for use in \code{bs4DashNavbar(rightUi = ...)}.
+#' @export
+dash_nav_divider <- function(class = NULL) {
+  shiny::tags$li(
+    class = paste(c("nav-item", "dropdown", "dash-nav-divider-wrap", class), collapse = " "),
+    `aria-hidden` = "true",
+    shiny::tags$span(class = "dash-nav-divider")
+  )
+}

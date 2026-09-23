@@ -4,7 +4,10 @@
 \alias{bs4dashkit_example_app}
 \title{Minimal bs4Dashkit example app}
 \usage{
-bs4dashkit_example_app()
+bs4dashkit_example_app(layout = c("sidebar", "topnav"))
+}
+\arguments{
+\item{layout}{App layout: \code{"sidebar"} (default) or \code{"topnav"}.}
 }
 \value{
 A \code{shiny.appobj}.

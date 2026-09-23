@@ -167,9 +167,13 @@ use_bs4Dashkit_core <- function(
 #' Returns a tiny runnable `shiny.appobj` that demonstrates the recommended
 #' `dash_titles()` plus `use_bs4Dashkit_core()` flow.
 #'
+#' @param layout App layout: \code{"sidebar"} (default) or \code{"topnav"}.
+#'
 #' @return A `shiny.appobj`.
 #' @export
-bs4dashkit_example_app <- function() {
+bs4dashkit_example_app <- function(layout = c("sidebar", "topnav")) {
+  layout <- match.arg(layout)
+
   ttl <- dash_titles(
     brand_text = "bs4Dashkit",
     icon = shiny::icon("cloud"),
@@ -178,6 +182,12 @@ bs4dashkit_example_app <- function() {
     collapsed_text = "bs4",
     expanded_text = "bs4Dashkit"
   )
+
+  core_ui <- if (layout == "topnav") {
+    use_bs4Dashkit_core(ttl, layout = "topnav", preset = "professional")
+  } else {
+    use_bs4Dashkit_core(ttl, preset = "professional")
+  }
 
   ui <- bs4Dash::bs4DashPage(
     title = ttl$app_name,
@@ -188,11 +198,16 @@ bs4dashkit_example_app <- function() {
           "Dashboard",
           tabName = "dashboard",
           icon = shiny::icon("gauge-high")
+        ),
+        bs4Dash::bs4SidebarMenuItem(
+          "About",
+          tabName = "about",
+          icon = shiny::icon("circle-info")
         )
       )
     ),
     body = bs4Dash::bs4DashBody(
-      use_bs4Dashkit_core(ttl, preset = "professional"),
+      core_ui,
       bs4Dash::bs4TabItems(
         bs4Dash::bs4TabItem(
           tabName = "dashboard",
@@ -201,6 +216,16 @@ bs4dashkit_example_app <- function() {
               title = "Minimal Example",
               width = 12,
               "This app shows the recommended bs4Dashkit setup."
+            )
+          )
+        ),
+        bs4Dash::bs4TabItem(
+          tabName = "about",
+          shiny::fluidRow(
+            bs4Dash::bs4Card(
+              title = "About",
+              width = 12,
+              "A second tab so the top navigation has something to mirror."
             )
           )
         )

@@ -28,6 +28,19 @@ editor_options:
 -   `dash_footer()` now validates `logo_src` is a single string or `NULL`
     with a clear error instead of failing inside `nzchar()`.
 
+### New features
+
+-   New `dash_back_to_top()`: a floating button that appears after scrolling
+    and smoothly scrolls back to the top. Optional label, corner position,
+    and reveal threshold.
+
+-   New `dash_nav_divider()`: a slim vertical rule for grouping controls in
+    `bs4DashNavbar(rightUi = ...)`; keeps the `dropdown` class so it passes
+    `validate_bs4dash_navbar()`.
+
+-   `bs4dashkit_example_app()` gains a `layout` argument: `layout = "topnav"`
+    returns a minimal runnable top-navigation demo.
+
 ### Documentation
 
 -   Moved the `align` guidance in `?use_dash_topnav` from the `topbar_h`
