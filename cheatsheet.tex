@@ -202,6 +202,35 @@ rightUi = tagList(
 )
 \end{lstlisting}
 
+\section*{Top Navigation}
+
+\begin{lstlisting}[style=rstyle]
+use_bs4Dashkit_core(
+  ttl,
+  layout = "topnav",
+  topnav_align = "left",
+  topnav_style = "underline",
+  topnav_overflow = "more",
+  topnav_more_after = 4
+)
+\end{lstlisting}
+
+Or bundle options first:
+
+\begin{lstlisting}[style=rstyle]
+topnav <- dash_topnav_options(
+  align = "left",
+  style = "pill",
+  overflow = "more",
+  more_after = 4
+)
+use_bs4Dashkit_core(
+  ttl,
+  layout = "topnav",
+  topnav = topnav
+)
+\end{lstlisting}
+
 \section*{Footer}
 
 \begin{lstlisting}[style=rstyle]

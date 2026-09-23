@@ -17,7 +17,7 @@ dash_nav_help_button(
 
 \item{label}{Button label}
 
-\item{icon}{Font Awesome icon name}
+\item{icon}{Font Awesome icon name or a simple \code{shiny::icon()} tag.}
 
 \item{class}{Additional classes}
 

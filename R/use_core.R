@@ -33,7 +33,7 @@
 #' @param topnav_overflow Desktop overflow behavior: \code{"auto"},
 #'   \code{"more"}, or \code{"scroll"}.
 #' @param topnav_more_after Number of top-level items kept visible when
-#'   \code{topnav_overflow = "more"}.
+#'   \code{topnav_overflow = "more"}. Must be a whole number.
 #' @param topnav_title How centered \code{dash_nav_title()} behaves when tabs
 #'   need space: \code{"auto"}, \code{"show"}, \code{"compact"}, or
 #'   \code{"hide"}.
@@ -105,9 +105,7 @@ use_bs4Dashkit_core <- function(
   topnav_overflow <- dashkit_match_choice(topnav_overflow, c("auto", "more", "scroll"), "topnav_overflow")
   topnav_title <- dashkit_match_choice(topnav_title, c("auto", "show", "compact", "hide"), "topnav_title")
   topnav_page_title <- dashkit_match_choice(topnav_page_title, c("none", "tab"), "topnav_page_title")
-  if (!is.numeric(topnav_more_after) || length(topnav_more_after) != 1 || is.na(topnav_more_after) || topnav_more_after < 1) {
-    stop("`topnav_more_after` must be a single positive number or Inf.", call. = FALSE)
-  }
+  topnav_more_after <- dashkit_validate_more_after(topnav_more_after, "topnav_more_after")
   if (!is.logical(topnav_brand) || length(topnav_brand) != 1 || is.na(topnav_brand)) {
     stop("`topnav_brand` must be TRUE or FALSE.", call. = FALSE)
   }

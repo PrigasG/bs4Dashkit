@@ -2,7 +2,7 @@
 #'
 #' @param id inputId for actionButton
 #' @param label Button label
-#' @param icon Font Awesome icon name
+#' @param icon Font Awesome icon name or a simple \code{shiny::icon()} tag.
 #' @param class Additional classes
 #' @param ... Passed to shiny::actionButton
 #'
@@ -15,6 +15,7 @@ dash_nav_help_button <- function(
     class = NULL,
     ...
 ) {
+  icon <- dashkit_normalize_icon(icon)
   shiny::actionButton(
     inputId = id,
     label   = shiny::tagList(shiny::icon(icon), shiny::span(label)),
@@ -52,7 +53,7 @@ dash_nav_help_item <- function(
 #'
 #' @param id inputId for actionButton
 #' @param label Button label
-#' @param icon Font Awesome icon name
+#' @param icon Font Awesome icon name or a simple \code{shiny::icon()} tag.
 #' @param class Additional classes
 #' @param ... Passed to shiny::actionButton
 #'
@@ -65,6 +66,7 @@ dash_nav_refresh_button <- function(
     class = NULL,
     ...
 ) {
+  icon <- dashkit_normalize_icon(icon)
   shiny::actionButton(
     inputId = id,
     label   = label,
