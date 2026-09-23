@@ -192,6 +192,7 @@ rightUi = tagList(
   dash_nav_item(
     dash_nav_help_button("help")
   ),
+  dash_nav_divider(),
   dash_user_menu(
     dropdownMenu(
       type = "notifications",
@@ -199,6 +200,35 @@ rightUi = tagList(
       notificationItem("Sign out")
     )
   )
+)
+\end{lstlisting}
+
+\section*{Top Navigation}
+
+\begin{lstlisting}[style=rstyle]
+use_bs4Dashkit_core(
+  ttl,
+  layout = "topnav",
+  topnav_align = "left",
+  topnav_style = "underline",
+  topnav_overflow = "more",
+  topnav_more_after = 4
+)
+\end{lstlisting}
+
+Or bundle options first:
+
+\begin{lstlisting}[style=rstyle]
+topnav <- dash_topnav_options(
+  align = "left",
+  style = "pill",
+  overflow = "more",
+  more_after = 4
+)
+use_bs4Dashkit_core(
+  ttl,
+  layout = "topnav",
+  topnav = topnav
 )
 \end{lstlisting}
 
@@ -216,6 +246,18 @@ footer = dash_footer(
 
 \begin{lstlisting}[style=rstyle]
 app <- bs4dashkit_example_app()
+app <- bs4dashkit_example_app(
+  layout = "topnav"
+)
+\end{lstlisting}
+
+\textbf{Back to top}
+
+\begin{lstlisting}[style=rstyle]
+dash_back_to_top(
+  show_after = 400,
+  position = "bottom-right"
+)
 \end{lstlisting}
 
 \textbf{Global defaults}

@@ -44,6 +44,11 @@ dashkit_topnav_dependency <- function() {
 }
 
 #' @noRd
+dashkit_back_to_top_dependency <- function() {
+  dashkit_asset_dependency("back-to-top", script = "dash-back-to-top.js")
+}
+
+#' @noRd
 dashkit_demo_brand_dependency <- function() {
   dashkit_asset_dependency("demo-brand", script = "dash-demo-brand.js")
 }

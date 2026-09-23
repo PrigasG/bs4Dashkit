@@ -2,7 +2,7 @@
 #'
 #' @param id inputId for actionButton
 #' @param label Button label
-#' @param icon Font Awesome icon name
+#' @param icon Font Awesome icon name or a simple \code{shiny::icon()} tag.
 #' @param class Additional classes
 #' @param ... Passed to shiny::actionButton
 #'
@@ -15,6 +15,7 @@ dash_nav_help_button <- function(
     class = NULL,
     ...
 ) {
+  icon <- dashkit_normalize_icon(icon)
   shiny::actionButton(
     inputId = id,
     label   = shiny::tagList(shiny::icon(icon), shiny::span(label)),
@@ -52,7 +53,7 @@ dash_nav_help_item <- function(
 #'
 #' @param id inputId for actionButton
 #' @param label Button label
-#' @param icon Font Awesome icon name
+#' @param icon Font Awesome icon name or a simple \code{shiny::icon()} tag.
 #' @param class Additional classes
 #' @param ... Passed to shiny::actionButton
 #'
@@ -65,6 +66,7 @@ dash_nav_refresh_button <- function(
     class = NULL,
     ...
 ) {
+  icon <- dashkit_normalize_icon(icon)
   shiny::actionButton(
     inputId = id,
     label   = label,
@@ -239,4 +241,30 @@ dashkit_tag_classes <- function(tag) {
   }
 
   unique(strsplit(classes, "\\s+")[[1]])
+}
+
+#' Navbar vertical divider
+#'
+#' A slim vertical rule for visually grouping controls inside
+#' \code{bs4DashNavbar(rightUi = ...)}. Keeps the \code{dropdown} class so
+#' it passes \code{validate_bs4dash_navbar()}.
+#'
+#' @param class Additional classes.
+#'
+#' @return A \code{shiny.tag} list item for use in \code{bs4DashNavbar(rightUi = ...)}.
+#'
+#' @examples
+#' rightUi <- shiny::tagList(
+#'   dash_nav_refresh_item("refresh"),
+#'   dash_nav_divider(),
+#'   dash_nav_help_item("help")
+#' )
+#' validate_bs4dash_navbar(rightUi)
+#' @export
+dash_nav_divider <- function(class = NULL) {
+  shiny::tags$li(
+    class = paste(c("nav-item", "dropdown", "dash-nav-divider-wrap", class), collapse = " "),
+    `aria-hidden` = "true",
+    shiny::tags$span(class = "dash-nav-divider")
+  )
 }

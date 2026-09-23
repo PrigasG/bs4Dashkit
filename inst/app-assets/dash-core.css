@@ -243,3 +243,55 @@ li.dash-nav-center-wrap.dropdown > div {
   letter-spacing: 0.06em;
   margin-top: 2px;
 }
+
+/* Navbar vertical divider between right-side controls */
+.main-header .navbar-nav.ml-auto > li.dash-nav-divider-wrap{
+  margin-left: 12px;
+  margin-right: 4px;
+}
+.dash-nav-divider{
+  display: inline-block;
+  width: 1px;
+  height: 24px;
+  background: #d1d5db;
+}
+
+/* Floating back-to-top button */
+.dash-back-to-top{
+  position: fixed;
+  z-index: 1050;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: var(--dash-text, #1d1f23);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .2s ease, transform .2s ease, visibility .2s;
+  box-shadow: 0 4px 12px rgba(15,23,42,.12);
+  padding: 0;
+}
+.dash-back-to-top.dash-back-to-top-labeled{
+  width: auto;
+  border-radius: 22px;
+  padding: 0 16px;
+}
+.dash-back-to-top-visible{
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.dash-back-to-top:hover{
+  background: #f9fafb;
+}
+.dash-back-to-top-label{
+  font-size: 13px;
+  font-weight: 500;
+}
