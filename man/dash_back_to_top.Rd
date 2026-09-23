@@ -38,3 +38,12 @@ Adds a floating button that appears once the page is scrolled down and
 smoothly scrolls back to the top when clicked. Useful for long dashboard
 pages.
 }
+\examples{
+dash_back_to_top()
+
+dash_back_to_top(
+  label = "Back to top",
+  position = "bottom-left",
+  show_after = 600
+)
+}

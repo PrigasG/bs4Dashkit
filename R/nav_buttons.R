@@ -252,6 +252,14 @@ dashkit_tag_classes <- function(tag) {
 #' @param class Additional classes.
 #'
 #' @return A \code{shiny.tag} list item for use in \code{bs4DashNavbar(rightUi = ...)}.
+#'
+#' @examples
+#' rightUi <- shiny::tagList(
+#'   dash_nav_refresh_item("refresh"),
+#'   dash_nav_divider(),
+#'   dash_nav_help_item("help")
+#' )
+#' validate_bs4dash_navbar(rightUi)
 #' @export
 dash_nav_divider <- function(class = NULL) {
   shiny::tags$li(

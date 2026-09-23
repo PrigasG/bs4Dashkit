@@ -16,3 +16,7 @@ A \code{shiny.appobj}.
 Returns a tiny runnable \code{shiny.appobj} that demonstrates the recommended
 \code{dash_titles()} plus \code{use_bs4Dashkit_core()} flow.
 }
+\examples{
+app <- bs4dashkit_example_app()
+topnav_app <- bs4dashkit_example_app(layout = "topnav")
+}

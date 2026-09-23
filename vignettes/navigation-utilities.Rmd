@@ -152,6 +152,37 @@ dash_nav_status_item("Syncing", status = "info", icon = icon("rotate"))
 dash_nav_status_item("Review", status = "warning", icon = icon("triangle-exclamation"))
 ```
 
+## Dividers
+
+Use `dash_nav_divider()` to visually group navbar controls. It keeps the
+`dropdown` class, so it passes `validate_bs4dash_navbar()`:
+
+```{r}
+rightUi <- tagList(
+  dash_nav_refresh_item("refresh"),
+  dash_nav_divider(),
+  dash_nav_help_item("help")
+)
+
+validate_bs4dash_navbar(rightUi)
+```
+
+## Back to top
+
+`dash_back_to_top()` adds a floating button that appears after scrolling and
+smooth-scrolls back to the top. Place it anywhere in the page body:
+
+```{r}
+bs4DashBody(
+  dash_back_to_top(),
+  # ... page content
+)
+```
+
+```{r}
+dash_back_to_top(label = "Back to top", position = "bottom-left", show_after = 600)
+```
+
 ## `dash_nav_title()` - styled title block
 
 Renders a title block with optional subtitle and icon, designed for use in
@@ -258,6 +289,7 @@ rightUi <- tagList(
   ),
   dash_nav_status_item("Ready", status = "success", icon = icon("circle-check")),
   dash_nav_refresh_item("refresh"),
+  dash_nav_divider(),
   dash_nav_help_item("help"),
   dash_user_menu(
     dropdownMenu(

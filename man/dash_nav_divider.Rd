@@ -17,3 +17,11 @@ A slim vertical rule for visually grouping controls inside
 \code{bs4DashNavbar(rightUi = ...)}. Keeps the \code{dropdown} class so
 it passes \code{validate_bs4dash_navbar()}.
 }
+\examples{
+rightUi <- shiny::tagList(
+  dash_nav_refresh_item("refresh"),
+  dash_nav_divider(),
+  dash_nav_help_item("help")
+)
+validate_bs4dash_navbar(rightUi)
+}

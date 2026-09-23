@@ -16,6 +16,15 @@
 #' @param class Additional classes.
 #'
 #' @return A \code{shiny.tag.list} with the button and its JS dependency.
+#'
+#' @examples
+#' dash_back_to_top()
+#'
+#' dash_back_to_top(
+#'   label = "Back to top",
+#'   position = "bottom-left",
+#'   show_after = 600
+#' )
 #' @export
 dash_back_to_top <- function(
     icon = "arrow-up",

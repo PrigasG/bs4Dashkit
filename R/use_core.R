@@ -170,6 +170,10 @@ use_bs4Dashkit_core <- function(
 #' @param layout App layout: \code{"sidebar"} (default) or \code{"topnav"}.
 #'
 #' @return A `shiny.appobj`.
+#'
+#' @examples
+#' app <- bs4dashkit_example_app()
+#' topnav_app <- bs4dashkit_example_app(layout = "topnav")
 #' @export
 bs4dashkit_example_app <- function(layout = c("sidebar", "topnav")) {
   layout <- match.arg(layout)
@@ -268,6 +272,7 @@ bs4dashkit_demo_app <- function() {
         dash_nav_status_item("Ready", status = "success", icon = "circle-check"),
         dash_nav_refresh_item("refresh_demo", label = "Refresh"),
         dash_nav_help_item("help_demo", label = "Guide"),
+        dash_nav_divider(),
         dash_user_menu(
           bs4Dash::dropdownMenu(
             type = "notifications",
@@ -299,6 +304,7 @@ bs4dashkit_demo_app <- function() {
     ),
     body = bs4Dash::bs4DashBody(
       dashkit_demo_brand_dependency(),
+      dash_back_to_top(),
       shiny::uiOutput("core_ui"),
       bs4Dash::bs4TabItems(
         bs4Dash::bs4TabItem(

@@ -5,7 +5,7 @@ dashboard helpers rather than turning the package into a grab bag.
 
 ## Next Release Candidates
 
-### 1. Navbar status badge
+### 1. Navbar status badge — shipped in 0.3.0
 
 Goal:
 - Add a small helper for environment and status labels in the navbar.
@@ -33,7 +33,7 @@ Proposed shape:
 - `bs4dashkit_preview_themes()` for a simple Shiny preview
 - or a pkgdown article with live examples if that proves lighter-weight
 
-### 3. Brand config helper
+### 3. Brand config helper — shipped in 0.3.0
 
 Goal:
 - Reduce the argument sprawl in `dash_titles()` for apps that reuse the
