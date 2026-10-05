@@ -1,9 +1,9 @@
 # bs4Dashkit CRAN Downloads
 
-Updated: 2026-09-28 19:22:19 UTC
+Updated: 2026-10-05 20:19:23 UTC
 
-- Latest day: 2026-09-27 (4 downloads)
-- Last 7 days: 107 downloads
-- Last 30 days: 301 downloads
-- Total in tracked period: 2828 downloads
+- Latest day: 2026-10-04 (6 downloads)
+- Last 7 days: 65 downloads
+- Last 30 days: 312 downloads
+- Total in tracked period: 2893 downloads
 - Peak day: 2026-03-31 (79 downloads)
