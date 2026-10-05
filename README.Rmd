@@ -14,7 +14,7 @@ Structured theming and navigation utilities for `{bs4Dash}` applications.
 -   Hover-expand sidebar behavior
 -   Prototype top-navigation mode for no-sidebar dashboards
 -   Subtle CSS-variable theming
--   Complete standardized navbar components (status, refresh, help, user menu)
+-   Complete standardized navbar components (status, refresh, help, dividers, user menu)
 -   Lightweight dependency model compatible with native `{bs4Dash}` layouts
 
 ------------------------------------------------------------------------
@@ -135,7 +135,14 @@ separate `input$bs4dashkit_topnav` click event for server-side logging or
 analytics. Use `topnav_page_title = "tab"` when you want a small content title
 synced from the selected tab.
 
-For a runnable prototype:
+For runnable examples, use the packaged topnav demo app:
+
+``` r
+app <- bs4dashkit_example_app(layout = "topnav")
+shiny::runApp(app)
+```
+
+or the lower-level prototype:
 
 ``` r
 shiny::runApp(system.file("examples", "topnav-prototype", package = "bs4Dashkit"))
@@ -175,6 +182,7 @@ Prebuilt components:
 -   `dash_nav_status_item()`
 -   `dash_nav_refresh_item()`
 -   `dash_nav_help_item()`
+-   `dash_nav_divider()`
 -   `dash_user_menu()`
 -   `validate_bs4dash_navbar()`
 
@@ -182,10 +190,17 @@ Prebuilt components:
 rightUi <- tagList(
   dash_nav_status_item("Ready", status = "success", icon = icon("circle-check")),
   dash_nav_refresh_item("refresh"),
+  dash_nav_divider(),
   dash_nav_help_item("help")
 )
 
 validate_bs4dash_navbar(rightUi)
+```
+
+A floating back-to-top button for long pages:
+
+``` r
+dash_back_to_top(show_after = 400, position = "bottom-right")
 ```
 
 The lower-level `dash_nav_refresh_button()` and `dash_nav_help_button()`

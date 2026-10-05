@@ -169,3 +169,22 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 
 ```
+
+---
+
+## Packaged minimal app
+
+For a smaller starting point, `bs4dashkit_example_app()` returns the same
+recommended `dash_titles()` plus `use_bs4Dashkit_core()` flow as a runnable
+`shiny.appobj`:
+
+```{r}
+app <- bs4dashkit_example_app()
+```
+
+Pass `layout = "topnav"` for a minimal top-navigation demo instead of the
+sidebar layout:
+
+```{r}
+topnav_app <- bs4dashkit_example_app(layout = "topnav")
+```
