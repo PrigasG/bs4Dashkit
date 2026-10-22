@@ -71,7 +71,7 @@ for tabs; \code{"scroll"} keeps a horizontal tab row.}
 \code{"more"}, or \code{"scroll"}.}
 
 \item{topnav_more_after}{Number of top-level items kept visible when
-\code{topnav_overflow = "more"}.}
+\code{topnav_overflow = "more"}. Must be a whole number.}
 
 \item{topnav_title}{How centered \code{dash_nav_title()} behaves when tabs
 need space: \code{"auto"}, \code{"show"}, \code{"compact"}, or

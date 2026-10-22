@@ -47,9 +47,7 @@ dash_topnav_options <- function(
   title <- dashkit_match_choice(title, c("auto", "show", "compact", "hide"), "title")
   page_title <- dashkit_match_choice(page_title, c("none", "tab"), "page_title")
 
-  if (!is.numeric(more_after) || length(more_after) != 1 || is.na(more_after) || more_after < 1) {
-    stop("`more_after` must be a single positive number or Inf.", call. = FALSE)
-  }
+  more_after <- dashkit_validate_more_after(more_after, "more_after")
   if (!is.logical(brand) || length(brand) != 1 || is.na(brand)) {
     stop("`brand` must be TRUE or FALSE.", call. = FALSE)
   }
@@ -104,15 +102,13 @@ dash_topnav_options <- function(
 #'
 #' @param topbar_h Height for the navbar. Numeric values are treated as
 #'   pixels; CSS lengths such as \code{"3.5rem"} are also accepted.
-#' The mirrored menu can be aligned with \code{align}. If you also place a
-#' centered \code{dash_nav_title()} in the navbar, the title is centered in the
-#' remaining space between the mirrored menu and right-side controls. In that
-#' case \code{align = "left"} or \code{"right"} usually gives the cleanest
-#' result; \code{align = "center"} is best for apps without a centered title or
-#' with only a small number of tabs.
-#'
 #' @param align Horizontal alignment of the mirrored menu inside the navbar:
-#'   \code{"left"} (default), \code{"center"}, or \code{"right"}.
+#'   \code{"left"} (default), \code{"center"}, or \code{"right"}. If you also
+#'   place a centered \code{dash_nav_title()} in the navbar, the title is
+#'   centered in the remaining space between the mirrored menu and right-side
+#'   controls. In that case \code{align = "left"} or \code{"right"} usually
+#'   gives the cleanest result; \code{align = "center"} is best for apps without
+#'   a centered title or with only a small number of tabs.
 #' @param gap Space between mirrored top-nav items. Numeric values are treated
 #'   as pixels; CSS lengths such as \code{"0.5rem"} are also accepted.
 #' @param style Visual style for top-nav tabs: \code{"underline"} (default),
@@ -124,7 +120,8 @@ dash_topnav_options <- function(
 #'   tab row intact. \code{"more"} moves items after \code{more_after} into a
 #'   \code{More} dropdown. \code{"scroll"} allows horizontal scrolling.
 #' @param more_after Number of top-level items to keep visible when
-#'   \code{overflow = "more"}. Use \code{Inf} to disable moving items.
+#'   \code{overflow = "more"}. Must be a whole number. Use \code{Inf} to
+#'   disable moving items.
 #' @param title How a centered \code{dash_nav_title()} behaves when top-nav tabs
 #'   need space: \code{"auto"} (default) compacts then hides as needed,
 #'   \code{"show"} always shows it, \code{"compact"} hides the subtitle, and

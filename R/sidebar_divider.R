@@ -6,6 +6,9 @@
 #'   hides the sidebar brand divider.
 #' @export
 use_dash_sidebar_brand_divider <- function(show = TRUE) {
+  if (!is.logical(show) || length(show) != 1 || is.na(show)) {
+    stop("`show` must be TRUE or FALSE.", call. = FALSE)
+  }
   if (isTRUE(show)) return(shiny::tagList())
 
   shiny::tags$head(
