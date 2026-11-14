@@ -4,6 +4,48 @@ editor_options:
     wrap: 72
 ---
 
+## bs4Dashkit 0.3.1
+
+### Validation hardening
+
+-   `dash_topnav_options()`, `use_dash_topnav()`, and
+    `use_bs4Dashkit_core()` now require `more_after` / `topnav_more_after`
+    to be a whole number or `Inf`; fractional values previously passed
+    validation and were silently truncated by `as.integer()`.
+
+-   CSS dimension validation (`topbar_h`, `collapsed_w`, `expanded_w`,
+    `topnav_gap`) and `use_dash_theme(radius = )` now reject non-finite
+    numerics such as `Inf` instead of emitting broken `Infpx` CSS.
+
+-   `use_dash_sidebar_brand_divider()` now validates `show` is `TRUE` or
+    `FALSE`; previously any non-`TRUE` value (for example `NA`) silently
+    hid the divider.
+
+-   `dash_nav_help_button()` and `dash_nav_refresh_button()` now normalize
+    `icon` with `dashkit_normalize_icon()`, so they accept a Font Awesome
+    name or a simple `shiny::icon()` tag like the other navbar helpers.
+
+-   `dash_footer()` now validates `logo_src` is a single string or `NULL`
+    with a clear error instead of failing inside `nzchar()`.
+
+### New features
+
+-   New `dash_back_to_top()`: a floating button that appears after scrolling
+    and smoothly scrolls back to the top. Optional label, corner position,
+    and reveal threshold.
+
+-   New `dash_nav_divider()`: a slim vertical rule for grouping controls in
+    `bs4DashNavbar(rightUi = ...)`; keeps the `dropdown` class so it passes
+    `validate_bs4dash_navbar()`.
+
+-   `bs4dashkit_example_app()` gains a `layout` argument: `layout = "topnav"`
+    returns a minimal runnable top-navigation demo.
+
+### Documentation
+
+-   Moved the `align` guidance in `?use_dash_topnav` from the `topbar_h`
+    parameter to the `align` parameter where it renders correctly.
+
 ## bs4Dashkit 0.3.0
 
 ### Navbar ergonomics

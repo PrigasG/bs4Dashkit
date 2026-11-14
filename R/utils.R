@@ -90,20 +90,30 @@ dashkit_match_choice <- function(value, choices, arg) {
 }
 
 dashkit_validate_positive_number <- function(value, arg, unit) {
-  if (!is.numeric(value) || length(value) != 1 || is.na(value) || value <= 0) {
+  if (!is.numeric(value) || length(value) != 1 || !is.finite(value) || value <= 0) {
     stop(sprintf("`%s` must be a single positive number (%s).", arg, unit), call. = FALSE)
   }
 
   value
 }
 
+dashkit_validate_more_after <- function(value, arg) {
+  if (
+    !is.numeric(value) || length(value) != 1 || is.na(value) ||
+      (!identical(value, Inf) && (value < 1 || value != trunc(value)))
+  ) {
+    stop(sprintf("`%s` must be a single whole number (>= 1) or Inf.", arg), call. = FALSE)
+  }
+
+  value
+}
+
 dashkit_validate_css_dimension <- function(value, arg, default_unit, allow_zero = FALSE) {
-  min_ok <- if (isTRUE(allow_zero)) 0 else 0
   if (
     is.numeric(value) &&
       length(value) == 1 &&
-      !is.na(value) &&
-      if (isTRUE(allow_zero)) value >= min_ok else value > min_ok
+      is.finite(value) &&
+      (if (isTRUE(allow_zero)) value >= 0 else value > 0)
   ) {
     return(paste0(value, default_unit))
   }

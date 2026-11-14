@@ -23,6 +23,10 @@ dash_footer <- function(
 ) {
   logo_position <- match.arg(logo_position)
 
+  if (!is.null(logo_src) && !dashkit_is_scalar_character(logo_src)) {
+    stop("`logo_src` must be a single string (path or URL) or NULL.", call. = FALSE)
+  }
+
   has_logo <- !is.null(logo_src) &&
     nzchar(logo_src) &&
     !identical(logo_src, "your_logo.png")

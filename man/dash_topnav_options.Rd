@@ -36,7 +36,8 @@ tab row intact. \code{"more"} moves items after \code{more_after} into a
 \code{More} dropdown. \code{"scroll"} allows horizontal scrolling.}
 
 \item{more_after}{Number of top-level items to keep visible when
-\code{overflow = "more"}. Use \code{Inf} to disable moving items.}
+\code{overflow = "more"}. Must be a whole number. Use \code{Inf} to
+disable moving items.}
 
 \item{title}{How a centered \code{dash_nav_title()} behaves when top-nav tabs
 need space: \code{"auto"} (default) compacts then hides as needed,

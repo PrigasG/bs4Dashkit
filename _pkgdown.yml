@@ -55,6 +55,7 @@ reference:
       - dash_titles
       - use_bs4Dashkit_core
       - use_bs4Dashkit
+      - dash_back_to_top
 
   - title: Brand and Sidebar
     contents:
@@ -75,6 +76,7 @@ reference:
       - use_dash_topnav
       - dash_nav_title
       - dash_nav_item
+      - dash_nav_divider
       - dash_nav_status_badge
       - dash_nav_status_item
       - dash_nav_refresh_button
